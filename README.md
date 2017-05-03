@@ -14,6 +14,7 @@ $ composer install
 3. Buat user & database MySQL
 4. Copy `.env.example` jadi `.env`
 5. Edit `.env` sesuai user & database yang dibuat
+
 6. Generate key
 ```
 $ php artisan key:generate
