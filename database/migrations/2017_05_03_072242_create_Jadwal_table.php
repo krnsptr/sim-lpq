@@ -14,6 +14,9 @@ class CreateJadwalTable extends Migration
           $table->increments('id');
           $table->time('waktu');
           $table->tinyInteger('hari');
+          $table->integer('id_pengajar')->unsigned();
+          $table->foreign('id_pengajar')->references('id')->on('pengajar') ->onDelete('cascade');
+
 
           });
     }

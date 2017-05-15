@@ -13,7 +13,7 @@ class CreateJenisProgramTable extends Migration
         {
           $table->increments('id');
           $table->string('nama');
-          $table->string('enrollment_pengajar');
+          $table->string('enrollment_pengajar')->nullable();
 
 
 

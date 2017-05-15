@@ -16,10 +16,17 @@ class CreateSantriTable extends Migration
       Schema::create('santri', function (Blueprint $table)
         {
           $table->increments('id');
-          $table->integer('tahun_kbm_terakhir');
-          $table->boolean('semester_kbm_terakhir');
+          $table->integer('tahun_kbm_terakhir')->nullable();
+          $table->boolean('semester_kbm_terakhir')->nullable();
           $table->boolean('spp_lunas');
-
+          $table->integer('id_jenjang')->unsigned()->nullable();
+          $table->foreign('id_jenjang')->references('id')->on('jenjang') ->onDelete('cascade');
+          $table->integer('id_jenjang_lulus')->unsigned()->nullable();
+          $table->foreign('id_jenjang_lulus')->references('id')->on('jenjang') ->onDelete('cascade');
+          $table->integer('id_kelompok')->unsigned()->nullable();
+          $table->foreign('id_kelompok')->references('id')->on('kelompok') ->onDelete('cascade');
+          $table->integer('id_pengguna')->unsigned();
+          $table->foreign('id_pengguna')->references('id')->on('pengguna') ->onDelete('cascade');
 
 
           });

@@ -16,8 +16,13 @@ class CreatePengajarTable extends Migration
       Schema::create('pengajar', function (Blueprint $table)
         {
           $table->increments('id');
-          $table->integer('kapasitas_membina');
-          $table->text('motivasi_mengajar');
+          $table->integer('kapasitas_membina')->unsigned();
+          $table->text('motivasi_mengajar')->nullable();
+          $table->integer('id_jenjang')->unsigned()->nullable();
+          $table->foreign('id_jenjang')->references('id')->on('jenjang') ->onDelete('cascade');
+          $table->integer('id_pengguna')->unsigned();
+          $table->foreign('id_pengguna')->references('id')->on('pengguna') ->onDelete('cascade');
+
 
 
           });
