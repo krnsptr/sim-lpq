@@ -19,9 +19,9 @@ class CreatePengajarTable extends Migration
           $table->integer('kapasitas_membina')->unsigned();
           $table->text('motivasi_mengajar')->nullable();
           $table->integer('id_jenjang')->unsigned()->nullable();
-          $table->foreign('id_jenjang')->references('id')->on('jenjang') ->onDelete('cascade');
+          $table->foreign('id_jenjang')->references('id')->on('jenjang')->onDelete('restrict');
           $table->integer('id_pengguna')->unsigned();
-          $table->foreign('id_pengguna')->references('id')->on('pengguna') ->onDelete('cascade');
+          $table->foreign('id_pengguna')->references('id')->on('pengguna')->onDelete('cascade');
 
 
 

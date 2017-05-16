@@ -20,13 +20,13 @@ class CreateSantriTable extends Migration
           $table->boolean('semester_kbm_terakhir')->nullable();
           $table->boolean('spp_lunas');
           $table->integer('id_jenjang')->unsigned()->nullable();
-          $table->foreign('id_jenjang')->references('id')->on('jenjang') ->onDelete('cascade');
+          $table->foreign('id_jenjang')->references('id')->on('jenjang')->onDelete('restrict');
           $table->integer('id_jenjang_lulus')->unsigned()->nullable();
-          $table->foreign('id_jenjang_lulus')->references('id')->on('jenjang') ->onDelete('cascade');
+          $table->foreign('id_jenjang_lulus')->references('id')->on('jenjang')->onDelete('restrict');
           $table->integer('id_kelompok')->unsigned()->nullable();
-          $table->foreign('id_kelompok')->references('id')->on('kelompok') ->onDelete('cascade');
+          $table->foreign('id_kelompok')->references('id')->on('kelompok')->onDelete('set null');
           $table->integer('id_pengguna')->unsigned();
-          $table->foreign('id_pengguna')->references('id')->on('pengguna') ->onDelete('cascade');
+          $table->foreign('id_pengguna')->references('id')->on('pengguna')->onDelete('cascade');
 
 
           });

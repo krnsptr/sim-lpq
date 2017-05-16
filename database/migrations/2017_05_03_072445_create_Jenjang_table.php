@@ -13,8 +13,8 @@ class CreateJenjangTable extends Migration
         {
           $table->increments('id');
           $table->string('nama');
-          $table->integer('id_program')->unsigned();
-          $table->foreign('id_program')->references('id')->on('program') ->onDelete('cascade');
+          $table->integer('id_jenis_program')->unsigned();
+          $table->foreign('id_jenis_program')->references('id')->on('jenis_program')->onDelete('restrict');
 
 
 

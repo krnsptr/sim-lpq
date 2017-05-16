@@ -17,7 +17,7 @@ class Pengajar extends Program
       'kapasitas_membina', 'motivasi_mengajar'
   ];
 
-    function jenjang() {
-      this->hasOne('App\Jenjang');
-    }
+  function jenjang() {
+      return $this->hasOne('App\Jenjang');
+  }
 }

@@ -20,4 +20,8 @@ class Santri extends Program
     function jenjang() {
       this->hasOne('App\Jenjang');
     }
+
+    function sudah_lulus() {
+      return $this->hasOne('App\Jenjang');
+    }
 }
