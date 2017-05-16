@@ -1,4 +1,5 @@
 @extends('layouts.default')
+
 @section('content')
     <div style="margin-top:10px">
 			<?php /*if(!empty($error)) { ?>

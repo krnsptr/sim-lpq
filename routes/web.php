@@ -17,6 +17,31 @@ Route::get('/', function () {
 Route::get('/masuk', function () {
     return view('login');
 });
+Route::get('user/dasbor', 'userController@index');
+
+Route::get('/user/akun', function () {
+    return view('user.akun');
+});
+
+Route::get('/user/dasbor', function () {
+    return view('user.dasbor');
+});
+
+Route::get('/user/kelompok', function () {
+    return view('user.kelompok');
+});
+
+Route::get('/user/penjadwalan-hapus', function () {
+    return view('user.penjadwalan-hapus');
+});
+
+Route::get('/user/program-edit', function () {
+    return view('user.program-edit');
+});
+
+Route::get('/user/program-hapus', function () {
+    return view('user.program-hapus');
+});
 
 //Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

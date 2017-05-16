@@ -6,5 +6,5 @@
       <div class="hidden-sm hidden-md hidden-lg hidden-xl">
         <small>Dikembangkan oleh Tim Project Varokah</small>
       </div>
-    </div>
+  </div>
     <!-- /.container -->
