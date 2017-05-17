@@ -43,6 +43,14 @@ Route::get('/user/program-hapus', function () {
     return view('user.program-hapus');
 });
 
+Route::get('/admin/anggota', function () {
+    return view('admin.anggota');
+});
+
+Route::get('/admin/beranda', function () {
+    return view('admin.beranda');
+});
+
 //Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

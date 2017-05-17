@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	@include('includes.head')
+</head>
+<body class="hold-transition skin-green-light fixed sidebar-mini">
+	<div class="wrapper">
+		<header class="main-header">
+			@include('includes.headeradmin')
+		</header>
+		<div class="content-wrapper">
+			<div class="container">
+				@yield('content')
+			</div>
+			<!-- /.container -->
+		</div>
+		@include('includes.footeradmin')
+	</div>
+<!-- ./wrapper -->
+</body>
+</html>
