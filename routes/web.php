@@ -50,6 +50,27 @@ Route::get('/admin/anggota', function () {
 Route::get('/admin/beranda', function () {
     return view('admin.beranda');
 });
+Route::get('/admin/dashbor', function () {
+    return view('admin.dashbor');
+});
+Route::get('/admin/download', function () {
+    return view('admin.download');
+});
+
+Route::get('/admin/spp', function () {
+    return view('admin.spp');
+});
+
+Route::get('/admin/santri', function () {
+    return view('admin.santri');
+});
+Route::get('/admin/pengajar', function () {
+    return view('admin.pengajar');
+});
+Route::get('/admin/kelompok', function () {
+    return view('admin.kelompok');
+});
+
 
 //Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
