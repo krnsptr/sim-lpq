@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class= "content">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
@@ -48,7 +48,7 @@
           </tfoot>
           <tbody>
 
-            <tr data-id-santri=""">
+            <tr data-id-santri="">
               <td></td>
               <td>santri DB /td>
               <td>santri</td>
@@ -125,7 +125,7 @@
 
 
   <script>
-    $.ajaxSetup({
+    /**$.ajaxSetup({
         type:"post",
         cache:false,
       });

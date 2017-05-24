@@ -9,13 +9,17 @@
 			@include('includes.headeradmin')
 		</header>
 		<div class="content-wrapper">
+
 			<div class="container">
 				@yield('content')
 			</div>
 			<!-- /.container -->
 		</div>
-		@include('includes.footeradmin')
 	</div>
+	@include('includes.footeradmin')
+
+
 <!-- ./wrapper -->
 </body>
+
 </html>
