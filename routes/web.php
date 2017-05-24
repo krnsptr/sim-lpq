@@ -43,6 +43,10 @@ Route::get('/user/program-hapus', function () {
     return view('user.program-hapus');
 });
 
+Route::get('/daftar', function () {
+    return view('daftar');
+});
+
 Route::get('/admin/anggota', function () {
     return view('admin.anggota');
 });
@@ -78,8 +82,8 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
-Route::get('daftar', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('daftar', 'Auth\RegisterController@register');
+//Route::get('daftar', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//Route::post('daftar', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
