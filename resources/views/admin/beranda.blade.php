@@ -28,46 +28,6 @@
   <![endif]-->
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-green-light layout-top-nav">
-<div class="wrapper">
-
-  <header class="main-header">
-    <nav class="navbar navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href=""><b>SIM LPQ</b></a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <i class="fa fa-bars"></i>
-          </button>
-        </div>
-      </div>
-      <!-- /.container-fluid -->
-    </nav>
-  </header>
-  <!-- Full Width Column -->
-  <div class="content-wrapper">
-    <div class="container">
-
-      <!-- /.content -->
-    </div>
-    <!-- /.container -->
-  </div>
-  <!-- /.content-wrapper -->
-  
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery 2.2.3 -->
-<script src=""></script>
-<!-- Bootstrap 3.3.6 -->
-<script src=""></script>
-<!-- SlimScroll -->
-<script src=""></script>
-<!-- FastClick -->
-<script src=""></script>
-<!-- AdminLTE App -->
-<script src=""></script>
-</body>
 </html>
 
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class= "content">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
@@ -121,6 +121,7 @@
   </div>
 
   <script>
+  /**
     $.ajaxSetup({
         type:"post",
         cache:false,
@@ -346,6 +347,6 @@
       });
     }
 
-
+    **
   </script>
 @stop

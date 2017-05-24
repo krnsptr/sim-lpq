@@ -66,13 +66,13 @@
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href=""><span>Dasbor</span></a></li>
-        <li><a href=""><span>Anggota</span></a></li>
-        <li><a href=""><span>Santri</span></a></li>
-        <li><a href=""><span>Pengajar</span></a></li>
-        <li><a href=""><span>Kelompok</span></a></li>
-        <!--li><a href=""><span>SPP</span></a></li-->
-        <li><a href=""><span>Download</span></a></li>
+        <li><a href="/admin/dashbor"><span>Dasbor</span></a></li>
+        <li><a href="/admin/anggota"><span>Anggota</span></a></li>
+        <li><a href="/admin/santri"><span>Santri</span></a></li>
+        <li><a href="/admin/pengajar"><span>Pengajar</span></a></li>
+        <li><a href="/admin/kelompok"><span>Kelompok</span></a></li>
+
+        <li><a href="/admin/download"><span>Download</span></a></li>
       </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

@@ -1,6 +1,6 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 @section('content')
-<div class="content-wrapper">
+<div class="content">
    <!-- Content Header (Page header) -->
    <section class="content-header">
      <h1>
@@ -42,6 +42,7 @@
        </div>
        <!-- /.box-body -->
      </div>
+  </div>
      <!-- /.box -->
 
    </section>
@@ -73,7 +74,7 @@
 
            </div>
    </div>
-
+  
    <script>
      /*$.ajaxSetup({
          type:"post",
