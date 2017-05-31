@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jenjang extends Model
 {
-    /  protected $table = 'jenjang';
+      protected $table = 'jenjang';
 
       /**
        * The attributes that are mass assignable.
@@ -15,8 +15,9 @@ class Jenjang extends Model
        */
       protected $fillable = [
           'nama'
+      ];
 
     public function jenis_program() {
-        return $this->hasOne('App\Jenis_program');
+        return $this->belongsTo('App\Jenis_program', 'id_jenis_program');
        }
 }

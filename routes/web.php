@@ -31,6 +31,10 @@ Route::get('/user/kelompok', function () {
     return view('user.kelompok');
 });
 
+Route::get('/user/penjadwalan', function () {
+    return view('user.penjadwalan');
+});
+
 Route::get('/user/penjadwalan-hapus', function () {
     return view('user.penjadwalan-hapus');
 });
@@ -92,4 +96,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
-Route::get('/dasbor', 'ControllerMember@index');
+Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function() {
+    Route::get('/', 'ControllerMember@index');
+    //Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
+});

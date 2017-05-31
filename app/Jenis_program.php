@@ -15,6 +15,6 @@ class Jenis_program extends Model
    */
   protected $fillable = [
       'nama', 'enrollment_pengajar'
+  ];
 
-    
 }

@@ -16,7 +16,7 @@ class CreateKelompokTable extends Migration
           $table->foreign('id_jadwal')->references('id')->on('jadwal')->onDelete('restrict');
           $table->integer('id_jenjang')->unsigned();
           $table->foreign('id_jenjang')->references('id')->on('jenjang')->onDelete('restrict');
-
+          $table->timestamps();
 
           });
     }

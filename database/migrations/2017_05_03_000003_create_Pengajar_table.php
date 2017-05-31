@@ -22,7 +22,7 @@ class CreatePengajarTable extends Migration
           $table->foreign('id_jenjang')->references('id')->on('jenjang')->onDelete('restrict');
           $table->integer('id_pengguna')->unsigned();
           $table->foreign('id_pengguna')->references('id')->on('pengguna')->onDelete('cascade');
-
+          $table->timestamps();
 
 
           });

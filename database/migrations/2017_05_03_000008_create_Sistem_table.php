@@ -17,7 +17,7 @@ class CreateSistemTable extends Migration
           $table->boolean('pendaftaran_pengajar');
           $table->boolean('penjadwalan_santri');
           $table->boolean('penjadwalan_pengajar');
-
+          $table->timestamps();
 
 
           });

@@ -27,7 +27,7 @@ class CreateSantriTable extends Migration
           $table->foreign('id_kelompok')->references('id')->on('kelompok')->onDelete('set null');
           $table->integer('id_pengguna')->unsigned();
           $table->foreign('id_pengguna')->references('id')->on('pengguna')->onDelete('cascade');
-
+          $table->timestamps();
 
           });
     }

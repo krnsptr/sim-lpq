@@ -15,7 +15,7 @@ class CreateJenjangTable extends Migration
           $table->string('nama');
           $table->integer('id_jenis_program')->unsigned();
           $table->foreign('id_jenis_program')->references('id')->on('jenis_program')->onDelete('restrict');
-
+          $table->timestamps();
 
 
           });

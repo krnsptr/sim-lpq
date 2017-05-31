@@ -20,4 +20,8 @@ class Pengajar extends Program
   function jenjang() {
       return $this->hasOne('App\Jenjang');
   }
+
+  function pengguna() {
+      return $this->belongsTo('App\Pengguna', 'id_pengguna');
+  }
 }
