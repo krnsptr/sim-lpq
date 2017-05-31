@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Pengguna;
+use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -68,7 +69,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Pengguna::create([
+        $pengguna = Pengguna::create([
             'nama_lengkap' => $data['nama_lengkap'],
             'email' => $data['email'],
             'username' => $data['username'],
@@ -79,5 +80,8 @@ class RegisterController extends Controller
             'nomor_hp' => $data['nomor_hp'],
             'nomor_wa' => $data['nomor_wa']
         ]);
+        $memberRole = Role::where('name', 'member')->first();
+        $pengguna->attachRole($memberRole);
+        return $pengguna;
     }
 }
