@@ -8,11 +8,11 @@ class Kelompok extends Model
 {
 
     function jadwal() {
-          return $this->hasOne('App\Jadwal');
+          return $this->hasOne('App\Jadwal', 'id_jadwal');
 
       }
     function jenjang(){
-          return $this->hasOne('App\Jenjang');
+          return $this->hasOne('App\Jenjang', 'id_jenjang');
 
       }
 }

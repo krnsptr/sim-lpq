@@ -19,7 +19,7 @@ class Jadwal extends Model
       ];
 
       public function pengajar() {
-        return $this->hasOne('App\Pengajar');
+        return $this->hasOne('App\Pengajar', 'id_pengajar');
       }
 
 }
