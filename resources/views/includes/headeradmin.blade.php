@@ -66,7 +66,7 @@
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href="/admin/dashbor"><span>Dasbor</span></a></li>
+        <li><a href="/admin/dasbor"><span>Dasbor</span></a></li>
         <li><a href="/admin/anggota"><span>Anggota</span></a></li>
         <li><a href="/admin/santri"><span>Santri</span></a></li>
         <li><a href="/admin/pengajar"><span>Pengajar</span></a></li>

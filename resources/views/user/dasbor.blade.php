@@ -45,19 +45,19 @@
             	<h4>Program</h4>
             </div>
 			<div class="box-body table-condensed">
-					<div class="form-group col-md-12">
-						<label class="control-group col-md-12"> Tambah program </label>
-						<div class="col-md-5">
-							<div class="form-group has-feedback">
-								<select class="form-control" name="tambah">
+				<div class="form-group col-md-12">
+					<label class="control-group col-md-12"> Tambah program </label>
+					<div class="col-md-5">
+						<div class="form-group has-feedback">
+							<select class="form-control" name="tambah">
 
-								</select>
-							</div>
-						</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-success btn-flat">Tambah</button>
+							</select>
 						</div>
 					</div>
+					<div class="col-md-2">						
+						<button type="submit" class="btn btn-success btn-flat">Tambah</button>
+					</div>
+				</div>
 
 				<table class="table">
 					<thead>
@@ -67,7 +67,6 @@
 						</tr>
 					</thead>
 					<tbody>
-
 						<tr>
 							<td></td>
 							<td>

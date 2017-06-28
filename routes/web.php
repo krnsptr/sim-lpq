@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/masuk', function () {
     return view('login');
 });
+Route::get('/jadwal', function () {
+    return view('jadwal');
+});
 Route::get('user/dasbor', 'userController@index');
 
 Route::get('/user/akun', function () {
@@ -47,6 +50,14 @@ Route::get('/user/program-hapus', function () {
     return view('user.program-hapus');
 });
 
+Route::get('/user/program-tambah', function () {
+    return view('user.program-tambah');
+});
+
+Route::get('/user/spp', function () {
+    return view('user.spp');
+});
+
 Route::get('/daftar', function () {
     return view('daftar');
 });
@@ -58,15 +69,11 @@ Route::get('/admin/anggota', function () {
 Route::get('/admin/beranda', function () {
     return view('admin.beranda');
 });
-Route::get('/admin/dashbor', function () {
-    return view('admin.dashbor');
+Route::get('/admin/dasbor', function () {
+    return view('admin.dasbor');
 });
 Route::get('/admin/download', function () {
     return view('admin.download');
-});
-
-Route::get('/admin/spp', function () {
-    return view('admin.spp');
 });
 
 Route::get('/admin/santri', function () {
