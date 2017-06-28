@@ -16,7 +16,7 @@ class SeederProgram extends Seeder
         $tahsin = Jenis_program::create(['nama' => 'Tahsin']);
 
         $belum_dites = new Jenjang();
-        $belum_dites->nama = "Belum dites";
+        $belum_dites->nama = "Belum dites (Tahsin)";
         $belum_dites->jenis_program()->associate($tahsin);
         $belum_dites->save();
 
@@ -35,10 +35,27 @@ class SeederProgram extends Seeder
         $tahsin_2->jenis_program()->associate($tahsin);
         $tahsin_2->save();
 
+        $takhossus_tahfiz = Jenis_program::create(['nama' => 'Takhossus/Tahfiz']);
+
+        $belum_dites = new Jenjang();
+        $belum_dites->nama = "Belum dites (Takhossus/Tahfiz)";
+        $belum_dites->jenis_program()->associate($takhossus_tahfiz);
+        $belum_dites->save();
+
+        $takhossus = new Jenjang();
+        $takhossus->nama = "Takhossus";
+        $takhossus->jenis_program()->associate($takhossus_tahfiz);
+        $takhossus->save();
+
+        $tahfiz = new Jenjang();
+        $tahfiz->nama = "Tahfiz";
+        $tahfiz->jenis_program()->associate($takhossus_tahfiz);
+        $tahfiz->save();
+
         $bahasa_arab = Jenis_program::create(['nama' => 'Bahasa Arab']);
 
         $belum_dites = new Jenjang();
-        $belum_dites->nama = "Belum dites";
+        $belum_dites->nama = "Belum dites (Bahasa Arab)";
         $belum_dites->jenis_program()->associate($bahasa_arab);
         $belum_dites->save();
 
