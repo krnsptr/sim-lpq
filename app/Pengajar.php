@@ -18,7 +18,7 @@ class Pengajar extends Program
   ];
 
   function jenjang() {
-      return $this->hasOne('App\Jenjang');
+      return $this->belongsTo('App\Jenjang', 'id_jenjang');
   }
 
   function pengguna() {

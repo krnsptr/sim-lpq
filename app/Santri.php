@@ -18,10 +18,14 @@ class Santri extends Program
   ];
 
     function jenjang() {
-      this->hasOne('App\Jenjang', 'id_jenjang');
+      return $this->belongsTo('App\Jenjang', 'id_jenjang');
     }
 
     function sudah_lulus() {
       return $this->hasOne('App\Jenjang', 'id_sudah_lulus');
+    }
+
+    function pengguna() {
+        return $this->belongsTo('App\Pengguna', 'id_pengguna');
     }
 }
