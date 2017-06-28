@@ -11,20 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('beranda');
 });
 Route::get('/masuk', function () {
     return view('login');
 });
-Route::get('user/dasbor', 'userController@index');
+Route::get('user/dasbor', 'userController@index');*/
 
 Route::get('/user/akun', function () {
     return view('user.akun');
-});
-
-Route::get('/user/dasbor', function () {
-    return view('user.dasbor');
 });
 
 Route::get('/user/kelompok', function () {
@@ -47,7 +43,7 @@ Route::get('/user/program-hapus', function () {
     return view('user.program-hapus');
 });
 
-Route::get('/daftar', function () {
+/*Route::get('/daftar', function () {
     return view('daftar');
 });
 
@@ -58,9 +54,10 @@ Route::get('/admin/anggota', function () {
 Route::get('/admin/beranda', function () {
     return view('admin.beranda');
 });
-Route::get('/admin/dashbor', function () {
-    return view('admin.dashbor');
-});
+Route::get('/admin/dasbor', function () {
+    return view('admin.dasbor');
+});*/
+
 Route::get('/admin/download', function () {
     return view('admin.download');
 });
@@ -81,13 +78,13 @@ Route::get('/admin/kelompok', function () {
 
 
 //Auth::routes();
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+Route::get('daftar', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('daftar', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -98,5 +95,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function() {
     Route::get('/', 'ControllerMember@index');
+    //Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
+    Route::get('/', 'ControllerAdmin@index');
     //Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
 });

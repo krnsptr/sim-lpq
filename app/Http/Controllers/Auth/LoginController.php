@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -41,4 +42,16 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    protected function authenticated()
+    {
+
+        if(Auth::user()->hasRole('admin')) {
+            return redirect('/admin');
+        }
+
+        return redirect('/dasbor');
+    }
+
+
 }

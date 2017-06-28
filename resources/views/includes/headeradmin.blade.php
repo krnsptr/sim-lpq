@@ -38,7 +38,16 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-right">
-                    <!--a href="); ?>admin/logout" class="btn btn-default btn-flat">Logout</a-->
+                    <a href="{{ route('logout') }}"
+                        class="btn btn-default btn-flat"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                   </div>
                 </li>
               </ul>
@@ -66,7 +75,7 @@
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href="/admin/dashbor"><span>Dasbor</span></a></li>
+        <li><a href="/admin/dasbor"><span>Dasbor</span></a></li>
         <li><a href="/admin/anggota"><span>Anggota</span></a></li>
         <li><a href="/admin/santri"><span>Santri</span></a></li>
         <li><a href="/admin/pengajar"><span>Pengajar</span></a></li>
