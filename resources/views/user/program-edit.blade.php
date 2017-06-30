@@ -19,60 +19,31 @@
 
       <!-- Main content -->
       <section class="content">
-		
-        <div class="box box-default">
-            <div class="box-header with-border">
-				<h4></h4>
-            </div>
-			<div class="box-body">
-				
-					<div class="form-group col-md-12">
-						<div class="col-md-5">
-							<label class="control-group">Sudah pernah ikut KBM di LPQ?</label>
-							<div class="form-group has-feedback">
-								<select class="form-control" name="sudah_lulus">
-									
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<div class="col-md-5">
-							<label class="control-group">Terakhir KBM tahun</label>
-							<div class="form-group has-feedback">
-								<select class="form-control" name="kbm_tahun">
-									
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<div class="col-md-5">
-							<label class="control-group">Terakhir KBM semester</label>
-							<div class="form-group has-feedback">
-								<select class="form-control" name="kbm_semester">
-									
-									<option value="1">Ganjil (September&ndash;Januari)</option>
-									<option value="2">Genap (Februari&ndash;Juni)</option>
-								</select>
-							</div>
-						</div>
-					</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-primary btn-flat">Simpan</button>
-							<a href="" class="btn btn-default btn-flat">Kembali</a>
-						</div>
-
+        <div style="margin-top:10px">
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
 			</div>
-          <!-- /.box-body -->
+            <div class="callout callout-info">
+                <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            </div>
         </div>
-        <!-- /.box -->
-        
+       
          <div class="box box-default">
             <div class="box-header with-border">
-				<h4></h4>
+				<h4>Instruktur Tahsin</h4>
             </div>
 			<div class="box-body">
+					<div class="form-group col-md-12">
+						<div class="col-md-5">
+							<label class="control-group">Memenuhi syarat</label>
+							<div class="form-group has-feedback">
+								<input type="checkbox" name="memenuhi_syarat[]" value="1"> Lulus Tahsin 2<br />
+								<input type="checkbox" name="memenuhi_syarat[]" value="1"> Lulus Dauroh Syahadah<br />
+								<input type="checkbox" name="memenuhi_syarat[]" value="1"> Berkompetensi mengajar<br />
+							</div>
+						</div>
+					</div>
 					<div class="form-group col-md-12">
 						<div class="col-md-5">
 							<label class="control-group">Pendaftaran</label>
@@ -87,30 +58,28 @@
 					</div>
 					<div class="form-group col-md-12">
 						<div class="col-md-5">
-							<label class="control-group">Memenuhi syarat</label>
-							<div class="form-group has-feedback">
-								<input type="checkbox" name="memenuhi_syarat[]" value="1"> Lulus Tahsin 2<br />
-								<input type="checkbox" name="memenuhi_syarat[]" value="1"> Lulus Dauroh Syahadah<br />
-								<input type="checkbox" name="memenuhi_syarat[]" value="1"> Berkompetensi mengajar<br />
-							</div>
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<div class="col-md-5">
 							<label class="control-group">Alasan mendaftar</label>
 							<div class="form-group has-feedback">
-								<input type="text" class="form-control" name="alasan_mendaftar" value=""><br />
+								<input type="text" class="form-control" name="alasan_mendaftar">
 							</div>
 						</div>
 					</div>
-
+					
 					<div class="form-group col-md-12">
-						Tidak ada data yang bisa diubah.
-					</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-primary btn-flat">Simpan</button>
-							<a href="" class="btn btn-default btn-flat">Kembali</a>
+						<div class="col-md-5">
+							<label class="control-group">Enrollment Key</label>
+							<div class="form-group has-feedback">
+								<input type="text" class="form-control" name="enrollment_key"><br />
+								Rekrutmen tertutup khusus untuk yang telah menerima enrollment key.<br />
+							</div>
 						</div>
+					</div>
+					
+						<div class="col-md-2">						
+							<button type="submit" class="btn btn-info btn-flat">Edit</button>
+							<a href="" class="btn btn-default btn-flat">Batal</a>
+						</div>
+				
 			</div>
           <!-- /.box-body -->
         </div>

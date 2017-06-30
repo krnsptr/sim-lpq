@@ -96,15 +96,18 @@
 						</div>
 						<div class="row" style="margin:10px 10px 10px 10px">
 							<div class="form-group has-feedback">
-								<label class="control-group">Jenis Kelamin</label>
-								<select name="jenis_kelamin" class="form-control" required>
-									<option value="0"> Laki-laki </option>
-									<option value="1"> Perempuan </option>
-								</select>
+								<label class="control-group">Janis Kelamin</label>
+								<input type="text" name="nama_lengkap" class="form-control" placeholder="Nama lengkap sesuai identitas" value="Laki-laki" data-required-error="Nama lengkap wajib diisi." required>
+								<span class="glyphicon glyphicon-flower form-control-feedback"></span>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
-						<div class="row" style="margin:25px 10px 10px 20px">
+						<div class="row" style="margin:10px 10px 10px 10px">
+							<div class="form-group has-feedback">
+								<label class="control-group">Status</label>
+								<input type="text" name="nama_lengkap" class="form-control" placeholder="Nama lengkap sesuai identitas" value="Umum" data-required-error="Nama lengkap wajib diisi." required>
+								<div class="help-block with-errors"></div>
+							</div>
 						</div>
 						<div class="row" style="margin:10px 10px 10px 10px">
 							<div class="col-md-4 pull-right">
