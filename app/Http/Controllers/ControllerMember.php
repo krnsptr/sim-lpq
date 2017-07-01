@@ -54,6 +54,7 @@ class ControllerMember extends Controller
         $data['keanggotaan'] = (int) substr($tambah, 0, 1);
         $jenis_program = (int) substr($tambah, 1, 1);
         $data['jenis_program'] = Jenis_program::find($jenis_program);
+        if(!$data['jenis_program']) return redirect('dasbor');
         return view('member.program-tambah', $data);
     }
 
