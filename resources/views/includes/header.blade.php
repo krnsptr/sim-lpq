@@ -14,11 +14,11 @@
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('daftar')}}">Daftar</a></li>
             @else
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor')}}">Dasbor</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('penjadwalan')}}">Penjadwalan</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('kelompok')}}">Kelompok</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('spp')}}">SPP</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/penjadwalan')}}">Penjadwalan</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/kelompok')}}">Kelompok</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/spp')}}">SPP</a></li>
             @endif
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Jadwal KBM</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('jadwal')}}">Jadwal KBM</a></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
