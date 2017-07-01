@@ -18,7 +18,7 @@
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/kelompok')}}">Kelompok</a></li>
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/spp')}}">SPP</a></li>
             @endif
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Jadwal KBM</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('jadwal')}}">Jadwal KBM</a></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
