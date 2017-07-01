@@ -13,7 +13,7 @@
             @if (Auth::guest())
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('daftar')}}">Daftar</a></li>
             @else
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/dasbor')}}">Dasbor</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor')}}">Dasbor</a></li>
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/penjadwalan')}}">Penjadwalan</a></li>
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/kelompok')}}">Kelompok</a></li>
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/spp')}}">SPP</a></li>
