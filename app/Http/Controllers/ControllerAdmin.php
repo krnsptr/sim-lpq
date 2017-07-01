@@ -17,12 +17,35 @@ class ControllerAdmin extends Controller
   }
 
   /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
+   * Menampilkan halaman dasbor kepada admin
    */
   public function index()
   {
+      //
       return view('admin.dasbor');
+  }
+
+  /**
+   * Memproses pengeditan pengaturan sistem dari admin
+   */
+  public function pengaturan_simpan()
+  {
+      //
+  }
+
+  /**
+   * Menampilkan halaman download kepada admin
+   */
+  public function download()
+  {
+      return view('admin.download');
+  }
+
+  /**
+   * Memproses download file dari admin
+   */
+  public function download_proses()
+  {
+      //
   }
 }
