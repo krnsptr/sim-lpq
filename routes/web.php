@@ -11,72 +11,7 @@
 |
 */
 
-Route::get('/login', function () {
-    return view('login');
-});
 
-Route::get('/akun', 'ControllerJadwal@jadwal_KBM');
-
-Route::get('/user/dasbor', function () {
-    return view('user.dasbor');
-});
-
-Route::get('/user/akun', function () {
-    return view('user.akun');
-});
-
-Route::get('/user/kelompok', function () {
-    return view('user.kelompok');
-});
-
-Route::get('/user/penjadwalan', function () {
-    return view('user.penjadwalan');
-});
-
-Route::get('/user/penjadwalan-hapus', function () {
-    return view('user.penjadwalan-hapus');
-});
-
-Route::get('/user/program-edit', function () {
-    return view('user.program-edit');
-});
-
-Route::get('/user/program-hapus', function () {
-    return view('user.program-hapus');
-});
-
-Route::get('/user/program-tambah', function () {
-    return view('user.program-tambah');
-});
-
-Route::get('/user/spp', function () {
-    return view('user.spp');
-});
-
-Route::get('/admin/anggota', function () {
-    return view('admin.anggota');
-});
-
-Route::get('/admin/beranda', function () {
-    return view('admin.beranda');
-});
-Route::get('/admin/dasbor', function () {
-    return view('admin.dasbor');
-});
-
-Route::get('/admin/download', function () {
-    return view('admin.download');
-});
-
-Route::get('/admin/santri', function () {
-    return view('admin.santri');
-});
-Route::get('/admin/pengajar', function () {
-    return view('admin.pengajar');
-});
-Route::get('/admin/kelompok', function () {
-    return view('admin.kelompok');
-});
 
 
 //Auth::routes();
