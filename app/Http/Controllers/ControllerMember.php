@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
 
 class ControllerMember extends Controller
 {
@@ -75,8 +74,8 @@ class ControllerMember extends Controller
      */
     public function edit()
     {
-        //
-        return view('member.akun');
+        $data['member'] = auth()->user();
+        return view('member.akun', $data);
     }
 
     /**

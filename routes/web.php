@@ -15,7 +15,7 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/akun', 'ControllerJadwal@jadwal_KBM');
+Route::get('/jadwal', 'ControllerJadwal@jadwal_KBM');
 
 Route::get('/user/dasbor', function () {
     return view('user.dasbor');
