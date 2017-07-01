@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pengajar;
+use App\Santri;
+use App\Jenis_program;
+use DB;
 
 class ControllerMember extends Controller
 {
@@ -21,8 +25,13 @@ class ControllerMember extends Controller
      */
     public function index()
     {
-        //
-        return view('member.dasbor');
+        $member = auth()->user();
+        $data['daftar_pengajar'] = $member->daftar_pengajar;
+        $data['daftar_santri'] = $member->daftar_santri;
+        $data['daftar_jenis_program'] = Jenis_program::all();
+        $data['pendaftaran_pengajar'] = DB::table('sistem')->value('pendaftaran_pengajar');
+        $data['pendaftaran_santri'] = DB::table('sistem')->value('pendaftaran_santri');
+        return view('member.dasbor', $data);
     }
 
     /**
