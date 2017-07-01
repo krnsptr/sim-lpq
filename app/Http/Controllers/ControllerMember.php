@@ -7,6 +7,7 @@ use App\Pengajar;
 use App\Santri;
 use App\Jenis_program;
 use App\Sistem;
+use App\Pengguna;
 
 class ControllerMember extends Controller
 {
@@ -39,8 +40,8 @@ class ControllerMember extends Controller
      */
     public function member_index()
     {
-        //
-        return view('admin.anggota');
+        $data['daftar_anggota']=Pengguna::all();
+        return view('admin.anggota',$data);
     }
 
     /**

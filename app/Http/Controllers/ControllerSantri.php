@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use App\Santri;
 
 class ControllerSantri extends Controller
 {
@@ -12,8 +12,8 @@ class ControllerSantri extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.santri');
+        $data['daftar_santri'] = Santri::all();
+        return view('admin.santri',$data);
     }
 
     /**

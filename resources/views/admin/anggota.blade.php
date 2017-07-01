@@ -38,6 +38,24 @@
            </thead>
            <tbody>
             </tbody>
+            <tr>
+              @foreach ($daftar_anggota as $anggota)
+              <td>{{$loop->iteration}}</td>
+              <td>{{ $anggota->nama_lengkap}}</td>
+              <td>@if($anggota->jenis_kelamin){{"laki-laki"}}
+                @else {{"perempuan"}}
+                @endif </td>
+              <td>{{ $anggota->nomor_identitas}}</td>
+              <td>{{ $anggota->nomor_hp}}</td>
+              <td>{{ $anggota->nomor_hp}}</td>
+              <td>{{ $anggota->email}}</td>
+              <td>{{ $anggota->username}}</td>
+              <td>
+                <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
+                <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
+              </td>
+            </tr>
+            @endforeach
          </table>
        </div>
        <!-- /.box-body -->
@@ -74,7 +92,7 @@
 
            </div>
    </div>
-  
+
    <script>
      /*$.ajaxSetup({
          type:"post",
