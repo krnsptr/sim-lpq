@@ -32,7 +32,9 @@
       </div>
       <div class="form-group">
         <textarea class="form-control" type="18">
-          timiline
+          @foreach ($daftar_sistem as $sistem)
+          {{$sistem->pengumuman}}
+          @endforeach
         </textarea>
       </div>
       <div class="box-header with-border">
