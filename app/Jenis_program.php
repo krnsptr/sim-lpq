@@ -17,4 +17,8 @@ class Jenis_program extends Model
       'nama', 'enrollment_pengajar'
   ];
 
+  function daftar_jenjang() {
+      return $this->hasMany('App\Jenjang', 'id_jenis_program');
+  }
+
 }

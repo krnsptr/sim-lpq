@@ -101,7 +101,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
     Route::get('/akun', 'ControllerMember@edit');
     Route::post('/akun/edit', 'ControllerMember@simpan');
 
-    Route::get('/program/tambah', 'ControllerMember@program_baru');
+    Route::post('/program/tambah', 'ControllerMember@program_baru');
     Route::post('/program/tambah/pengajar', 'ControllerPengajar@tambah');
     Route::post('/program/tambah/santri', 'ControllerSantri@tambah');
 
