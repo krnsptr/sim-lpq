@@ -31,4 +31,12 @@ class Pengguna extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    function daftar_pengajar() {
+        return $this->hasMany('App\Pengajar', 'id_pengguna');
+    }
+
+    function daftar_santri() {
+        return $this->hasMany('App\Santri', 'id_pengguna');
+    }
 }

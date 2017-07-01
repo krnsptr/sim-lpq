@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use App\Pengajar;
+use App\Santri;
+use App\Jenis_program;
+use App\Sistem;
 
 class ControllerMember extends Controller
 {
@@ -22,8 +25,13 @@ class ControllerMember extends Controller
      */
     public function index()
     {
-        //
-        return view('member.dasbor');
+        $member = auth()->user();
+        $data['daftar_pengajar'] = $member->daftar_pengajar;
+        $data['daftar_santri'] = $member->daftar_santri;
+        $data['daftar_jenis_program'] = Jenis_program::all();
+        $data['pendaftaran_pengajar'] = Sistem::first()->pendaftaran_pengajar;
+        $data['pendaftaran_santri'] = Sistem::first()->pendaftaran_santri;
+        return view('member.dasbor', $data);
     }
 
     /**
@@ -75,8 +83,8 @@ class ControllerMember extends Controller
      */
     public function edit()
     {
-        //
-        return view('member.akun');
+        $data['member'] = auth()->user();
+        return view('member.akun', $data);
     }
 
     /**
