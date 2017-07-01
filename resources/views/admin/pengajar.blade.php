@@ -45,18 +45,21 @@
             </tr>
           </tfoot>
           <tbody>
-              <tr data-id-pengajar=""">
-              <td>nama pengajar 1</td>
-              <td>title diisi php</td>
-              <td>title diisi php</td>
-              <td>title diisi php</td>
-              <td>title diisi php</td>
+            @foreach ($daftar_pengajar as $pengajar)
+            <tr>
+              <td>{{$loop->iteration}}</td>
+              <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
+              <td>@if($pengajar->pengguna->jenis_kelamin){{"laki-laki"}}
+              @else {{"perempuan"}}
+              @endif  </td>
+              <td>{{ $pengajar->jenjang->Jenis_program->nama}}</td>
+              <td>{{ $pengajar->jenjang->nama}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
                 <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
               </td>
             </tr>
-
+            @endforeach
           </tbody>
         </table>
       </div>

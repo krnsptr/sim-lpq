@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use App\Pengajar;
 
 class ControllerPengajar extends Controller
 {
@@ -12,8 +12,9 @@ class ControllerPengajar extends Controller
    */
   public function index()
   {
-      //
-      return view('admin.pengajar');
+      $data['daftar_pengajar'] = Pengajar::all();
+      return view('admin.Pengajar', $data);
+
   }
 
   /**
