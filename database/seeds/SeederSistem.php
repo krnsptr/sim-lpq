@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Sistem;
 
 class SeederSistem extends Seeder
 {
@@ -11,14 +12,12 @@ class SeederSistem extends Seeder
      */
     public function run()
     {
-      DB::table('sistem')->insert(
-        [
-          'pengumuman' => '...',
-          'pendaftaran_santri' => TRUE,
-          'pendaftaran_pengajar' => FALSE,
-          'penjadwalan_santri' => FALSE,
-          'penjadwalan_pengajar' => TRUE
-        ]
-      );
+      Sistem::create([
+        'pengumuman' => '...',
+        'pendaftaran_santri' => TRUE,
+        'pendaftaran_pengajar' => FALSE,
+        'penjadwalan_santri' => FALSE,
+        'penjadwalan_pengajar' => TRUE
+      ]);
     }
 }

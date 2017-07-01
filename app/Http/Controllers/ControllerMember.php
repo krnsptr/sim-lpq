@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Pengajar;
 use App\Santri;
 use App\Jenis_program;
-use DB;
+use App\Sistem;
 
 class ControllerMember extends Controller
 {
@@ -29,8 +29,8 @@ class ControllerMember extends Controller
         $data['daftar_pengajar'] = $member->daftar_pengajar;
         $data['daftar_santri'] = $member->daftar_santri;
         $data['daftar_jenis_program'] = Jenis_program::all();
-        $data['pendaftaran_pengajar'] = DB::table('sistem')->value('pendaftaran_pengajar');
-        $data['pendaftaran_santri'] = DB::table('sistem')->value('pendaftaran_santri');
+        $data['pendaftaran_pengajar'] = Sistem::first()->pendaftaran_pengajar;
+        $data['pendaftaran_santri'] = Sistem::first()->pendaftaran_santri;
         return view('member.dasbor', $data);
     }
 
