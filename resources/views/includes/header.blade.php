@@ -11,12 +11,12 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             @if (Auth::guest())
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Daftar</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('daftar')}}">Daftar</a></li>
             @else
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Dasbor</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Penjadwalan</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Kelompok</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">SPP</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor')}}">Dasbor</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('penjadwalan')}}">Penjadwalan</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('kelompok')}}">Kelompok</a></li>
+              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('spp')}}">SPP</a></li>
             @endif
               <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="#">Jadwal KBM</a></li>
           </ul>
