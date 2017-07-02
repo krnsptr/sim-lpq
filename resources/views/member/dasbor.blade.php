@@ -46,6 +46,7 @@
             </div>
       			<div class="box-body table-condensed">
               <form action="{{ action('ControllerMember@program_baru') }}" method="post">
+                {{ csrf_field() }}
         				<div class="form-group col-md-12">
         					<label class="control-group col-md-12"> Tambah program </label>
         					<div class="col-md-5">

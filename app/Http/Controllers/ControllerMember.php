@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Pengajar;
 use App\Santri;
 use App\Jenis_program;
@@ -49,8 +50,13 @@ class ControllerMember extends Controller
      */
     public function program_baru()
     {
-        //
-        return view('member.program-tambah');
+        $tambah = Input::get('tambah');
+
+        $data['keanggotaan'] = (int) substr($tambah, 0, 1);
+        $jenis_program = (int) substr($tambah, 1, 1);
+        $data['jenis_program'] = Jenis_program::find($jenis_program);
+        if(!$data['jenis_program']) return redirect('dasbor');
+        return view('member.program-tambah', $data);
     }
 
     /**
