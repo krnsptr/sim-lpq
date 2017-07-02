@@ -47,20 +47,22 @@
             </tr>
           </tfoot>
           <tbody>
-
-            <tr data-id-santri="">
-              <td></td>
-              <td>santri DB /td>
-              <td>santri</td>
-              <td>santri</td>
-              <td>DBsantri</td>
-              <td>DBsantri<td>
+            @foreach ($daftar_santri as $santri)
+            <tr>
+              <td>{{$loop->iteration}}</td>
+              <td>{{$santri->pengguna->nama_lengkap}}</td>
+              <td>@if($santri->pengguna->jenis_kelamin){{"laki-laki"}}
+                @else {{"perempuan"}}
+                @endif </td>
+              <td>{{$santri->jenjang->Jenis_program->nama}}</td>
+              <td>{{$santri->jenjang->nama}}</td>
+              
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
                 <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
               </td>
             </tr>
-
+            @endforeach
           </tbody>
         </table>
       </div>
