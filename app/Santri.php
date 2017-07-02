@@ -22,7 +22,7 @@ class Santri extends Program
     }
 
     function sudah_lulus() {
-      return $this->hasOne('App\Jenjang', 'id_sudah_lulus');
+      return $this->belongsTo('App\Jenjang', 'id_jenjang_lulus');
     }
 
     function pengguna() {

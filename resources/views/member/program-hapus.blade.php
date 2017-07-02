@@ -19,42 +19,51 @@
 
       <!-- Main content -->
       <section class="content">
-		
-        <div class="box box-default">
-            <div class="box-header with-border">
-				<h4></h4>
-            </div>
-			<div class="box-body">
-
-					<div class="form-group col-md-12">
-						Hapus program?
-					</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-danger btn-flat">Hapus</button>
-							<a href="" class="btn btn-default btn-flat">Batal</a>
-						</div>
-			</div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-        
+      @if ($keanggotaan === 1)
          <div class="box box-default">
             <div class="box-header with-border">
-				<h4></h4>
+				          <h4>Pengajar {{ $jenis_program->nama }}</h4>
             </div>
-			<div class="box-body">
-				
-					<div class="form-group col-md-12">
-						Hapus program?
-					</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-danger btn-flat">Hapus</button>
-							<a href="" class="btn btn-default btn-flat">Batal</a>
-						</div>
-			</div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
+      			<div class="box-body">
+
+      					<div class="form-group col-md-12">
+      						Hapus program?
+      					</div>
+      						<div class="col-md-2">
+                    <form action="{{ url('dasbor/program/hapus/pengajar') }}" method="post" />
+                      {{ csrf_field() }}
+                      <input type="hidden" name="id_pengajar" value="{{ $pengajar->id }}" />
+        							<button type="submit" class="btn btn-danger btn-flat">Hapus</button>
+        							<a href="{{ url('dasbor') }}" class="btn btn-default btn-flat">Batal</a>
+                    </form>
+      						</div>
+      			</div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+      @elseif ($keanggotaan === 2)
+        <div class="box box-default">
+           <div class="box-header with-border">
+                 <h4>Santri {{ $jenis_program->nama }}</h4>
+           </div>
+           <div class="box-body">
+
+               <div class="form-group col-md-12">
+                 Hapus program?
+               </div>
+                 <div class="col-md-2">
+                   <form action="{{ url('dasbor/program/hapus/santri') }}" method="post" />
+                     {{ csrf_field() }}
+                     <input type="hidden" name="id_santri" value="{{ $santri->id }}" />
+                     <button type="submit" class="btn btn-danger btn-flat">Hapus</button>
+                     <a href="{{ url('dasbor') }}" class="btn btn-default btn-flat">Batal</a>
+                   </form>
+                 </div>
+           </div>
+           <!-- /.box-body -->
+         </div>
+         <!-- /.box -->
+       @endif
       </section>
     </div>
     <!-- /.container -->

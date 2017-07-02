@@ -64,8 +64,28 @@ class ControllerMember extends Controller
      */
     public function program_edit()
     {
-        //
-        return view('member.program-edit');
+      $id = (int) Input::get('id');
+      $data['keanggotaan'] = (int) Input::get('keanggotaan');
+
+      $pengguna = auth()->user();
+
+      if($data['keanggotaan'] === 1) {
+        $data['pengajar'] = Pengajar::find($id);
+        if(!$data['pengajar']) return response('Pengajar tidak ditemukan.', 404);
+        if($pengguna->hasRole('member') && $pengguna != $data['pengajar']->pengguna) return response('Tidak diizinkan.', 401);
+        $data['jenis_program'] = $data['pengajar']->jenjang->jenis_program;
+      }
+
+      else if($data['keanggotaan'] === 2) {
+        $data['santri'] = Santri::find($id);
+        if(!$data['santri']) return response('Santri tidak ditemukan.', 404);
+        if($pengguna->hasRole('member') && $pengguna != $data['santri']->pengguna) return response('Tidak diizinkan.', 401);
+        $data['jenis_program'] = $data['santri']->jenjang->jenis_program;
+      }
+
+      else return redirect('Tidak ditemukan.', 404);
+
+      return view('member.program-edit', $data);
     }
 
     /**
@@ -73,8 +93,28 @@ class ControllerMember extends Controller
      */
     public function program_konfirmasiHapus()
     {
-        //
-        return view('member.program-hapus');
+      $id = (int) Input::get('id');
+      $data['keanggotaan'] = (int) Input::get('keanggotaan');
+
+      $pengguna = auth()->user();
+
+      if($data['keanggotaan'] === 1) {
+        $data['pengajar'] = Pengajar::find($id);
+        if(!$data['pengajar']) return response('Pengajar tidak ditemukan.', 404);
+        if($pengguna->hasRole('member') && $pengguna != $data['pengajar']->pengguna) return response('Tidak diizinkan.', 401);
+        $data['jenis_program'] = $data['pengajar']->jenjang->jenis_program;
+      }
+
+      else if($data['keanggotaan'] === 2) {
+        $data['santri'] = Santri::find($id);
+        if(!$data['santri']) return response('Santri tidak ditemukan.', 404);
+        if($pengguna->hasRole('member') && $pengguna != $data['santri']->pengguna) return response('Tidak diizinkan.', 401);
+        $data['jenis_program'] = $data['santri']->jenjang->jenis_program;
+      }
+
+      else return redirect('Tidak ditemukan.', 404);
+
+      return view('member.program-hapus', $data);
     }
 
     /**
