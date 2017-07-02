@@ -39,17 +39,18 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
     Route::post('/program/tambah/pengajar', 'ControllerPengajar@tambah');
     Route::post('/program/tambah/santri', 'ControllerSantri@tambah');
 
-    Route::get('/program/edit', 'ControllerMember@program_edit');
+    Route::post('/program/edit', 'ControllerMember@program_edit');
     Route::post('/program/edit/pengajar', 'ControllerPengajar@simpan');
     Route::post('/program/edit/santri', 'ControllerSantri@simpan');
 
-    Route::get('/program/hapus', 'ControllerMember@program_konfirmasiHapus');
+    Route::post('/program/hapus', 'ControllerMember@program_konfirmasiHapus');
     Route::post('/program/hapus/pengajar', 'ControllerPengajar@hapus');
     Route::post('/program/hapus/santri', 'ControllerSantri@hapus');
 
     Route::get('/penjadwalan', 'ControllerJadwal@index');
     Route::post('/penjadwalan/tambah', 'ControllerJadwal@tambah');
     Route::post('/penjadwalan/edit', 'ControllerJadwal@simpan');
+    Route::post('/penjadwalan/kapasitas-membina', 'ControllerPengajar@kapasitas_membina_simpan');
     Route::get('/penjadwalan/hapus', 'ControllerJadwal@konfirmasiHapus');
     Route::post('/penjadwalan/hapus', 'ControllerJadwal@hapus');
 

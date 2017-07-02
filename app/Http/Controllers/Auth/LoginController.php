@@ -45,6 +45,7 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
+        session()->flash('success', 'Anda berhasil masuk.');
 
         if(Auth::user()->hasRole('admin')) {
             return redirect('/admin');

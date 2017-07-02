@@ -18,7 +18,7 @@ class CreateSantriTable extends Migration
           $table->increments('id');
           $table->integer('tahun_kbm_terakhir')->nullable();
           $table->boolean('semester_kbm_terakhir')->nullable();
-          $table->boolean('spp_lunas');
+          $table->boolean('spp_lunas')->default(FALSE);
           $table->integer('id_jenjang')->unsigned()->nullable();
           $table->foreign('id_jenjang')->references('id')->on('jenjang')->onDelete('restrict');
           $table->integer('id_jenjang_lulus')->unsigned()->nullable();
@@ -28,7 +28,7 @@ class CreateSantriTable extends Migration
           $table->integer('id_pengguna')->unsigned();
           $table->foreign('id_pengguna')->references('id')->on('pengguna')->onDelete('cascade');
           $table->timestamps();
-
+          $table->unique(['id_pengguna','id_jenjang']);
           });
     }
 

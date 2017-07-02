@@ -20,13 +20,17 @@
       <!-- Main content -->
       <section class="content">
         <div style="margin-top:10px">
-			<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
-			</div>
-            <div class="callout callout-info">
-                <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-            </div>
+          @if (session()->has('error'))
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
+            {{ session()->get('error') }}
+          </div>
+          @endif
+
+          <div class="callout callout-info">
+            <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+          </div>
         </div>
         @if ($keanggotaan === 1)
         <div class="box box-default">
@@ -34,8 +38,9 @@
 				          <h4>Pengajar {{ $jenis_program->nama }}</h4>
             </div>
     			<div class="box-body">
-    				<form action="{{ action('ControllerPengajar@tambah') }}" method="post">
+    				<form action="{{ url('dasbor/program/tambah/pengajar') }}" method="post">
               {{ csrf_field() }}
+              <input type="hidden" name="jenis_program" value="{{ $jenis_program->id }}" />
     					<?php //if($program == 1) { ?>
     					<!--div class="form-group col-md-12">
     						<div class="col-md-5">
@@ -84,7 +89,7 @@
     					?>
     						<div class="col-md-2">
     							<button type="submit" class="btn btn-success btn-flat">Tambah</button>
-    							<a href="<?php //echo site_url('user/dasbor');?>" class="btn btn-default btn-flat">Batal</a>
+    							<a href="{{ url('dasbor') }}" class="btn btn-default btn-flat">Batal</a>
     						</div>
     				</form>
     			</div>
@@ -95,7 +100,7 @@
 				       <h4>Santri {{ $jenis_program->nama }}</h4>
             </div>
     			<div class="box-body">
-            <form action="{{ action('ControllerSantri@tambah') }}" method="post">
+            <form action="{{ url('dasbor/program/tambah/santri') }}" method="post">
               {{ csrf_field() }}
     					<div class="form-group col-md-12">
     						<div class="col-md-5">
@@ -123,7 +128,8 @@
     						<div class="col-md-5">
     							<label class="control-group">Terakhir KBM tahun</label>
     							<div class="form-group has-feedback">
-    								<select class="form-control" name="kbm_tahun">
+    								<select class="form-control" name="tahun_kbm_terakhir">
+                      <option value="">Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
                       @for ($i=2017; $i>=2011; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                       @endfor
@@ -135,16 +141,17 @@
     						<div class="col-md-5">
     							<label class="control-group">Terakhir KBM semester</label>
     							<div class="form-group has-feedback">
-    								<select class="form-control" name="kbm_semester">
+    								<select class="form-control" name="semester_kbm_terakhir">
+                      <option value="">Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
     									<option value="1">Ganjil (September&ndash;Januari)</option>
-    									<option value="2">Genap (Februari&ndash;Juni)</option>
+    									<option value="0">Genap (Februari&ndash;Juni)</option>
     								</select>
     							</div>
     						</div>
     					</div>
     					<div class="col-md-2">
     						<button type="submit" class="btn btn-success btn-flat">Tambah</button>
-    						<a href="" class="btn btn-default btn-flat">Batal</a>
+    						<a href="{{ url('dasbor') }}" class="btn btn-default btn-flat">Batal</a>
     					</div>
             </form>
     			</div>

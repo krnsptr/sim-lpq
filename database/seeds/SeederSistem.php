@@ -15,8 +15,8 @@ class SeederSistem extends Seeder
       Sistem::create([
         'pengumuman' => '...',
         'pendaftaran_santri' => TRUE,
-        'pendaftaran_pengajar' => FALSE,
-        'penjadwalan_santri' => FALSE,
+        'pendaftaran_pengajar' => TRUE,
+        'penjadwalan_santri' => TRUE,
         'penjadwalan_pengajar' => TRUE
       ]);
     }

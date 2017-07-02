@@ -19,25 +19,31 @@
       <!-- Main content -->
       <section class="content">
     		<div style="margin-top:10px">
-
+          @if (session()->has('error'))
     			<div class="alert alert-danger alert-dismissible">
     				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     				<h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
+            {{ session()->get('error') }}
     			</div>
-
+          @endif
+          @if (session()->has('warning'))
     			<div class="alert alert-warning alert-dismissible">
     				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     				<h4><i class="icon fa fa-warning"></i> Peringatan!</h4>
+            {{ session()->get('warning') }}
     			</div>
+          @endif
+          @if (session()->has('success'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+            {{ session()->get('success') }}
+          </div>
+          @endif
 
-                <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-                </div>
-
-                <div class="callout callout-info">
-                    <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-                </div>
+          <div class="callout callout-info">
+            <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+          </div>
     		</div>
 		<!--Untuk mengubah data atau menghapus akun, silahkan menuju <a href="#">Akun</a>-->
         <div class="box box-default">
@@ -83,8 +89,18 @@
       						<tr>
       							<td>Pengajar {{ $pengajar->jenjang->jenis_program->nama }}</td>
       							<td>
-                      <a href="{{ url('dasbor/program/edit/pengajar/'.$pengajar->id) }}" class="btn btn-primary flat">Edit</a>
-      								<a href="{{ url('dasbor/program/hapus/pengajar/'.$pengajar->id) }}" class="btn btn-danger flat">Hapus</a>
+                      <form action="{{ url('dasbor/program/edit') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="keanggotaan" value="1" />
+                        <input type="hidden" name="id" value="{{ $pengajar->id }}" />
+                        <button class="btn btn-primary flat">Edit</button>
+                      </form>
+                      <form action="{{ url('dasbor/program/hapus') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="keanggotaan" value="1" />
+                        <input type="hidden" name="id" value="{{ $pengajar->id }}" />
+                        <button class="btn btn-danger flat">Hapus</button>
+                      </form>
       							</td>
       						</tr>
                   @endforeach
@@ -92,8 +108,18 @@
       						<tr>
       							<td>Santri {{ $santri->jenjang->jenis_program->nama }}</td>
       							<td>
-      								<a href="{{ url('dasbor/program/edit/santri/'.$santri->id) }}" class="btn btn-primary flat">Edit</a>
-      								<a href="{{ url('dasbor/program/hapus/santri/'.$santri->id) }}" class="btn btn-danger flat">Hapus</a>
+                      <form action="{{ url('dasbor/program/edit') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="keanggotaan" value="2" />
+                        <input type="hidden" name="id" value="{{ $santri->id }}" />
+                        <button class="btn btn-primary flat">Edit</button>
+                      </form>
+                      <form action="{{ url('dasbor/program/hapus') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="keanggotaan" value="2" />
+                        <input type="hidden" name="id" value="{{ $santri->id }}" />
+                        <button class="btn btn-danger flat">Hapus</button>
+                      </form>
       							</td>
       						</tr>
                   @endforeach

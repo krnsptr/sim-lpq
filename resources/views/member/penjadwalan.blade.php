@@ -18,132 +18,172 @@
 
       <!-- Main content -->
       <section class="content">
-		<div style="margin-top:10px">
-			<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
-			</div>
-			<div class="alert alert-warning alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<h4><i class="icon fa fa-warning"></i> Peringatan!</h4>
-			</div>
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-            </div>
-            <div class="callout callout-info">
-                <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-            </div>
-		</div>
-
+        @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
+          {{ session()->get('error') }}
+        </div>
+        @endif
+        @if (session()->has('warning'))
+        <div class="alert alert-warning alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h4><i class="icon fa fa-warning"></i> Peringatan!</h4>
+          {{ session()->get('warning') }}
+        </div>
+        @endif
+        @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          {{ session()->get('success') }}
+        </div>
+        @endif
+        @foreach ($daftar_pengajar as $pengajar)
         <div class="box box-default">
             <div class="box-header with-border">
-            	<h4>Nama Program</h4>
+            	<h4>Pengajar {{ $pengajar->jenjang->jenis_program->nama }}</h4>
             </div>
-            	<div class="box-body table-condensed">Penjadwalan pengajar sudah ditutup.</div>
-			<div class="box-body table-condensed">
-					<div class="form-group col-md-4">
-						<label class="control-group col-md-12"> Jumlah kelompok yang siap dibina</label>
-						<div class="col-md-6">
-							<div class="form-group has-feedback">
-								<input type="number" class="form-control" name="jumlah_kelompok" value="">
-							</div>
-						</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
-						</div>
-					</div>
-					<div class="form-group col-md-8">
-						<label class="control-group col-md-12"> Tambah alternatif (durasi 2 jam)</label>
-						<div class="col-md-10">
-							<div class="form-group has-feedback">
-							  <div class="col-md-6">
-								<select name="hari" class="form-control">
-								</select>
-							  </div>
-							  <div class="col-md-6">
-								<input type="text" name="waktu" class="form-control" value="00:00">
-							  </div>
-							</div>
-						</div>
-						<div class="col-md-2">						
-							<button type="submit" class="btn btn-success btn-flat">Tambah</button>
-						</div>
-					</div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Alternatif (Jadwal kosong)</th>
-							<th>Aksi</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<div class="col-md-3">
-									<select name="hari" class="form-control"></select>
-								</div>
-								<div class="col-md-3">
-									<input type="text" name="waktu" class="form-control" value="">
-								</div>
-							</td>
-							<td>
-								<input type="submit" class="btn btn-primary btn-flat" value="Ubah">
-								<a href="" class="btn btn-danger btn-flat">Hapus</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+        			<div class="box-body table-condensed">
+        					<div class="form-group col-md-4">
+                    <form action="{{ url('dasbor/penjadwalan/kapasitas-membina') }}" method="post">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="id_pengajar" value="{{ $pengajar->id }}" />
+          						<label class="control-group col-md-12"> Jumlah kelompok yang siap dibina</label>
+          						<div class="col-md-6">
+          							<div class="form-group has-feedback">
+          								<input type="number" class="form-control" name="kapasitas_membina" value="{{ $pengajar->kapasitas_membina }}" autocomplete="off">
+          							</div>
+          						</div>
+          						<div class="col-md-2">
+          							<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
+          						</div>
+                    </form>
+        					</div>
+                  @if (!$penjadwalan_pengajar)
+                	<div class="form-group col-md-8">Penjadwalan pengajar sudah ditutup.</div>
+                  @else
+        					<div class="form-group col-md-8">
+                    <form action="{{ url('dasbor/penjadwalan/tambah') }}" method="post">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="id_pengajar" value="{{ $pengajar->id }}" />
+          						<label class="control-group col-md-12"> Tambah alternatif (durasi 2 jam)</label>
+          						<div class="col-md-10">
+          							<div class="form-group has-feedback">
+          							  <div class="col-md-6">
+          								<select name="hari" class="form-control">
+                            <option value="1">Ahad</option>
+                            <option value="2">Senin</option>
+                            <option value="3">Selasa</option>
+                            <option value="4">Rabu</option>
+                            <option value="5">Kamis</option>
+                            <option value="6">Jumat</option>
+                            <option value="7">Sabtu</option>
+          								</select>
+          							  </div>
+          							  <div class="col-md-6">
+          								<input type="text" name="waktu" class="form-control" value="00:00">
+          							  </div>
+          							</div>
+          						</div>
+          						<div class="col-md-2">
+          							<button type="submit" class="btn btn-success btn-flat">Tambah</button>
+          						</div>
+                    </form>
+        					</div>
+                  @endif
+          				<table class="table">
+          					<thead>
+          						<tr>
+          							<th>Alternatif (Jadwal kosong)</th>
+          							<th>Aksi</th>
+          						</tr>
+          					</thead>
+          					<tbody>
+                      @foreach ($pengajar->daftar_jadwal as $jadwal)
+          						<tr>
+                        <form action="{{ url('dasbor/penjadwalan/edit') }}" method="post">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="id_jadwal" value="{{ $jadwal->id }}" />
+            							<td>
+            								<div class="col-md-3">
+            									<select name="hari" class="form-control" autocomplete="off">
+                                <option value="1"@if ($jadwal->hari == 1) selected @endif>Ahad</option>
+                                <option value="2"@if ($jadwal->hari == 2) selected @endif>Senin</option>
+                                <option value="3"@if ($jadwal->hari == 3) selected @endif>Selasa</option>
+                                <option value="4"@if ($jadwal->hari == 4) selected @endif>Rabu</option>
+                                <option value="5"@if ($jadwal->hari == 5) selected @endif>Kamis</option>
+                                <option value="6"@if ($jadwal->hari == 6) selected @endif>Jumat</option>
+                                <option value="7"@if ($jadwal->hari == 7) selected @endif>Sabtu</option>
+                              </select>
+            								</div>
+            								<div class="col-md-3">
+            									<input type="text" name="waktu" class="form-control" value="{{ $jadwal->waktu }}" autocomplete="off">
+            								</div>
+            							</td>
+            							<td>
+                            @if ($penjadwalan_pengajar)
+            								<input type="submit" class="btn btn-primary btn-flat" value="Ubah">
+            								<a href="{{ url('dasbor/penjadwalan/hapus?id_jadwal='.$jadwal->id) }}" class="btn btn-danger btn-flat">Hapus</a>
+                            @endif
+            							</td>
+                        </form>
+          						</tr>
+                      @endforeach
+          					</tbody>
+          				</table>
+        			</div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+            		Jumlah alternatif disarankan lebih dari jumlah kelompok yang siap dibina.<br />
+        				Pengajar <strong>bertanggung jawab penuh</strong> atas jadwal yang dipilih.<br />
+        				Departemen Administrasi akan menentukan jadwal mana yang akan digunakan untuk KBM.<br />
+            	</div>
+          </div>
+          <!-- /.box -->
+          @endforeach
+          @foreach ($daftar_santri as $santri)
+          <div class="box box-default">
+              <div class="box-header with-border">
+              	<h4>Santri {{ $santri->jenjang->jenis_program->nama }}</h4>
+              </div>
+        			<div class="box-body table-condensed">
+        				<table class="table">
+        					<tbody>
+        						<tr>
+        							<td width="20%">Jenjang</td>
+        							<td>: {{ $santri->jenjang->nama }}</td>
+        						</tr>
+        						<tr>
+        							<td>Jadwal</td>
+        							<td>: @if (is_null($santri->kelompok)) Belum dipilih @endif</td>
+        						</tr>
+        						<tr>
+        							<td>Ganti Jadwal</td>
+        							<td>
+        								<div class="form-group col-md-12">
+        									<div class="col-md-4">
+        										<div class="form-group has-feedback">
+        											<select name="hari" class="form-control">
+        											</select>
+        										</div>
+        									</div>
+        									<div class="col-md-4">
+        										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
+        										<a href="" class="btn btn-danger btn-flat">Hapus</a>
+        									</div>
+        								</div>
+        							</td>
+        						</tr>
+        					</tbody>
+        				</table>
+        			</div>
           	<!-- /.box-body -->
           	<div class="box-footer">
-          		Jumlah alternatif disarankan lebih dari jumlah kelompok yang siap dibina.<br />
-				Pengajar <strong>bertanggung jawab penuh</strong> atas jadwal yang dipilih.<br />
-				Departemen Administrasi akan menentukan jadwal mana yang akan digunakan untuk KBM.<br />
           	</div>
         </div>
         <!-- /.box -->
-		
-        <div class="box box-default">
-            <div class="box-header with-border">
-            	<h4>Santri Takhossus/ Tahfidz</h4>
-            </div>
-			<div class="box-body table-condensed">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td width="20%">Jenjang</td>
-							<td>: Takhossus</td>
-						</tr>
-						<tr>
-							<td>Jadwal</td>
-							<td>: (Belum dipilih)</td>
-						</tr>
-						<tr>
-							<td>Ganti Jadwal</td>
-							<td>
-								<div class="form-group col-md-12">
-									<div class="col-md-4">	
-										<div class="form-group has-feedback">
-											<select name="hari" class="form-control">
-											</select>
-										</div>
-									</div>	
-									<div class="col-md-4">						
-										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
-										<a href="" class="btn btn-danger btn-flat">Hapus</a>
-									</div>
-								</div>								
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-          	<!-- /.box-body -->
-          	<div class="box-footer">
-          	</div>
-        </div>
-        <!-- /.box -->
+        @endforeach
       </section>
       <!-- /.content -->
     </div>
