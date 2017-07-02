@@ -70,7 +70,7 @@ class ControllerSantri extends Controller
       $pengguna = auth()->user();
       $santri = Santri::find($id_santri);
       if(!$santri) return response('Santri tidak ditemukan.', 404);
-      if($pengguna->hasRole('member') && $pengguna != $santri->pengguna) return response('Tidak diizinkan.', 401);
+      if($pengguna->hasRole('member') && $pengguna != $santri->pengguna) return response('Tidak diizinkan.', 403);
 
       $santri->sudah_lulus()->associate($sudah_lulus);
       $santri->tahun_kbm_terakhir = $tahun_kbm_terakhir;
@@ -95,7 +95,7 @@ class ControllerSantri extends Controller
       $pengguna = auth()->user();
       $santri = Santri::find($id_santri);
       if(!$santri) return response('Santri tidak ditemukan.', 404);
-      if($pengguna->hasRole('member') && $pengguna != $santri->pengguna) return response('Tidak diizinkan.', 401);
+      if($pengguna->hasRole('member') && $pengguna != $santri->pengguna) return response('Tidak diizinkan.', 403);
 
       if($santri->delete()) session()->flash('success', 'Program berhasil dihapus');
       else session()->flash('error', 'Program gagal dihapus');

@@ -24,4 +24,8 @@ class Pengajar extends Program
   function pengguna() {
       return $this->belongsTo('App\Pengguna', 'id_pengguna');
   }
+
+  function daftar_jadwal() {
+      return $this->hasMany('App\Jadwal', 'id_pengajar');
+  }
 }

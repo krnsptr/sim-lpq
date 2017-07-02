@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Input;
+use App\Pengajar;
+use App\Jadwal;
+use App\Sistem;
 
 class ControllerJadwal extends Controller
 {
@@ -12,8 +15,12 @@ class ControllerJadwal extends Controller
      */
     public function index()
     {
-        //
-        return view('member.penjadwalan');
+        $member = auth()->user();
+        $data['daftar_pengajar'] = $member->daftar_pengajar;
+        $data['daftar_santri'] = $member->daftar_santri;
+        $data['penjadwalan_pengajar'] = Sistem::first()->penjadwalan_pengajar;
+        $data['penjadwalan_santri'] = Sistem::first()->penjadwalan_santri;
+        return view('member.penjadwalan', $data);
     }
 
     /**
@@ -30,9 +37,33 @@ class ControllerJadwal extends Controller
      */
     public function tambah()
     {
-        //
-        //if(Auth::user()->hasRole('admin'));
-        //else;
+      //cek status penjadwalan_pengajar dari sistem
+
+      $hari = (int) Input::get('hari');
+      $waktu = Input::get('waktu');
+      $id_pengajar = (int) Input::get('id_pengajar');
+
+      //validasi hari
+      //validasi waktu
+
+      $pengajar = Pengajar::find($id_pengajar);
+      if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
+
+      $pengguna = auth()->user();
+      if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
+
+      $jadwalBaru = new Jadwal;
+      $jadwalBaru->hari = $hari;
+      $jadwalBaru->waktu = $waktu;
+      $jadwalBaru->pengajar()->associate($pengajar);
+
+      if($jadwalBaru->save()) session()->flash('success', 'Jadwal berhasil ditambahkan');
+      else session()->flash('error', 'Jadwal gagal ditambahkan');
+
+      return redirect('dasbor/penjadwalan');
+
+      //if(Auth::user()->hasRole('admin'));
+      //else;
     }
 
     /**
@@ -40,9 +71,31 @@ class ControllerJadwal extends Controller
      */
     public function simpan()
     {
-        //
-        //if(Auth::user()->hasRole('admin'));
-        //else;
+      //cek status penjadwalan_pengajar dari sistem
+
+      $hari = (int) Input::get('hari');
+      $waktu = Input::get('waktu');
+      $id_jadwal = (int) Input::get('id_jadwal');
+
+      //validasi hari
+      //validasi waktu
+
+      $jadwal = Jadwal::find($id_jadwal);
+      if(!$jadwal) return response('Jadwal tidak ditemukan.', 404);
+
+      $pengguna = auth()->user();
+      if($pengguna->hasRole('member') && $pengguna != $jadwal->pengajar->pengguna) return response('Tidak diizinkan.', 403);
+
+      $jadwal->hari = $hari;
+      $jadwal->waktu = $waktu;
+
+      if($jadwal->save()) session()->flash('success', 'Jadwal berhasil disimpan');
+      else session()->flash('error', 'Jadwal gagal disimpan');
+
+      return redirect('dasbor/penjadwalan');
+
+      //if(Auth::user()->hasRole('admin'));
+      //else;
     }
 
     /**
@@ -60,8 +113,20 @@ class ControllerJadwal extends Controller
      */
     public function konfirmasiHapus()
     {
-        //
-        return view('member.penjadwalan-hapus');
+      //cek status penjadwalan_pengajar dari sistem
+
+      $id_jadwal = (int) Input::get('id_jadwal');
+
+      //validasi hari
+      //validasi waktu
+
+      $jadwal = Jadwal::find($id_jadwal);
+      if(!$jadwal) return response('Jadwal tidak ditemukan.', 404);
+
+      $pengguna = auth()->user();
+      if($pengguna != $jadwal->pengajar->pengguna) return response('Tidak diizinkan.', 403);
+
+      return view('member.penjadwalan-hapus', ['id_jadwal' => $id_jadwal]);
     }
 
     /**
@@ -69,8 +134,22 @@ class ControllerJadwal extends Controller
      */
     public function hapus()
     {
-        //
-        //if(Auth::user()->hasRole('admin'));
-        //else;
+      //cek status penjadwalan_pengajar dari sistem
+
+      $id_jadwal = (int) Input::get('id_jadwal');
+
+      $jadwal = Jadwal::find($id_jadwal);
+      if(!$jadwal) return response('Jadwal tidak ditemukan.', 404);
+
+      $pengguna = auth()->user();
+      if($pengguna->hasRole('member') && $pengguna != $jadwal->pengajar->pengguna) return response('Tidak diizinkan.', 403);
+
+      if($jadwal->delete()) session()->flash('success', 'Jadwal berhasil dihapus');
+      else session()->flash('error', 'Jadwal gagal dihapus');
+
+      return redirect('dasbor/penjadwalan');
+
+      //if(Auth::user()->hasRole('admin'));
+      //else;
     }
 }

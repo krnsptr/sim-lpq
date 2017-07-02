@@ -24,14 +24,18 @@
 				<h4></h4>
             </div>
 			<div class="box-body">
-				
+
 					<div class="form-group col-md-12">
 						Hapus jadwal?
 					</div>
-						<div class="col-md-2">						
+          <form action="{{ url('dasbor/penjadwalan/hapus') }}" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="id_jadwal" value="{{ $id_jadwal }}" />
+						<div class="col-md-2">
 							<button type="submit" class="btn btn-danger btn-flat">Hapus</button>
-							<a href="" class="btn btn-default btn-flat">Batal</a>
+							<a href="{{ url('dasbor/penjadwalan') }}" class="btn btn-default btn-flat">Batal</a>
 						</div>
+          </form>
 			</div>
           <!-- /.box-body -->
         </div>

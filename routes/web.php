@@ -50,6 +50,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
     Route::get('/penjadwalan', 'ControllerJadwal@index');
     Route::post('/penjadwalan/tambah', 'ControllerJadwal@tambah');
     Route::post('/penjadwalan/edit', 'ControllerJadwal@simpan');
+    Route::post('/penjadwalan/kapasitas-membina', 'ControllerPengajar@kapasitas_membina_simpan');
     Route::get('/penjadwalan/hapus', 'ControllerJadwal@konfirmasiHapus');
     Route::post('/penjadwalan/hapus', 'ControllerJadwal@hapus');
 

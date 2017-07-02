@@ -19,7 +19,12 @@ class Jadwal extends Model
       ];
 
       public function pengajar() {
-        return $this->hasOne('App\Pengajar', 'id_pengajar');
+        return $this->belongsTo('App\Pengajar', 'id_pengajar');
+      }
+
+      public function getWaktuAttribute($value)
+      {
+          return date('H:i', strtotime($value));
       }
 
 }

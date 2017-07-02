@@ -66,7 +66,7 @@ class ControllerPengajar extends Controller
     $pengguna = auth()->user();
     $pengajar = Pengajar::find($id_pengajar);
     if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
-    if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 401);
+    if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
     $pengajar->motivasi_mengajar = $motivasi_mengajar;
 
@@ -79,6 +79,23 @@ class ControllerPengajar extends Controller
     //else;
   }
 
+  public function kapasitas_membina_simpan() {
+    $kapasitas_membina = (int) Input::get('kapasitas_membina');
+    $id_pengajar = (int) Input::get('id_pengajar');
+
+    $pengguna = auth()->user();
+    $pengajar = Pengajar::find($id_pengajar);
+    if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
+    if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
+
+    $pengajar->kapasitas_membina = $kapasitas_membina;
+
+    if($pengajar->save()) session()->flash('success', 'Jumlah kelompok yang siap dibina berhasil disimpan');
+    else session()->flash('error', 'Jumlah kelompok yang siap dibina gagal disimpan');
+
+    return redirect('dasbor/penjadwalan');
+  }
+
   /**
    * Memproses penghapusan pengajar dari member dan admin
    */
@@ -89,7 +106,7 @@ class ControllerPengajar extends Controller
     $pengguna = auth()->user();
     $pengajar = Pengajar::find($id_pengajar);
     if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
-    if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 401);
+    if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
     if($pengajar->delete()) session()->flash('success', 'Program berhasil dihapus');
     else session()->flash('error', 'Program gagal dihapus');
