@@ -61,7 +61,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
-    Route::get('/dasbor', 'ControllerAdmin@index');
+    Route::get('/', 'ControllerAdmin@index');
     Route::post('/pengaturan/edit', 'ControllerAdmin@pengaturan_simpan');
     Route::get('/download', 'ControllerAdmin@download');
     Route::post('/download/proses', 'ControllerAdmin@download_proses');

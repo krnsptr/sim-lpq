@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Pengajar;
+use App\kelompok;
 
 class ControllerKelompok extends Controller
 {
@@ -14,13 +16,23 @@ class ControllerKelompok extends Controller
     {
         if(Auth::user()->hasRole('admin')) {
           //
-          return view('admin.kelompok');
+        $data['daftar_pengajar'] = Pengajar::all();
+          return view('admin.Kelompok', $data);
         }
         else {
           //
           return view('member.kelompok');
         }
     }
+
+    /**
+     * Memproses penambahan kelompok dari admin
+     */
+    public function edit()
+    {
+        //
+    }
+
 
     /**
      * Memproses penambahan kelompok dari admin

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Santri;
 
 class ControllerSPP extends Controller
 {
@@ -14,7 +15,8 @@ class ControllerSPP extends Controller
     {
         if(Auth::user()->hasRole('admin')) {
           //
-          return view('admin.spp');
+          $data['daftar_santri'] = Santri::all();
+          return view('admin.spp', $data);
         }
         else {
           //
