@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Sistem;
 
 class ControllerAdmin extends Controller
 {
@@ -21,8 +22,8 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      //
-      return view('admin.dasbor');
+      $data['daftar_sistem'] = Sistem::all();
+      return view('admin.dasbor',$data);
   }
 
   /**
