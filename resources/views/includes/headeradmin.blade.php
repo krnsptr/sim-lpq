@@ -75,12 +75,12 @@
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href="{{url('admin/dasbor')}}"><span>Dasbor</span></a></li>
+        <li><a href="{{url('admin/')}}"><span>Dasbor</span></a></li>
         <li><a href="{{url('admin/anggota')}}"><span>Anggota</span></a></li>
         <li><a href="{{url('admin/santri')}}"><span>Santri</span></a></li>
         <li><a href="{{url('admin/pengajar')}}"><span>Pengajar</span></a></li>
         <li><a href="{{url('admin/kelompok')}}"><span>Kelompok</span></a></li>
-        <li><a href="{{url('admin/spp')}}"><span>spp</span></a></li>
+        <li><a href="{{url('admin/spp')}}"><span>SPP</span></a></li>
         <li><a href="{{url('admin/download')}}"><span>Download</span></a></li>
       </ul><!-- /.sidebar-menu -->
     </section>

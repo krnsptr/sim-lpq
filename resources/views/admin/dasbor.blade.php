@@ -15,7 +15,6 @@
   </section>
   <br>
 
-
   <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
@@ -42,7 +41,7 @@
 
         <div class="form-group">
             <ul class="todo-list">
-                    <li>
+                     <li>
                        <!-- drag handle -->
                            <span class="handle">
                              <i class="fa fa-ellipsis-v"></i>
@@ -55,47 +54,41 @@
                        <!-- Emphasis label -->
 
                        <!-- General tools such as edit or delete-->
-
                      </li>
-                 <li>
+
+                     <li>
+                           <span class="handle">
+                             <i class="fa fa-ellipsis-v"></i>
+                             <i class="fa fa-ellipsis-v"></i>
+                           </span>
+                       <input type="checkbox" value=""></input>
+                       <span class="text">Pendaftaran santri</span>
+                     </li>
+
+                     <li>
                        <span class="handle">
                          <i class="fa fa-ellipsis-v"></i>
                          <i class="fa fa-ellipsis-v"></i>
                        </span>
-                   <input type="checkbox" value=""></input>
-                   <span class="text">Pendaftaran santri</span>
+                       <input type="checkbox" value=""></input>
+                       <span class="text">Penjadwalan pengajar</span>
+                     </li>
 
-
-                 </li>
-                 <li>
+                     <li>
                        <span class="handle">
                          <i class="fa fa-ellipsis-v"></i>
                          <i class="fa fa-ellipsis-v"></i>
                        </span>
-                   <input type="checkbox" value=""></input>
-                   <span class="text">Penjadwalan pengajar</span>
-
-
-                 </li>
-                 <li>
-                       <span class="handle">
-                         <i class="fa fa-ellipsis-v"></i>
-                         <i class="fa fa-ellipsis-v"></i>
-                       </span>
-                   <input type="checkbox" value=""></input>
-                   <span class="text">Penjadwalan santri</span>
-                </li>
-
-
-          </ul>
+                       <input type="checkbox" value=""></input>
+                       <span class="text">Penjadwalan santri</span>
+                    </li>
+            </ul>
         </div>
              <!-- /.box-body -->
-             <div class="box-footer clearfix no-border">
-               <button type="button"></i>Ubah</button>
-             </div>
-
-
+       <div class="box-footer clearfix no-border">
+         <button type="button"></i>Ubah</button>
+       </div>
+      </div>
   </div>
-</div>
 </div>
 @stop

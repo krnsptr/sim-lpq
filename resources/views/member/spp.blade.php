@@ -36,24 +36,22 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Tahsin/ Takhosus/ Tahfidz</td>
-                  <td>Rp 50.000,-</td>
-                  <td>Belum dibayar</td>
-                </tr>
-                <tr>
-                  <td>Bahasa Arab</td>
-                  <td>Rp 50.000,-</td>
-                  <td>Lunas</td>
-                </tr>
+
+                @foreach ($daftar_santri as $santri)
+                <td>{{$santri->jenjang->nama}}</td>
+                <td>{{"Rp.50.000"}}</td>
+                <td>@if($santri->spp_lunas){{"lunas"}}
+                @else {{"belum lunas"}}
+                @endif  </td>
+
               </tbody>
+                @endforeach
             </table>
-            <br>
-            Info bla bla bla...
+
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            
+
           </div>
           <!-- /.box-footer-->
         </div>
