@@ -17,6 +17,10 @@ class Pengajar extends Program
       'kapasitas_membina', 'motivasi_mengajar'
   ];
 
+  protected $casts = [
+      'kapasitas_membina' => 'integer'
+  ];
+
   function jenjang() {
       return $this->belongsTo('App\Jenjang', 'id_jenjang');
   }

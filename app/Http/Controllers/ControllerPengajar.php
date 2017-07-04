@@ -15,7 +15,7 @@ class ControllerPengajar extends Controller
   public function index()
   {
       $data['daftar_pengajar'] = Pengajar::all();
-      return view('admin.Pengajar', $data);
+      return view('admin.pengajar', $data);
 
   }
 
@@ -24,17 +24,22 @@ class ControllerPengajar extends Controller
    */
   public function tambah()
   {
-    //cek status pendaftaran_pengajar dari sistem
+    if(!sistem('pendaftaran_pengajar')) return redirect('dasbor')->with('error', 'Pendaftaran pengajar sudah ditutup');
 
     $motivasi_mengajar = Input::get('motivasi_mengajar');
+    $enrollment_key = Input::get('enrollment_key');
     $id_jenis_program = (int) Input::get('jenis_program');
 
-    //validasi jenjang_program_baru()
-    //validasi tahun
-    //validasi semester
-
     $jenis_program = Jenis_program::find($id_jenis_program);
-    if(!$jenis_program) return redirect('dasbor');
+    if(!$jenis_program) return redirect('dasbor')->with('error');
+
+    $terdaftar = Pengajar::where('id_pengguna', '=', auth()->user()->id)->whereHas('jenjang.jenis_program',function ($query) use($id_jenis_program) {
+          $query->whereId($id_jenis_program);
+    })->count();
+    if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Pengajar '.$data['jenis_program']->nama);
+
+    if(!is_null($jenis_program->enrollment_pengajar) && $jenis_program->enrollment_pengajar !== $enrollment_key)
+      return redirect('dasbor')->with('error', 'Enrollment key tidak cocok');
 
     $jenjang = $jenis_program->daftar_jenjang->first();
     $pengguna = auth()->user();
@@ -60,8 +65,6 @@ class ControllerPengajar extends Controller
   {
     $motivasi_mengajar = Input::get('motivasi_mengajar');
     $id_pengajar = (int) Input::get('id_pengajar');
-
-    //validasi jenjang_program_edit()
 
     $pengguna = auth()->user();
     $pengajar = Pengajar::find($id_pengajar);

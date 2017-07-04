@@ -37,10 +37,9 @@
              </tr>
            </thead>
            <tbody>
-            </tbody>
-            <tr>
-              @foreach ($daftar_anggota as $anggota)
-              <td>{{$loop->iteration}}</td>
+            @foreach ($daftar_anggota as $anggota)
+            <tr data-id-anggota="{{ $anggota->id }}" data-jenis-kelamin="{{ $anggota->jenis_kelamin }}">
+              <td></td>
               <td>{{ $anggota->nama_lengkap}}</td>
               <td>@if($anggota->jenis_kelamin){{"laki-laki"}}
                 @else {{"perempuan"}}
@@ -52,10 +51,13 @@
               <td>{{ $anggota->username}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
-                <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
+                <button class="btn btn-sm btn-success simpan hidden" onclick="simpan();">Simpan</button>
+                <button class="btn btn-sm btn-danger batal hidden" onclick="batal();">Batal</button>
+                <button class="btn btn-sm btn-warning password" onclick="password(this)">Password</button>
               </td>
             </tr>
             @endforeach
+           </tbody>
          </table>
        </div>
        <!-- /.box-body -->
@@ -94,7 +96,7 @@
    </div>
 
    <script>
-     /*$.ajaxSetup({
+     $.ajaxSetup({
          type:"post",
          cache:false,
        });
@@ -222,7 +224,6 @@
            }
          });
      }
-     */
    </script>
 
 

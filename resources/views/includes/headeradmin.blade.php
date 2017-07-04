@@ -75,7 +75,7 @@
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href="{{url('admin/dasbor')}}"><span>Dasbor</span></a></li>
+        <li><a href="{{url('admin/')}}"><span>Dasbor</span></a></li>
         <li><a href="{{url('admin/anggota')}}"><span>Anggota</span></a></li>
         <li><a href="{{url('admin/santri')}}"><span>Santri</span></a></li>
         <li><a href="{{url('admin/pengajar')}}"><span>Pengajar</span></a></li>

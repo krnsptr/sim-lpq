@@ -68,17 +68,17 @@
     						<div class="col-md-5">
     							<label class="control-group">Motivasi mengajar</label>
     							<div class="form-group has-feedback">
-    								<input type="text" class="form-control" name="motivasi_mengajar"><br />
+    								<input type="text" class="form-control" name="motivasi_mengajar" autocomplete="off"><br />
     							</div>
     						</div>
     					</div>
     					<?php //} else { ?>
-              @if (!empty($jenis_program->enrollment_pengajar))
+              @if (!is_null($jenis_program->enrollment_pengajar))
     					<div class="form-group col-md-12">
     						<div class="col-md-5">
     							<label class="control-group">Enrollment Key</label>
     							<div class="form-group has-feedback">
-    								<input type="text" class="form-control" name="enrollment_key"><br />
+    								<input type="text" class="form-control" name="enrollment_key" autocomplete="off"><br />
     								Rekrutmen tertutup khusus untuk yang telah menerima enrollment key.<br />
     							</div>
     						</div>
@@ -106,7 +106,7 @@
     						<div class="col-md-5">
     							<label class="control-group">Sudah pernah ikut KBM di LPQ?</label>
     							<div class="form-group has-feedback">
-    								<select class="form-control" name="sudah_lulus">
+    								<select class="form-control" name="sudah_lulus" autocomplete="off">
                       <?php $lulus = NULL; ?>
                         @foreach ($jenis_program->daftar_jenjang as $jenjang)
                           <option value="{{ $jenjang->id }}">
@@ -128,9 +128,9 @@
     						<div class="col-md-5">
     							<label class="control-group">Terakhir KBM tahun</label>
     							<div class="form-group has-feedback">
-    								<select class="form-control" name="tahun_kbm_terakhir">
+    								<select class="form-control" name="tahun_kbm_terakhir" autocomplete="off">
                       <option value="">Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
-                      @for ($i=2017; $i>=2011; $i--)
+                      @for ($i=intval(date('Y')); $i>=2011; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                       @endfor
     								</select>
@@ -141,7 +141,7 @@
     						<div class="col-md-5">
     							<label class="control-group">Terakhir KBM semester</label>
     							<div class="form-group has-feedback">
-    								<select class="form-control" name="semester_kbm_terakhir">
+    								<select class="form-control" name="semester_kbm_terakhir" autocomplete="off">
                       <option value="">Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
     									<option value="1">Ganjil (September&ndash;Januari)</option>
     									<option value="0">Genap (Februari&ndash;Juni)</option>

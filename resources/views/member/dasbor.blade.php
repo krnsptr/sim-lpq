@@ -43,6 +43,7 @@
 
           <div class="callout callout-info">
             <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            {{ sistem('pengumuman') }}
           </div>
     		</div>
 		<!--Untuk mengubah data atau menghapus akun, silahkan menuju <a href="#">Akun</a>-->
@@ -57,13 +58,13 @@
         					<label class="control-group col-md-12"> Tambah program </label>
         					<div class="col-md-5">
         						<div class="form-group has-feedback">
-        							<select class="form-control" name="tambah">
-                        @if ($pendaftaran_pengajar)
+        							<select class="form-control" name="tambah" autocomplete="off">
+                        @if (sistem('pendaftaran_pengajar'))
                           @foreach ($daftar_jenis_program as $jenis_program)
                           <option value="1{{ $jenis_program->id }}">Pengajar {{ $jenis_program->nama }}</option>
                           @endforeach
                         @endif
-                        @if ($pendaftaran_santri)
+                        @if (sistem('pendaftaran_santri'))
                           @foreach ($daftar_jenis_program as $jenis_program)
                             <option value="2{{ $jenis_program->id }}">Santri {{ $jenis_program->nama }}</option>
                           @endforeach

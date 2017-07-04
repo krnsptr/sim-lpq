@@ -18,8 +18,8 @@ class ControllerJadwal extends Controller
         $member = auth()->user();
         $data['daftar_pengajar'] = $member->daftar_pengajar;
         $data['daftar_santri'] = $member->daftar_santri;
-        $data['penjadwalan_pengajar'] = Sistem::first()->penjadwalan_pengajar;
-        $data['penjadwalan_santri'] = Sistem::first()->penjadwalan_santri;
+        $data['penjadwalan_pengajar'] = sistem('penjadwalan_pengajar');
+        $data['penjadwalan_santri'] = sistem('penjadwalan_santri');
         return view('member.penjadwalan', $data);
     }
 
@@ -37,14 +37,14 @@ class ControllerJadwal extends Controller
      */
     public function tambah()
     {
-      //cek status penjadwalan_pengajar dari sistem
+      if(!sistem('penjadwalan_pengajar')) return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan pengajar sudah ditutup');
 
       $hari = (int) Input::get('hari');
       $waktu = Input::get('waktu');
       $id_pengajar = (int) Input::get('id_pengajar');
 
-      //validasi hari
-      //validasi waktu
+      if($hari < 1 || $hari > 7) return redirect('dasbor/penjadwalan')->with('error');
+      elseif(!preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $waktu)) return redirect('dasbor/penjadwalan')->with('error', 'Format waktu tidak sesuai');
 
       $pengajar = Pengajar::find($id_pengajar);
       if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
@@ -71,14 +71,14 @@ class ControllerJadwal extends Controller
      */
     public function simpan()
     {
-      //cek status penjadwalan_pengajar dari sistem
+      if(!sistem('penjadwalan_pengajar')) return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan pengajar sudah ditutup');
 
       $hari = (int) Input::get('hari');
       $waktu = Input::get('waktu');
       $id_jadwal = (int) Input::get('id_jadwal');
 
-      //validasi hari
-      //validasi waktu
+      if($hari < 1 || $hari > 7) return redirect('dasbor/penjadwalan')->with('error');
+      elseif(!preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $waktu)) return redirect('dasbor/penjadwalan')->with('error', 'Format waktu tidak sesuai');
 
       $jadwal = Jadwal::find($id_jadwal);
       if(!$jadwal) return response('Jadwal tidak ditemukan.', 404);
@@ -113,12 +113,9 @@ class ControllerJadwal extends Controller
      */
     public function konfirmasiHapus()
     {
-      //cek status penjadwalan_pengajar dari sistem
+      if(!sistem('penjadwalan_pengajar')) return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan pengajar sudah ditutup');
 
       $id_jadwal = (int) Input::get('id_jadwal');
-
-      //validasi hari
-      //validasi waktu
 
       $jadwal = Jadwal::find($id_jadwal);
       if(!$jadwal) return response('Jadwal tidak ditemukan.', 404);
@@ -134,7 +131,7 @@ class ControllerJadwal extends Controller
      */
     public function hapus()
     {
-      //cek status penjadwalan_pengajar dari sistem
+      if(!sistem('penjadwalan_pengajar')) return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan pengajar sudah ditutup');
 
       $id_jadwal = (int) Input::get('id_jadwal');
 

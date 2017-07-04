@@ -17,6 +17,12 @@ class Santri extends Program
       'tahun_kbm_terakhir', 'semester_kbm_terakhir', 'spp_lunas'
   ];
 
+  protected $casts = [
+      'tahun_kbm_terakhir' => 'integer',
+      'semester_kbm_terakhir' => 'boolean',
+      'spp_lunas' => 'boolean'
+  ];
+
     function jenjang() {
       return $this->belongsTo('App\Jenjang', 'id_jenjang');
     }
@@ -27,5 +33,11 @@ class Santri extends Program
 
     function pengguna() {
         return $this->belongsTo('App\Pengguna', 'id_pengguna');
+    }
+
+    public function setTahunKBMTerakhirAttribute($value)
+    {
+        if(intval($value) > intval(date('Y')) || intval($value) < 2011)
+          $this->attributes['tahun_kbm_terakhir'] = NULL;
     }
 }

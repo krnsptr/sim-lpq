@@ -22,8 +22,7 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      $data['daftar_sistem'] = Sistem::all();
-      return view('admin.dasbor',$data);
+      return view('admin.dasbor');
   }
 
   /**

@@ -17,13 +17,10 @@
       <!-- Main content -->
       <section class="content">
         <div style="margin-top:10px">
-			<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
-			</div>
-            <div class="callout callout-info">
-                <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-            </div>
+          <div class="callout callout-info">
+            <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            {{ sistem('pengumuman') }}
+          </div>
         </div>
         <!-- Default box -->
         <div class="box">
@@ -68,7 +65,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            
+
           </div>
           <!-- /.box-footer-->
         </div>
@@ -124,7 +121,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            
+
           </div>
           <!-- /.box-footer-->
         </div>
