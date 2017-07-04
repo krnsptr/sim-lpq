@@ -18,7 +18,8 @@
       <section class="content">
         <div style="margin-top:10px">
           <div class="callout callout-info">
-              <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            {{ sistem('pengumuman') }}
           </div>
         </div>
         <!-- Default box -->

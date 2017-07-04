@@ -19,25 +19,31 @@
 
       <!-- Main content -->
       <section class="content">
+        <div style="margin-top:10px">
+          <div class="callout callout-info">
+            <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            {{ sistem('pengumuman') }}
+          </div>
+        </div>
         <div class="box box-default">
             <div class="box-header with-border">
-				<h4></h4>
+				       <h4></h4>
             </div>
-			<div class="box-body">
+      			<div class="box-body">
 
-					<div class="form-group col-md-12">
-						Hapus jadwal?
-					</div>
-          <form action="{{ url('dasbor/penjadwalan/hapus') }}" method="post">
-            {{ csrf_field() }}
-            <input type="hidden" name="id_jadwal" value="{{ $id_jadwal }}" />
-						<div class="col-md-2">
-							<button type="submit" class="btn btn-danger btn-flat">Hapus</button>
-							<a href="{{ url('dasbor/penjadwalan') }}" class="btn btn-default btn-flat">Batal</a>
-						</div>
-          </form>
-			</div>
-          <!-- /.box-body -->
+      					<div class="form-group col-md-12">
+      						Hapus jadwal?
+      					</div>
+                <form action="{{ url('dasbor/penjadwalan/hapus') }}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="id_jadwal" value="{{ $id_jadwal }}" />
+      						<div class="col-md-2">
+      							<button type="submit" class="btn btn-danger btn-flat">Hapus</button>
+      							<a href="{{ url('dasbor/penjadwalan') }}" class="btn btn-default btn-flat">Batal</a>
+      						</div>
+                </form>
+      			</div>
+                <!-- /.box-body -->
         </div>
         <!-- /.box -->
       </section>

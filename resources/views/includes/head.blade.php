@@ -14,6 +14,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/dist/css/skins/_all-skins.min.css') }}">
+  @if (auth()->check() && auth()->user()->hasRole('admin'))<link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/plugins/datatables/dataTables.bootstrap.css') }}">@endif
 
   <script src="{{ asset('assets/AdminLTE-2.3.11/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
   <script src="{{ asset('assets/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -21,6 +22,8 @@
   <script src="{{ asset('assets/AdminLTE-2.3.11/plugins/fastclick/fastclick.js') }}"></script>
   <script src="{{ asset('assets/AdminLTE-2.3.11/dist/js/app.min.js') }}"></script>
   <script src="{{ asset('assets/AdminLTE-2.3.11/bootstrap/js/validator.min.js') }}"></script>
+  @if (auth()->check() && auth()->user()->hasRole('admin'))<script src="{{ asset('assets/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.js') }}"></script>@endif
+  @if (auth()->check() && auth()->user()->hasRole('admin'))<script src="{{ asset('assets/AdminLTE-2.3.11/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>@endif
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

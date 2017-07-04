@@ -39,6 +39,11 @@
           {{ session()->get('success') }}
         </div>
         @endif
+
+        <div class="callout callout-info">
+          <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+          {{ sistem('pengumuman') }}
+        </div>
         @foreach ($daftar_pengajar as $pengajar)
         <div class="box box-default">
             <div class="box-header with-border">
@@ -61,7 +66,7 @@
                     </form>
         					</div>
                   @if (!$penjadwalan_pengajar)
-                	<div class="form-group col-md-8">Penjadwalan pengajar sudah ditutup.</div>
+                	<div class="form-group col-md-8"><br />Penjadwalan pengajar sudah ditutup.</div>
                   @else
         					<div class="form-group col-md-8">
                     <form action="{{ url('dasbor/penjadwalan/tambah') }}" method="post">
@@ -123,8 +128,10 @@
             							</td>
             							<td>
                             @if ($penjadwalan_pengajar)
-            								<input type="submit" class="btn btn-primary btn-flat" value="Ubah">
-            								<a href="{{ url('dasbor/penjadwalan/hapus?id_jadwal='.$jadwal->id) }}" class="btn btn-danger btn-flat">Hapus</a>
+            								 <input type="submit" class="btn btn-primary btn-flat" value="Ubah">
+            								 <a href="{{ url('dasbor/penjadwalan/hapus?id_jadwal='.$jadwal->id) }}" class="btn btn-danger btn-flat">Hapus</a>
+                            @else
+                              Penjadwalan pengajar sudah ditutup.
                             @endif
             							</td>
                         </form>
