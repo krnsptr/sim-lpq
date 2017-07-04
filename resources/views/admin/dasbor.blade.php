@@ -55,74 +55,34 @@
                        <!-- Emphasis label -->
 
                        <!-- General tools such as edit or delete-->
-<<<<<<< HEAD
+
                      </li>
-=======
-
-                   </li>
-                   <li>
-                         <span class="handle">
-                           <i class="fa fa-ellipsis-v"></i>
-                           <i class="fa fa-ellipsis-v"></i>
-                         </span>
-                     <input type="checkbox" name="pendaftaran_santri" value="1" autocomplete="off"@if (sistem('pendaftaran_santri')) checked @endif></input>
-                     <span class="text">Pendaftaran santri</span>
->>>>>>> provider-sistem
-
                      <li>
                            <span class="handle">
                              <i class="fa fa-ellipsis-v"></i>
                              <i class="fa fa-ellipsis-v"></i>
                            </span>
-                       <input type="checkbox" value=""></input>
+                       <input type="checkbox" name="pendaftaran_santri" value="1" autocomplete="off"@if (sistem('pendaftaran_santri')) checked @endif></input>
                        <span class="text">Pendaftaran santri</span>
                      </li>
-
-<<<<<<< HEAD
                      <li>
-                       <span class="handle">
-                         <i class="fa fa-ellipsis-v"></i>
-                         <i class="fa fa-ellipsis-v"></i>
-                       </span>
-                       <input type="checkbox" value=""></input>
+                           <span class="handle">
+                             <i class="fa fa-ellipsis-v"></i>
+                             <i class="fa fa-ellipsis-v"></i>
+                           </span>
+                       <input type="checkbox" name="penjadwalan_pengajar" value="1" autocomplete="off"@if (sistem('penjadwalan_pengajar')) checked @endif></input>
                        <span class="text">Penjadwalan pengajar</span>
-                     </li>
 
+
+                     </li>
                      <li>
-                       <span class="handle">
-                         <i class="fa fa-ellipsis-v"></i>
-                         <i class="fa fa-ellipsis-v"></i>
-                       </span>
-                       <input type="checkbox" value=""></input>
+                           <span class="handle">
+                             <i class="fa fa-ellipsis-v"></i>
+                             <i class="fa fa-ellipsis-v"></i>
+                           </span>
+                       <input type="checkbox"  name="penjadwalan_santri" value="1" autocomplete="off"@if (sistem('penjadwalan_santri')) checked @endif></input>
                        <span class="text">Penjadwalan santri</span>
-                     </li>
-            </ul>
-        </div>
-             <!-- /.box-body -->
-       <div class="box-footer clearfix no-border">
-         <button type="button"></i>Ubah</button>
-       </div>
-      </div>
-=======
-                   </li>
-                   <li>
-                         <span class="handle">
-                           <i class="fa fa-ellipsis-v"></i>
-                           <i class="fa fa-ellipsis-v"></i>
-                         </span>
-                     <input type="checkbox" name="penjadwalan_pengajar" value="1" autocomplete="off"@if (sistem('penjadwalan_pengajar')) checked @endif></input>
-                     <span class="text">Penjadwalan pengajar</span>
-
-
-                   </li>
-                   <li>
-                         <span class="handle">
-                           <i class="fa fa-ellipsis-v"></i>
-                           <i class="fa fa-ellipsis-v"></i>
-                         </span>
-                     <input type="checkbox"  name="penjadwalan_santri" value="1" autocomplete="off"@if (sistem('penjadwalan_santri')) checked @endif></input>
-                     <span class="text">Penjadwalan santri</span>
-                  </li>
+                    </li>
 
 
           </ul>
