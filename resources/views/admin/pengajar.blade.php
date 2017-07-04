@@ -66,7 +66,6 @@
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-
   </section>
 
   <div class="modal fade" id="modal" role="dialog">
@@ -95,7 +94,6 @@
 
           </div>
   </div>
-
 
   <script>
     $.ajaxSetup({
@@ -230,7 +228,6 @@
           }
         });
     }
-
   </script>
-
+</div>
 @stop

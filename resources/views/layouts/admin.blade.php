@@ -9,10 +9,7 @@
 			@include('includes.headeradmin')
 		</header>
 		<div class="content-wrapper">
-
-			<div class="container">
 				@yield('content')
-			</div>
 			<!-- /.container -->
 		</div>
 	</div>

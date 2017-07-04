@@ -38,7 +38,6 @@
       </div>
       <div class="box-header with-border">
         <h4>Formulir</h4>
-
         <div class="form-group">
             <ul class="todo-list">
                      <li>
@@ -81,7 +80,7 @@
                        </span>
                        <input type="checkbox" value=""></input>
                        <span class="text">Penjadwalan santri</span>
-                    </li>
+                     </li>
             </ul>
         </div>
              <!-- /.box-body -->
