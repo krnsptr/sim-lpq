@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Input;
 use App\Pengajar;
 use App\Santri;
 use App\Jenis_program;
-use App\Sistem;
 use App\Pengguna;
 
 class ControllerMember extends Controller
@@ -31,8 +30,6 @@ class ControllerMember extends Controller
         $data['daftar_pengajar'] = $member->daftar_pengajar;
         $data['daftar_santri'] = $member->daftar_santri;
         $data['daftar_jenis_program'] = Jenis_program::all();
-        $data['pendaftaran_pengajar'] = Sistem::first()->pendaftaran_pengajar;
-        $data['pendaftaran_santri'] = Sistem::first()->pendaftaran_santri;
         return view('member.dasbor', $data);
     }
 
@@ -53,9 +50,26 @@ class ControllerMember extends Controller
         $tambah = Input::get('tambah');
 
         $data['keanggotaan'] = (int) substr($tambah, 0, 1);
-        $jenis_program = (int) substr($tambah, 1, 1);
-        $data['jenis_program'] = Jenis_program::find($jenis_program);
-        if(!$data['jenis_program']) return redirect('dasbor');
+        $id_jenis_program = (int) substr($tambah, 1, 1);
+        $data['jenis_program'] = Jenis_program::find($id_jenis_program);
+        if(!$data['jenis_program']) return redirect('dasbor')->with('error');
+
+        if($data['keanggotaan'] === 1) {
+          if(!sistem('pendaftaran_pengajar')) return redirect('dasbor')->with('error', 'Pendaftaran pengajar sudah ditutup');
+          $terdaftar = Pengajar::where('id_pengguna', '=', auth()->user()->id)->whereHas('jenjang.jenis_program',function ($query) use($id_jenis_program) {
+                $query->whereId($id_jenis_program);
+          })->count();
+          if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Pengajar '.$data['jenis_program']->nama);
+        }
+        elseif($data['keanggotaan'] === 2) {
+          if(!sistem('pendaftaran_santri')) return redirect('dasbor')->with('error', 'Pendaftaran santri sudah ditutup');
+          $terdaftar = Santri::where('id_pengguna', '=', auth()->user()->id)->whereHas('jenjang.jenis_program',function ($query) use($id_jenis_program) {
+                $query->whereId($id_jenis_program);
+          })->count();
+          if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Santri '.$data['jenis_program']->nama);
+        }
+
+
         return view('member.program-tambah', $data);
     }
 

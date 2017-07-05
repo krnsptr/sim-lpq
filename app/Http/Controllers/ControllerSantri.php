@@ -26,20 +26,24 @@ class ControllerSantri extends Controller
     {
         //cek status pendaftaran_santri dari sistem
 
-        $sudah_lulus = (int) Input::get('sudah_lulus');
+        $id_jenjang_lulus = (int) Input::get('sudah_lulus');
         $tahun_kbm_terakhir = (int) Input::get('tahun_kbm_terakhir');
         $semester_kbm_terakhir = Input::get('semester_kbm_terakhir');
 
-        //validasi jenjang_program_baru()
-        //validasi tahun
-        //validasi semester
+        $jenjang_lulus = Jenjang::find($sudah_lulus);
+        if(!$jenjang_lulus) return redirect('dasbor')->with('error');
 
-        $jenjang = Jenjang::find($sudah_lulus)->jenis_program->daftar_jenjang->first();
+        $jenis_program = $jenjang_lulus->jenis_program;
+        $terdaftar = Santri::where('id_pengguna', '=', auth()->user()->id)->whereHas('jenjang.jenis_program',function ($query) use($jenis_program) {
+              $query->whereId($jenis_program->id);
+        })->count();
+        if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Santri '.$jenis_program->nama);
+        $jenjang = $jenis_program->daftar_jenjang->first();
         $pengguna = auth()->user();
 
         $santriBaru = new Santri;
         $santriBaru->jenjang()->associate($jenjang);
-        $santriBaru->sudah_lulus()->associate($sudah_lulus);
+        $santriBaru->sudah_lulus()->associate($jenjang_lulus);
         $santriBaru->tahun_kbm_terakhir = $tahun_kbm_terakhir;
         $santriBaru->semester_kbm_terakhir = $semester_kbm_terakhir;
         $santriBaru->pengguna()->associate($pengguna);
@@ -58,21 +62,20 @@ class ControllerSantri extends Controller
      */
     public function simpan()
     {
-      $sudah_lulus = (int) Input::get('sudah_lulus');
-      $tahun_kbm_terakhir = (int) Input::get('tahun_kbm_terakhir');
+      $id_jenjang_lulus = (int) Input::get('sudah_lulus');
+      $tahun_kbm_terakhir = Input::get('tahun_kbm_terakhir');
       $semester_kbm_terakhir = Input::get('semester_kbm_terakhir');
       $id_santri = (int) Input::get('id_santri');
 
-      //validasi jenjang_program_edit()
-      //validasi tahun
-      //validasi semester
+      $sudah_lulus = Jenjang::find($id_jenjang_lulus);
 
       $pengguna = auth()->user();
       $santri = Santri::find($id_santri);
       if(!$santri) return response('Santri tidak ditemukan.', 404);
       if($pengguna->hasRole('member') && $pengguna != $santri->pengguna) return response('Tidak diizinkan.', 403);
 
-      $santri->sudah_lulus()->associate($sudah_lulus);
+      if($santri->jenjang->program == $sudah_lulus->program)
+        $santri->sudah_lulus()->associate($sudah_lulus);
       $santri->tahun_kbm_terakhir = $tahun_kbm_terakhir;
       $santri->semester_kbm_terakhir = $semester_kbm_terakhir;
 

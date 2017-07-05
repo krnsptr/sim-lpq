@@ -20,16 +20,9 @@
       <!-- Main content -->
       <section class="content">
         <div style="margin-top:10px">
-          @if (session()->has('error'))
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
-            {{ session()->get('error') }}
-          </div>
-          @endif
-
           <div class="callout callout-info">
             <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            {{ sistem('pengumuman') }}
           </div>
         </div>
 
@@ -117,7 +110,7 @@
                  <div class="form-group has-feedback">
                    <select class="form-control" name="tahun_kbm_terakhir">
                      <option value=""@if (is_null($santri->tahun_kbm_terakhir)) selected @endif>Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
-                      @for ($i=2017; $i>=2011; $i--)
+                      @for ($i=intval(date('Y')); $i>=2011; $i--)
                         <option value="{{ $i }}"@if ($santri->tahun_kbm_terakhir === $i) selected @endif>{{ $i }}</option>
                       @endfor
                    </select>

@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Laratrust\LaratrustServiceProvider::class,
+        App\Providers\ServiceProviderSistem::class
 
     ],
 

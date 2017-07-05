@@ -19,6 +19,12 @@
 
       <!-- Main content -->
       <section class="content">
+        <div style="margin-top:10px">
+          <div class="callout callout-info">
+            <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
+            {{ sistem('pengumuman') }}
+          </div>
+        </div>
       @if ($keanggotaan === 1)
          <div class="box box-default">
             <div class="box-header with-border">

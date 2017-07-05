@@ -56,7 +56,7 @@
                 @endif </td>
               <td>{{$santri->jenjang->Jenis_program->nama}}</td>
               <td>{{$santri->jenjang->nama}}</td>
-              
+              <td></td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
                 <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->

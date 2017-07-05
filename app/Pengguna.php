@@ -32,6 +32,11 @@ class Pengguna extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $casts = [
+        'jenis_kelamin' => 'boolean',
+        'mahasiswa_ipb' => 'boolean'
+    ];
+
     function daftar_pengajar() {
         return $this->hasMany('App\Pengajar', 'id_pengguna');
     }

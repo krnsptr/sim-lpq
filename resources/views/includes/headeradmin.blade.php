@@ -23,16 +23,16 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="{{ asset('img/default.png') }}" class="user-image" alt="User Image">
-                <span class="hidden-xs">Administrasi</span>
+                <img src="{{ asset('img/berteman.jpg') }}" class="user-image" alt="User Image">
+                <span class="hidden-xs">Administrator</span>
               </a>
               <ul class="dropdown-menu">
                 <li class="user-header">
-                  <img src="{{ asset('img/default.png') }}" class="img-circle" alt="User Image">
+                  <img src="{{ asset('img/berteman.jpg') }}" class="img-circle" alt="User Image">
 
                   <p>
-                    Administrasi
-                    <small>administrasi</small>
+                    Administrator
+                    <small>Muhammad Al Fatih</small>
                   </p>
                 </li>
                 <!-- Menu Footer-->
@@ -55,8 +55,7 @@
         </ul>
       </div>
     </nav>
-  </header>
-
+</header>
 
   <!-- =============================================== -->
   <!-- Left side column. contains the sidebar -->
@@ -66,26 +65,23 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('img/default.png') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset('img/berteman.jpg') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Administrasi</p>
-          administrasi
+          <p>Administrator</p>
+          Muhammad Al Fatih
         </div>
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href="{{url('admin/dasbor')}}"><span>Dasbor</span></a></li>
+        <li><a href="{{url('admin/')}}"><span>Dasbor</span></a></li>
         <li><a href="{{url('admin/anggota')}}"><span>Anggota</span></a></li>
         <li><a href="{{url('admin/santri')}}"><span>Santri</span></a></li>
         <li><a href="{{url('admin/pengajar')}}"><span>Pengajar</span></a></li>
         <li><a href="{{url('admin/kelompok')}}"><span>Kelompok</span></a></li>
-        <li><a href="{{url('admin/spp')}}"><span>spp</span></a></li>
+        <li><a href="{{url('admin/spp')}}"><span>SPP</span></a></li>
         <li><a href="{{url('admin/download')}}"><span>Download</span></a></li>
       </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
-
-
-<!-- =============================================== -->
