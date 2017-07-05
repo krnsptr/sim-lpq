@@ -88,12 +88,9 @@
           </ul>
         </div>
              <!-- /.box-body -->
-             <div class="box-footer clearfix no-border">
-               <button type="submit" class="btn btn-primary"></i>Ubah</button>
-             </div>
-
-
->>>>>>> provider-sistem
+        <div class="box-footer clearfix no-border">
+           <button type="submit" class="btn btn-primary"></i>Ubah</button>
+       </div>
   </div>
 </div>
 @stop
