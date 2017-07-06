@@ -19,11 +19,14 @@
       <!-- Main content -->
       <section class="content">
         <div style="margin-top:10px">
-          @if (session()->has('error'))
+          @if (session()->has('error') || $errors->any())
           <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
             {{ session()->get('error') }}
+            @foreach ($errors->all() as $message)
+              {{ $message }}<br />
+            @endforeach
           </div>
           @endif
           @if (session()->has('warning'))
@@ -51,6 +54,8 @@
             	<h4>Edit Data</h4>
             </div>
       			<div class="box-body">
+              <form action="{{ url('dasbor/akun/edit') }}" method="post">
+                {{ csrf_field() }}
       					<div class="col-md-6">
       						<div class="row" style="margin:10px 10px 10px 10px">
       							<div class="form-group has-feedback">
@@ -97,7 +102,7 @@
       						<div class="row" style="margin:10px 10px 10px 10px">
       							<div class="form-group has-feedback">
       								<label class="control-group">Nomor Identitas</label>
-      								<input type="text" name="nomor_id" class="form-control" placeholder="NIM / NIP / KTP / SIM / KK / ..." value="{{ $member->nomor_identitas }}" data-required-error="Nomor Identitas wajib diisi." required>
+      								<input type="text" name="nomor_identitas" class="form-control" placeholder="NIM / NIP / KTP / SIM / KK / ..." value="{{ $member->nomor_identitas }}" data-required-error="Nomor Identitas wajib diisi." required>
       								<span class="glyphicon glyphicon- form-control-feedback"></span>
       								<div class="help-block with-errors"></div>
       							</div>
@@ -128,7 +133,7 @@
       							</div>
       						</div>
       					</div>
-
+              </form>
       			</div>
                 <!-- /.box-body -->
               </div>

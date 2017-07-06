@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Validator;
 use App\Pengajar;
 use App\Santri;
 use App\Jenis_program;
@@ -132,6 +133,24 @@ class ControllerMember extends Controller
     }
 
     /**
+     * Melakukan validasi member
+     */
+    protected function validator(array $data, int $id = NULL)
+    {
+        return Validator::make($data, [
+            'nama_lengkap' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:pengguna,email,'.$id,
+            'username' => 'required|min:4|max:16|regex:/[a-z_0-9]{4,16}/|unique:pengguna,username,'.$id,
+            'password' => 'sometimes|min:6|confirmed',
+            'jenis_kelamin' => 'required|boolean',
+            'mahasiswa_ipb' => 'required|boolean',
+            'nomor_identitas' => 'required|min:9|max:255|unique:pengguna,nomor_identitas,'.$id,
+            'nomor_hp' => 'required|min:8|max:13|regex:/08[0-9]{6,11}/|unique:pengguna,nomor_hp,'.$id,
+            'nomor_wa' => 'nullable|min:8|max:13',
+        ]);
+    }
+
+    /**
      * Memproses penambahan akun dari admin
      */
     public function tambah()
@@ -153,6 +172,21 @@ class ControllerMember extends Controller
      */
     public function simpan()
     {
+      $member = (auth()->user()->hasRole('admin')) ? Pengguna::find(Input::get('id_anggota')) : auth()->user();
+
+      $input = Input::only([
+        'nama_lengkap', 'email', 'username', 'jenis_kelamin',
+        'mahasiswa_ipb', 'nomor_identitas', 'nomor_hp', 'nomor_wa'
+      ]);
+
+      $validator = $this->validator($input, $member->id);
+
+      if($validator->passes()) {
+          if($member->fill($input)->update()) return redirect('dasbor/akun')->with('success', 'Perubahan akun berhasil disimpan.');
+          else return redirect('dasbor/akun')->with('success', 'Perubahan akun gagal disimpan.');
+      }
+
+      else return redirect('dasbor/akun')->withErrors($validator);
         //
         //if(Auth::user()->hasRole('admin'));
         //else;
