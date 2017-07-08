@@ -52,15 +52,15 @@
               </tr>
             </tfoot>
             <tbody>
-              @foreach ($daftar_santri as $santri)          
-              @if($santri->id_jenjang !=1)
+              @foreach ($daftar_santri as $santri)
+              @if(($santri->id_jenjang !=1) && ($santri->id_jenjang !=5) && ($santri->id_jenjang !=8 ))
               <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$santri->pengguna->nama_lengkap}}</td>
                 <td>@if($santri->pengguna->jenis_kelamin){{"laki-laki"}}
                   @else {{"perempuan"}}
                   @endif </td>
-                <td>{{$santri->jenjang->Jenis_program->nama}}</td>              
+                <td>{{$santri->jenjang->Jenis_program->nama}}</td>
                 <td>{{$santri->jenjang->nama}}</td>
                 <td>@if ($santri->spp_lunas==1){{"Lunas"}} @else {{"Belum Lunas"}}
                 @endif </td>

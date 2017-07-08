@@ -19,7 +19,7 @@ class ControllerSPP extends Controller
           return view('admin.spp', $data);
         }
         else {
-          $data['daftar_santri']=santri::all();
+          $data['daftar_santri']= auth()->user()->daftar_santri;
           return view('member.spp', $data);
         }
     }
