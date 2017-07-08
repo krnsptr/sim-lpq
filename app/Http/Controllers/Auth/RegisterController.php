@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'mahasiswa_ipb' => 'required|boolean',
             'nomor_identitas' => 'required|min:9|max:255|unique:pengguna',
             'nomor_hp' => 'required|min:8|max:13|regex:/08[0-9]{6,11}/|unique:pengguna',
-            'nomor_wa' => 'nullable|min:8|max:13',
+            'nomor_wa' => 'nullable|min:8|max:13|regex:/08[0-9]{6,11}/',
         ]);
     }
 
