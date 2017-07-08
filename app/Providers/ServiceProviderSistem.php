@@ -23,7 +23,7 @@ class ServiceProviderSistem extends ServiceProvider
     {
         $this->app->singleton(Sistem::class, function ($app) {
             //return $app['cache']->remember('site.sistem', 1, function () {
-               // return Sistem::first()->toArray();
+                return Sistem::first()->toArray();
             //});
         });
     }
