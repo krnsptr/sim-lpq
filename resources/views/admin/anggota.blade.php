@@ -28,6 +28,7 @@
                <th>No.</th>
                <th>Nama Lengkap</th>
                <th>Jenis Kelamin</th>
+               <th>Mahasiswa IPB</th>
                <th>Nomor Identitas</th>
                <th>Nomor HP</th>
                <th>Nomor WA</th>
@@ -38,12 +39,11 @@
            </thead>
            <tbody>
             @foreach ($daftar_anggota as $anggota)
-            <tr data-id-anggota="{{ $anggota->id }}" data-jenis-kelamin="{{ $anggota->jenis_kelamin }}">
+            <tr data-id-anggota="{{ $anggota->id }}" data-jenis-kelamin="{{ intval($anggota->jenis_kelamin) }}" data-mahasiswa-ipb="{{ intval($anggota->mahasiswa_ipb) }}">
               <td></td>
               <td>{{ $anggota->nama_lengkap}}</td>
-              <td>@if($anggota->jenis_kelamin){{"laki-laki"}}
-                @else {{"perempuan"}}
-                @endif </td>
+              <td>@if($anggota->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
+              <td>@if($anggota->mahasiswa_ipb) Ya @else Bukan @endif</td>
               <td>{{ $anggota->nomor_identitas}}</td>
               <td>{{ $anggota->nomor_hp}}</td>
               <td>{{ $anggota->nomor_hp}}</td>
@@ -54,6 +54,7 @@
                 <button class="btn btn-sm btn-success simpan hidden" onclick="simpan();">Simpan</button>
                 <button class="btn btn-sm btn-danger batal hidden" onclick="batal();">Batal</button>
                 <button class="btn btn-sm btn-warning password" onclick="password(this)">Password</button>
+                <button class="btn btn-sm btn-danger hapus" onclick="hapus(this);">Hapus</button>
               </td>
             </tr>
             @endforeach
@@ -67,9 +68,13 @@
 
    </section>
 
-   <select id="jk">
-     <option value="0">Laki-Laki</option>
-     <option value="1">Perempuan</option>
+   <select id="jk" autocomplete="off">
+     <option value="1">Laki-Laki</option>
+     <option value="0">Perempuan</option>
+   </select>
+   <select id="mi" autocomplete="off">
+     <option value="1">Ya</option>
+     <option value="0">Bukan</option>
    </select>
 
    <div class="modal fade" id="modal" role="dialog">
@@ -99,6 +104,9 @@
      $.ajaxSetup({
          type:"post",
          cache:false,
+         headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
        });
      $(document).ajaxStart(function ()
      {
@@ -150,7 +158,7 @@
        var tr, id_anggota, row, inputs;
        function td(n) { return tr.children(':nth-child('+(n+1)+')'); }
        function inputText(id, value, maxlength) {return '<input type="text" id="'+id+'" value="'+value+'" maxlength="'+ maxlength +'" />';}
-       $('#jk').hide();
+       $('#jk, #mi').hide();
 
        function edit(pointer) {
          tr = $(pointer).parent().parent();
@@ -161,17 +169,19 @@
          td(1).html(inputText('nama_lengkap', row[1], 64));
          td(2).html($('#jk').clone().show().prop('id', 'jenis_kelamin').prop('outerHTML'));
          $('#jenis_kelamin').val(tr.attr('data-jenis-kelamin')).change();
-         td(3).html(inputText('nomor_id', row[3], 32));
-         td(4).html(inputText('nomor_hp', row[4], 13));
-         td(5).html(inputText('nomor_wa', row[5], 13));
-         td(6).html(inputText('email', row[6], 64));
-         td(7).html(inputText('username', row[7], 16));
+         td(3).html($('#mi').clone().show().prop('id', 'mahasiswa_ipb').prop('outerHTML'));
+         $('#mahasiswa_ipb').val(tr.attr('data-mahasiswa-ipb')).change();
+         td(4).html(inputText('nomor_identitas', row[4], 32));
+         td(5).html(inputText('nomor_hp', row[5], 13));
+         td(6).html(inputText('nomor_wa', row[6], 13));
+         td(7).html(inputText('email', row[7], 64));
+         td(8).html(inputText('username', row[8], 16));
          $('.edit, .password').addClass('hidden');
          $('.simpan, .batal', tr).removeClass('hidden');
        }
 
        function batal(){
-         for(i=1; i<=7; i++) td(i).html(row[i]);
+         for(i=1; i<=8; i++) td(i).html(row[i]);
          $('.edit, .password').removeClass('hidden');
          $('.simpan, .batal', tr).addClass('hidden');
        }
@@ -189,20 +199,22 @@
 
          $.ajax({
              data: obj,
-             url: '',
+             url: '{{ url('admin/anggota/edit') }}',
              success: function(){
                alert('berhasil');
-               for(i=1; i<=7; i++) td(i).html((i==2) ? $('option:selected', inputs.eq(i-1)).text() : inputs.eq(i-1).val());
+               for(i=1; i<=8; i++) td(i).html((i==2 || i==3) ? $('option:selected', inputs.eq(i-1)).text() : inputs.eq(i-1).val());
                $('.edit, .password').removeClass('hidden');
                $('.simpan, .batal', tr).addClass('hidden');
                tr.attr('data-jenis-kelamin',inputs.eq(1).val());
+               tr.attr('data-mahasiswa-ipb',inputs.eq(2).val());
                myTable.row(tr).invalidate();
              },
              error: function(){
                alert('gagal');
+               console.log(obj);
                batal();
              }
-           });
+           })
        }
 
        function password(pointer) {
@@ -213,8 +225,8 @@
 
        function ganti() {
        $.ajax({
-           data: {id_anggota: $('#id_anggota').val(), password_baru: $('#password_baru').val()},
-           url: "",
+           data: {id_anggota: $('#id_anggota').val(), password: $('#password_baru').val()},
+           url: '{{ url('admin/anggota/password') }}',
            success: function(){
              alert('berhasil');
              $('#modal').modal('hide');
@@ -223,7 +235,25 @@
              alert('gagal');
            }
          });
-     }
+       }
+
+       function hapus(pointer){
+       var tr = $(pointer).parent().parent();
+       var button = pointer;
+       if(confirm('Anda yakin?')) {
+         $.ajax({
+             data: {id_anggota: tr.attr('data-id-anggota')},
+             url: '{{ url('admin/anggota/hapus') }}',
+             success: function(){
+               alert('berhasil');
+               myTable.row(tr).remove().draw();
+             },
+             error: function(){
+               alert('gagal');
+             }
+           });
+         }
+       }
    </script>
 
 
