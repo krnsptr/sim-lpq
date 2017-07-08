@@ -34,6 +34,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
 
     Route::get('/akun', 'ControllerMember@edit');
     Route::post('/akun/edit', 'ControllerMember@simpan');
+    Route::post('/akun/password', 'ControllerMember@password_simpan');
 
     Route::post('/program/tambah', 'ControllerMember@program_baru');
     Route::post('/program/tambah/pengajar', 'ControllerPengajar@tambah');
@@ -71,6 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/anggota/tambah', 'ControllerMember@tambah');
     Route::post('/anggota/edit', 'ControllerMember@simpan');
     Route::post('/anggota/hapus', 'ControllerMember@hapus');
+    Route::post('/anggota/password', 'ControllerMember@password_simpan');
 
     Route::get('/pengajar', 'ControllerPengajar@index');
     Route::post('/pengajar/tambah', 'ControllerPengajar@tambah');

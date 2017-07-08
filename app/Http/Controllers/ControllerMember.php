@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use Hash;
 use App\Pengajar;
 use App\Santri;
 use App\Jenis_program;
@@ -27,9 +28,9 @@ class ControllerMember extends Controller
      */
     public function index()
     {
-        $member = auth()->user();
-        $data['daftar_pengajar'] = $member->daftar_pengajar;
-        $data['daftar_santri'] = $member->daftar_santri;
+        $pengguna = auth()->user();
+        $data['daftar_pengajar'] = $pengguna->daftar_pengajar;
+        $data['daftar_santri'] = $pengguna->daftar_santri;
         $data['daftar_jenis_program'] = Jenis_program::all();
         return view('member.dasbor', $data);
     }
@@ -133,21 +134,20 @@ class ControllerMember extends Controller
     }
 
     /**
-     * Melakukan validasi member
+     * Memberikan rule untuk validasi akun
      */
-    protected function validator(array $data, int $id = NULL)
+    protected function rule(int $id = NULL)
     {
-        return Validator::make($data, [
+        return [
             'nama_lengkap' => 'required|max:255',
             'email' => 'required|email|max:255|unique:pengguna,email,'.$id,
             'username' => 'required|min:4|max:16|regex:/[a-z_0-9]{4,16}/|unique:pengguna,username,'.$id,
-            'password' => 'sometimes|min:6|confirmed',
             'jenis_kelamin' => 'required|boolean',
             'mahasiswa_ipb' => 'required|boolean',
             'nomor_identitas' => 'required|min:9|max:255|unique:pengguna,nomor_identitas,'.$id,
             'nomor_hp' => 'required|min:8|max:13|regex:/08[0-9]{6,11}/|unique:pengguna,nomor_hp,'.$id,
-            'nomor_wa' => 'nullable|min:8|max:13',
-        ]);
+            'nomor_wa' => 'nullable|min:8|max:13|regex:/08[0-9]{6,11}/',
+        ];
     }
 
     /**
@@ -172,24 +172,59 @@ class ControllerMember extends Controller
      */
     public function simpan()
     {
-      $member = (auth()->user()->hasRole('admin')) ? Pengguna::find(Input::get('id_anggota')) : auth()->user();
+      $pengguna = (auth()->user()->hasRole('admin')) ? Pengguna::find(Input::get('id_anggota')) : auth()->user();
 
       $input = Input::only([
         'nama_lengkap', 'email', 'username', 'jenis_kelamin',
         'mahasiswa_ipb', 'nomor_identitas', 'nomor_hp', 'nomor_wa'
       ]);
 
-      $validator = $this->validator($input, $member->id);
+      $validator = Validator::make($input, $this->rule($pengguna->id));
 
       if($validator->passes()) {
-          if($member->fill($input)->update()) return redirect('dasbor/akun')->with('success', 'Perubahan akun berhasil disimpan.');
-          else return redirect('dasbor/akun')->with('success', 'Perubahan akun gagal disimpan.');
+          if($pengguna->fill($input)->update()) {
+            if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+            else return redirect('dasbor/akun')->with('success', 'Perubahan akun berhasil disimpan.');
+          }
+          return redirect('dasbor/akun')->with('error', 'Perubahan akun gagal disimpan.');
       }
 
       else return redirect('dasbor/akun')->withErrors($validator);
-        //
-        //if(Auth::user()->hasRole('admin'));
-        //else;
+    }
+
+    /**
+     * Memproses pengeditan password akun dari member dan admin
+     */
+    public function password_simpan()
+    {
+      $input = Input::only([
+        'password', 'password_confirmation', 'password_lama'
+      ]);
+
+      if(auth()->user()->hasRole('admin')) {
+        $pengguna = Pengguna::find(Input::get('id_anggota'));
+        $rule = ['password' => 'required|min:6'];
+      }
+
+      else {
+        $pengguna = auth()->user();
+        $rule = ['password' => 'required|min:6|confirmed'];
+        if(!Hash::check($input['password_lama'], $pengguna->password))
+          return redirect('dasbor/akun')->with('error', 'Password lama tidak cocok');
+      }
+
+      $validator = Validator::make($input, $rule);
+
+      if($validator->passes()) {
+          $pengguna->password = Hash::make($input['password']);
+          if($pengguna->save()) {
+            if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+            else return redirect('dasbor/akun')->with('success', 'Perubahan password berhasil disimpan.');
+          }
+          return redirect('dasbor/akun')->with('error', 'Perubahan password gagal disimpan.');
+      }
+
+      else return redirect('dasbor/akun')->withErrors($validator);
     }
 
     /**
@@ -197,6 +232,9 @@ class ControllerMember extends Controller
      */
     public function hapus()
     {
-        //
+        $pengguna = Pengguna::find(Input::get('id_anggota'));
+        if(!$pengguna) return abort(404);
+        if($pengguna->id != 1 && $pengguna->delete()) return 'Berhasil.';
+        else return abort(403);
     }
 }

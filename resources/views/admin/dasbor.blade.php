@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -92,6 +92,7 @@
       <div class="box-header with-border">
         <h4>Pengaturan</h4>
       </div>
+      <form action="{{ url('admin/pengaturan/edit') }}" method="post">
       <div class="box-body">
         <div class="form-group">
         <h5>Pengumuman</h5>
@@ -99,17 +100,13 @@
         </div>
         <h5>Formulir</h5>
 
+
+          {{ csrf_field() }}
         <div class="form-group">
             <ul class="todo-list">
                      <li>
-                       <!-- checkbox -->
                        <input type="checkbox" name="pendaftaran_pengajar" value="1" autocomplete="off"@if (sistem('pendaftaran_pengajar')) checked @endif></input>
-                       <!-- todo text -->
                        <span class="text">Pendaftaran pengajar</span>
-                       <!-- Emphasis label -->
-
-                       <!-- General tools such as edit or delete-->
-
                      </li>
                      <li>
                        <input type="checkbox" name="pendaftaran_santri" value="1" autocomplete="off"@if (sistem('pendaftaran_santri')) checked @endif></input>
@@ -118,8 +115,6 @@
                      <li>
                        <input type="checkbox" name="penjadwalan_pengajar" value="1" autocomplete="off"@if (sistem('penjadwalan_pengajar')) checked @endif></input>
                        <span class="text">Penjadwalan pengajar</span>
-
-
                      </li>
                      <li>
                        <input type="checkbox"  name="penjadwalan_santri" value="1" autocomplete="off"@if (sistem('penjadwalan_santri')) checked @endif></input>
@@ -129,10 +124,11 @@
 
           </ul>
         </div>
-             <!-- /.box-body -->
+
         <div class="box-footer clearfix no-border">
-           <button type="submit" class="btn btn-primary"></i>Ubah</button>
+           <button type="submit" class="btn btn-primary" ></i>Ubah</button>
        </div>
+       </form>
   </div>
 </div>
 @stop
