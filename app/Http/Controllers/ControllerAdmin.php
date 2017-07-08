@@ -31,21 +31,25 @@ class ControllerAdmin extends Controller
    */
   public function pengaturan_simpan()
   {
-      $pendaftaran_pengajar = Input::get('pendaftaran_pengajar');
-      $pendaftaran_santri = Input::get('pendaftaran_santri');
-      $penjadwalan_pengajar = Input::get('penjadwalan_pengajar');
-      $penjadwalan_santri = Input::get('penjadwalan_santri');
+      $pengumuman = Input::get('pengumuman');
+      $pendaftaran_pengajar = (int)Input::get('pendaftaran_pengajar');
+      $pendaftaran_santri = (int)Input::get('pendaftaran_santri');
+      $penjadwalan_pengajar = (int)Input::get('penjadwalan_pengajar');
+      $penjadwalan_santri = (int)Input::get('penjadwalan_santri');
       $system=Sistem::first();
-      $system->pendaftaran_pengajar->$pendaftaran_pengajar;
-      $system->pendaftaran_santri->$pendaftaran_santri;
-      $system->penjadwalan_pengajar->$penjadwalan_pengajar;
-      $system->penjadwalan_santri->$penjadwalan_santri;
+      $system->pengumuman=$pengumuman;
+      $system->pendaftaran_pengajar=$pendaftaran_pengajar;
+      $system->pendaftaran_santri=$pendaftaran_santri;
+      $system->penjadwalan_pengajar=$penjadwalan_pengajar;
+      $system->penjadwalan_santri=$penjadwalan_santri;
+
+
 
 
       if($system->save()) session()->flash('success', 'Jadwal berhasil disimpan');
       else session()->flash('error', 'Jadwal gagal disimpan');
 
-      return redirect('dasbor/penjadwalan');
+      return redirect('admin/');
   }
 
   /**

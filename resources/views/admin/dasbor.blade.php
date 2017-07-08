@@ -96,6 +96,7 @@
       <div class="box-header with-border">
         <h4>Pengaturan</h4>
       </div>
+      <form action="{{ url('admin/pengaturan/edit') }}" method="post">
       <div class="box-body">
         <div class="form-group">
         <h5>Pengumuman</h5>
@@ -103,33 +104,33 @@
         </div>
         <h5>Formulir</h5>
 
-      <form action="{{ url('admin/pengaturan/edit') }}" method="post">
+
           {{ csrf_field() }}
         <div class="form-group">
             <ul class="todo-list">
 
                      <li>
 
-                       <input type="checkbox" name="pendaftaran_pengajar" value="True" autocomplete="off"@if (sistem('pendaftaran_pengajar')) checked @endif></input>
+                       <input type="checkbox" name="pendaftaran_pengajar" value="1" autocomplete="off"@if (sistem('pendaftaran_pengajar')) checked @endif></input>
 
                        <span class="text">Pendaftaran pengajar</span>
 
                      </li>
                      <li>
 
-                       <input type="checkbox" name="pendaftaran_santri" value="True" autocomplete="off"@if (sistem('pendaftaran_santri')) checked @endif></input>
+                       <input type="checkbox" name="pendaftaran_santri" value="1" autocomplete="off"@if (sistem('pendaftaran_santri')) checked @endif></input>
                        <span class="text">Pendaftaran santri</span>
                      </li>
                      <li>
 
-                       <input type="checkbox" name="penjadwalan_pengajar" value="True" autocomplete="off"@if (sistem('penjadwalan_pengajar')) checked @endif></input>
+                       <input type="checkbox" name="penjadwalan_pengajar" value="1" autocomplete="off"@if (sistem('penjadwalan_pengajar')) checked @endif></input>
                        <span class="text">Penjadwalan pengajar</span>
 
 
                      </li>
                      <li>
 
-                       <input type="checkbox"  name="penjadwalan_santri" value="True" autocomplete="off"@if (sistem('penjadwalan_santri')) checked @endif></input>
+                       <input type="checkbox"  name="penjadwalan_santri" value="1" autocomplete="off"@if (sistem('penjadwalan_santri')) checked @endif></input>
                        <span class="text">Penjadwalan santri</span>
                     </li>
 
