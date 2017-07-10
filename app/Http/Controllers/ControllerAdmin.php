@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sistem;
+use App\Santri;
+use App\Pengajar;
 use Illuminate\Support\Facades\Input;
 
 class ControllerAdmin extends Controller
@@ -23,7 +25,10 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      return view('admin.dasbor');
+      $data['santri'] = Santri::all()->count();
+      $data['pengajar'] = Pengajar::all()->count();
+
+      return view('admin.dasbor', $data);
   }
 
   /**
