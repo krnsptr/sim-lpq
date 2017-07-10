@@ -29,5 +29,75 @@ class SeederSantri extends Seeder
       $santri->jenjang()->associate($belum_dites);
       $santri->pengguna()->associate($santri2);
       $santri->save();
+
+      $santri3 = Pengguna::where('username', 'santri3')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 0;
+      $santri->jenjang()->associate(3);
+      $santri->pengguna()->associate($santri3);
+      $santri->save();
+
+      $santri4 = Pengguna::where('username', 'santri4')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 1;
+      $santri->jenjang()->associate(2);
+      $santri->pengguna()->associate($santri4);
+      $santri->save();
+
+      $santri5 = Pengguna::where('username', 'santri5')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 0;
+      $santri->jenjang()->associate(3);
+      $santri->pengguna()->associate($santri5);
+      $santri->save();
+
+      $santri6 = Pengguna::where('username', 'santri6')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 1;
+      $santri->jenjang()->associate(1);
+      $santri->pengguna()->associate($santri6);
+      $santri->save();
+
+      $santri7 = Pengguna::where('username', 'santri7')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 0;
+      $santri->jenjang()->associate(3);
+      $santri->pengguna()->associate($santri7);
+      $santri->save();
+
+      $santri8 = Pengguna::where('username', 'santri8')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 1;
+      $santri->jenjang()->associate(1);
+      $santri->save();
+      $santri->pengguna()->associate($santri8);
+
+      $santri9 = Pengguna::where('username', 'santri9')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 0;
+      $santri->jenjang()->associate(1);
+      $santri->pengguna()->associate($santri9);
+      $santri->save();
+
+      $santri10 = Pengguna::where('username', 'santri10')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 0;
+      $santri->jenjang()->associate(2);
+      $santri->pengguna()->associate($santri10);
+      $santri->save();
+
+      $santri11 = Pengguna::where('username', 'santri11')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 1;
+      $santri->jenjang()->associate(3);
+      $santri->pengguna()->associate($santri7);
+      $santri->save();
+
+      $santri12 = Pengguna::where('username', 'santri12')->first();
+      $santri = new Santri();
+      $santri->spp_lunas = 1;
+      $santri->jenjang()->associate(2);
+      $santri->pengguna()->associate($santri7);
+      $santri->save();
     }
 }
