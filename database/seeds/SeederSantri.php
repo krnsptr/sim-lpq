@@ -69,8 +69,8 @@ class SeederSantri extends Seeder
       $santri = new Santri();
       $santri->spp_lunas = 1;
       $santri->jenjang()->associate(1);
-      $santri->save();
       $santri->pengguna()->associate($santri8);
+      $santri->save();
 
       $santri9 = Pengguna::where('username', 'santri9')->first();
       $santri = new Santri();
@@ -90,14 +90,14 @@ class SeederSantri extends Seeder
       $santri = new Santri();
       $santri->spp_lunas = 1;
       $santri->jenjang()->associate(3);
-      $santri->pengguna()->associate($santri7);
+      $santri->pengguna()->associate($santri11);
       $santri->save();
 
       $santri12 = Pengguna::where('username', 'santri12')->first();
       $santri = new Santri();
       $santri->spp_lunas = 1;
       $santri->jenjang()->associate(2);
-      $santri->pengguna()->associate($santri7);
+      $santri->pengguna()->associate($santri12);
       $santri->save();
     }
 }
