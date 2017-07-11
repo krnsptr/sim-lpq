@@ -53,6 +53,46 @@ class SeederPengguna extends Seeder
 
       // Membuat sample member
       $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 3 (L)';
+      $member->email = 'pengajar3@gmail.com';
+      $member->username = 'pengajar3';
+      $member->password = bcrypt('pengajar3');
+      $member->jenis_kelamin = 1;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar003';
+      $member->nomor_hp = '089900000003';
+      $member->save();
+      $member->attachRole($memberRole);
+
+      // Membuat sample member
+      $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 4 (L)';
+      $member->email = 'pengajar4@gmail.com';
+      $member->username = 'pengajar4';
+      $member->password = bcrypt('pengajar4');
+      $member->jenis_kelamin = 1;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar004';
+      $member->nomor_hp = '089900000004';
+      $member->save();
+      $member->attachRole($memberRole);
+
+
+      // Membuat sample member
+      $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 5 (L)';
+      $member->email = 'pengajar5@gmail.com';
+      $member->username = 'pengajar5';
+      $member->password = bcrypt('pengajar5');
+      $member->jenis_kelamin = 1;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar005';
+      $member->nomor_hp = '089900000005';
+      $member->save();
+      $member->attachRole($memberRole);
+
+      // Membuat sample member
+      $member = new Pengguna();
       $member->nama_lengkap = 'Pengajar 2 (P)';
       $member->email = 'pengajar2@gmail.com';
       $member->username = 'pengajar2';
@@ -61,6 +101,60 @@ class SeederPengguna extends Seeder
       $member->mahasiswa_ipb = 1;
       $member->nomor_identitas = 'pengajar002';
       $member->nomor_hp = '089900000002';
+      $member->save();
+      $member->attachRole($memberRole);
+
+
+      // Membuat sample member
+      $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 6 (P)';
+      $member->email = 'pengajar6@gmail.com';
+      $member->username = 'pengajar6';
+      $member->password = bcrypt('pengajar6');
+      $member->jenis_kelamin = 0;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar006';
+      $member->nomor_hp = '089900000006';
+      $member->save();
+      $member->attachRole($memberRole);
+
+      // Membuat sample member
+      $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 7 (P)';
+      $member->email = 'pengajar7@gmail.com';
+      $member->username = 'pengajar7';
+      $member->password = bcrypt('pengajar7');
+      $member->jenis_kelamin = 0;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar007';
+      $member->nomor_hp = '089900000007';
+      $member->save();
+      $member->attachRole($memberRole);
+
+
+      // Membuat sample member
+      $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 8 (P)';
+      $member->email = 'pengajar8@gmail.com';
+      $member->username = 'pengajar8';
+      $member->password = bcrypt('pengajar8');
+      $member->jenis_kelamin = 0;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar008';
+      $member->nomor_hp = '089900000008';
+      $member->save();
+      $member->attachRole($memberRole);
+
+      // Membuat sample member
+      $member = new Pengguna();
+      $member->nama_lengkap = 'Pengajar 9 (P)';
+      $member->email = 'pengajar9@gmail.com';
+      $member->username = 'pengajar9';
+      $member->password = bcrypt('pengajar9');
+      $member->jenis_kelamin = 0;
+      $member->mahasiswa_ipb = 1;
+      $member->nomor_identitas = 'pengajar009';
+      $member->nomor_hp = '089900000009';
       $member->save();
       $member->attachRole($memberRole);
 
@@ -76,6 +170,7 @@ class SeederPengguna extends Seeder
       $member->nomor_hp = '085500000001';
       $member->save();
       $member->attachRole($memberRole);
+
 
       // Membuat sample member
       $member = new Pengguna();
@@ -184,8 +279,8 @@ class SeederPengguna extends Seeder
       $member->mahasiswa_ipb = 1;
       $member->nomor_identitas = 'santri010';
       $member->nomor_hp = '085500000010';
-      $member->attachRole($memberRole);
       $member->save();
+      $member->attachRole($memberRole);
 
       $member = new Pengguna();
       $member->nama_lengkap = 'Santri 11 (P)';
@@ -196,8 +291,8 @@ class SeederPengguna extends Seeder
       $member->mahasiswa_ipb = 1;
       $member->nomor_identitas = 'santri011';
       $member->nomor_hp = '085500000011';
-      $member->attachRole($memberRole);
       $member->save();
+      $member->attachRole($memberRole);
 
       $member = new Pengguna();
       $member->nama_lengkap = 'Santri 12 (P)';
