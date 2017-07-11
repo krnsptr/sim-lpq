@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sistem;
+use App\Santri;
+use App\Pengajar;
+use Illuminate\Support\Facades\Input;
 
 class ControllerAdmin extends Controller
 {
@@ -22,7 +25,10 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      return view('admin.dasbor');
+      $data['santri'] = Santri::all()->count();
+      $data['pengajar'] = Pengajar::all()->count();
+
+      return view('admin.dasbor', $data);
   }
 
   /**
@@ -30,7 +36,25 @@ class ControllerAdmin extends Controller
    */
   public function pengaturan_simpan()
   {
-      //
+      $pengumuman = Input::get('pengumuman');
+      $pendaftaran_pengajar = (int)Input::get('pendaftaran_pengajar');
+      $pendaftaran_santri = (int)Input::get('pendaftaran_santri');
+      $penjadwalan_pengajar = (int)Input::get('penjadwalan_pengajar');
+      $penjadwalan_santri = (int)Input::get('penjadwalan_santri');
+      $system=Sistem::first();
+      $system->pengumuman=$pengumuman;
+      $system->pendaftaran_pengajar=$pendaftaran_pengajar;
+      $system->pendaftaran_santri=$pendaftaran_santri;
+      $system->penjadwalan_pengajar=$penjadwalan_pengajar;
+      $system->penjadwalan_santri=$penjadwalan_santri;
+
+
+
+
+      if($system->save()) session()->flash('success', 'Jadwal berhasil disimpan');
+      else session()->flash('error', 'Jadwal gagal disimpan');
+
+      return redirect('admin/');
   }
 
   /**

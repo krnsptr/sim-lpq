@@ -34,30 +34,28 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{$santri}}</h3>
 
-              <p>New Orders</p>
+              <p>Jumlah Santri</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        
+
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>{{$pengajar}}</h3>
 
-              <p>Bounce Rate</p>
+              <p>Jumlah Pengajar</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -72,7 +70,6 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -87,7 +84,6 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
@@ -96,6 +92,7 @@
       <div class="box-header with-border">
         <h4>Pengaturan</h4>
       </div>
+      <form action="{{ url('admin/pengaturan/edit') }}" method="post">
       <div class="box-body">
         <div class="form-group">
         <h5>Pengumuman</h5>
@@ -103,46 +100,23 @@
         </div>
         <h5>Formulir</h5>
 
+
+          {{ csrf_field() }}
         <div class="form-group">
             <ul class="todo-list">
                      <li>
-                       <!-- drag handle -->
-                           <span class="handle">
-                             <i class="fa fa-ellipsis-v"></i>
-                             <i class="fa fa-ellipsis-v"></i>
-                           </span>
-                       <!-- checkbox -->
                        <input type="checkbox" name="pendaftaran_pengajar" value="1" autocomplete="off"@if (sistem('pendaftaran_pengajar')) checked @endif></input>
-                       <!-- todo text -->
                        <span class="text">Pendaftaran pengajar</span>
-                       <!-- Emphasis label -->
-
-                       <!-- General tools such as edit or delete-->
-
                      </li>
                      <li>
-                           <span class="handle">
-                             <i class="fa fa-ellipsis-v"></i>
-                             <i class="fa fa-ellipsis-v"></i>
-                           </span>
                        <input type="checkbox" name="pendaftaran_santri" value="1" autocomplete="off"@if (sistem('pendaftaran_santri')) checked @endif></input>
                        <span class="text">Pendaftaran santri</span>
                      </li>
                      <li>
-                           <span class="handle">
-                             <i class="fa fa-ellipsis-v"></i>
-                             <i class="fa fa-ellipsis-v"></i>
-                           </span>
                        <input type="checkbox" name="penjadwalan_pengajar" value="1" autocomplete="off"@if (sistem('penjadwalan_pengajar')) checked @endif></input>
                        <span class="text">Penjadwalan pengajar</span>
-
-
                      </li>
                      <li>
-                           <span class="handle">
-                             <i class="fa fa-ellipsis-v"></i>
-                             <i class="fa fa-ellipsis-v"></i>
-                           </span>
                        <input type="checkbox"  name="penjadwalan_santri" value="1" autocomplete="off"@if (sistem('penjadwalan_santri')) checked @endif></input>
                        <span class="text">Penjadwalan santri</span>
                     </li>
@@ -150,10 +124,11 @@
 
           </ul>
         </div>
-             <!-- /.box-body -->
+
         <div class="box-footer clearfix no-border">
-           <button type="submit" class="btn btn-primary"></i>Ubah</button>
+           <button type="submit" class="btn btn-primary" ></i>Ubah</button>
        </div>
+       </form>
   </div>
 </div>
 @stop
