@@ -17,7 +17,7 @@ class ControllerKelompok extends Controller
         if(Auth::user()->hasRole('admin')) {
           //
         $data['daftar_pengajar'] = Pengajar::all();
-          return view('admin.Kelompok', $data);
+          return view('admin.kelompok', $data);
         }
         else {
           //

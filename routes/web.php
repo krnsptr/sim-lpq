@@ -75,6 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/anggota/password', 'ControllerMember@password_simpan');
 
     Route::get('/pengajar', 'ControllerPengajar@index');
+    Route::post('/pengajar/pengajar', 'ControllerPengajar@pengajar');
     Route::post('/pengajar/tambah', 'ControllerPengajar@tambah');
     Route::post('/pengajar/edit', 'ControllerPengajar@simpan');
     Route::post('/pengajar/hapus', 'ControllerPengajar@hapus');

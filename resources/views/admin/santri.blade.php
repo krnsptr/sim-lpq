@@ -51,9 +51,7 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>{{$santri->pengguna->nama_lengkap}}</td>
-              <td>@if($santri->pengguna->jenis_kelamin){{"laki-laki"}}
-                @else {{"perempuan"}}
-                @endif </td>
+              <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
               <td>{{$santri->jenjang->Jenis_program->nama}}</td>
               <td>{{$santri->jenjang->nama}}</td>
               <td></td>
@@ -127,7 +125,7 @@
 
 
   <script>
-    /**$.ajaxSetup({
+    /*$.ajaxSetup({
         type:"post",
         cache:false,
       });
@@ -276,7 +274,7 @@
             alert('gagal');
           }
         });
-    }
+    }*/
 
   </script>
 

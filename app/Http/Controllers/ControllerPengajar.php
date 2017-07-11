@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Pengajar;
 use App\Jenis_program;
+Use App\Jenjang;
 
 class ControllerPengajar extends Controller
 {
@@ -15,8 +16,19 @@ class ControllerPengajar extends Controller
   public function index()
   {
       $data['daftar_pengajar'] = Pengajar::all();
+      $data['daftar_jenis_program'] = Jenis_program::all();
       return view('admin.pengajar', $data);
 
+  }
+
+  /**
+   * Mengirimkan data satu pengajar kepada admin
+   */
+  public function pengajar()
+  {
+      $pengajar = Pengajar::find(Input::get('id_pengajar'));
+      if(!$pengajar) return abort(404);
+      return $pengajar->toJson();
   }
 
   /**
@@ -72,14 +84,17 @@ class ControllerPengajar extends Controller
     if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
     $pengajar->motivasi_mengajar = $motivasi_mengajar;
+    if(auth()->user()->hasRole('admin')) {
+      $jenjang = Jenjang::find(Input::get('jenjang'));
+      if(!$jenjang) return abort(404);
+      $pengajar->jenjang()->associate($jenjang);
+    }
 
-    if($pengajar->save()) session()->flash('success', 'Program berhasil disimpan');
-    else session()->flash('error', 'Program gagal disimpan');
-
-    return redirect('dasbor');
-
-    //if(Auth::user()->hasRole('admin'));
-    //else;
+    if($pengajar->save()) {
+      if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+      return redirect('dasbor')->with('success', 'Program berhasil disimpan');
+    }
+    else return redirect('dasbor')->with('error', 'Program gagal disimpan');
   }
 
   public function kapasitas_membina_simpan() {
@@ -111,12 +126,10 @@ class ControllerPengajar extends Controller
     if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
     if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
-    if($pengajar->delete()) session()->flash('success', 'Program berhasil dihapus');
-    else session()->flash('error', 'Program gagal dihapus');
-
-    return redirect('dasbor');
-
-    //if(Auth::user()->hasRole('admin'));
-    //else;
+    if($pengajar->delete()) {
+      if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+      return redirect('dasbor')->with('success', 'Program berhasil dihapus');
+    }
+    else return redirect('dasbor')->with('error', 'Program gagal dihapus');
   }
 }

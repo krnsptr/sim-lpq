@@ -46,13 +46,13 @@
           </tfoot>
           <tbody>
             @foreach ($daftar_pengajar as $pengajar)
-            <tr>
+            <tr data-id-pengajar="{{ $pengajar->id }}" data-program="{{ $pengajar->jenjang->jenis_program->id }}">
               <td>{{$loop->iteration}}</td>
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
               <td>@if($pengajar->pengguna->jenis_kelamin){{"laki-laki"}}
               @else {{"perempuan"}}
               @endif  </td>
-              <td>{{ $pengajar->jenjang->Jenis_program->nama}}</td>
+              <td>{{ $pengajar->jenjang->jenis_program->nama}}</td>
               <td>{{ $pengajar->jenjang->nama}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
@@ -80,6 +80,10 @@
               <div class="modal-body">
                   <input type="hidden" id="id_pengajar" value="" />
                   <div class="form-group col-md-12">
+                    <label class="control-group">Motivasi mengajar</label>
+                    <textarea class="form-control" id="motivasi_mengajar"></textarea>
+                  </div>
+                  <div class="form-group col-md-12">
                     <label class="control-group">Jenjang</label>
                     <select class="form-control" id="jenjang">
 
@@ -95,10 +99,21 @@
           </div>
   </div>
 
+  @foreach ($daftar_jenis_program as $jenis_program)
+        <select id="jj{{ $jenis_program->id}}">
+          @foreach ($jenis_program->daftar_jenjang as $jenjang)
+            <option value="{{ $jenjang->id }}">{{ $jenjang->nama }}</option>
+          @endforeach
+        </select>
+  @endforeach
+
   <script>
     $.ajaxSetup({
         type:"post",
         cache:false,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
       });
     $(document).ajaxStart(function ()
     {
@@ -198,10 +213,11 @@
       $.ajax({
             data: {'id_pengajar': id_pengajar},
             dataType: 'json',
-            url: '',
+            url: '{{ url('admin/pengajar/pengajar') }}',
             success: function(data){
               $('#id_pengajar').val(id_pengajar);
-              $('#jenjang').val(data['jenjang']).change();
+              $('#motivasi_mengajar').val(data['motivasi_mengajar']);
+              $('#jenjang').val(data['id_jenjang']).change();
               $('#modal').modal('show');
             },
             error: function(data){
@@ -215,8 +231,9 @@
           data: {
             id_pengajar: $('#id_pengajar').val(),
             jenjang: $('#jenjang').val(),
+            motivasi_mengajar: $('#motivasi_mengajar').val()
           },
-          url: '',
+          url: '{{ url('admin/pengajar/edit') }}',
           success: function(){
             alert('berhasil');
             $('td', tr).eq(4).html($('#jenjang > option:selected').text());
@@ -227,6 +244,24 @@
             alert('gagal');
           }
         });
+    }
+
+    function hapus(pointer){
+      var tr = $(pointer).parent().parent();
+      var button = pointer;
+      if(confirm('Anda yakin?')) {
+        $.ajax({
+            data: {id_pengajar: tr.attr('data-id-pengajar')},
+            url: '{{ url('admin/pengajar/hapus') }}',
+            success: function(){
+              alert('berhasil');
+              myTable.row(tr).remove().draw();
+            },
+            error: function(){
+              alert('gagal');
+            }
+          });
+        }
     }
   </script>
 </div>
