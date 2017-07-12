@@ -74,13 +74,13 @@
       </div>
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li><a href="{{url('admin/')}}"><span>Dasbor</span></a></li>
-        <li><a href="{{url('admin/anggota')}}"><span>Anggota</span></a></li>
-        <li><a href="{{url('admin/santri')}}"><span>Santri</span></a></li>
-        <li><a href="{{url('admin/pengajar')}}"><span>Pengajar</span></a></li>
-        <li><a href="{{url('admin/kelompok')}}"><span>Kelompok</span></a></li>
-        <li><a href="{{url('admin/spp')}}"><span>SPP</span></a></li>
-        <li><a href="{{url('admin/download')}}"><span>Download</span></a></li>
+        <li @if (request()->is('admin')) class="active" @endif><a href="{{ url('admin/') }}"><span>Dasbor</span></a></li>
+        <li @if (request()->is('admin/anggota')) class="active" @endif><a href="{{ url('admin/anggota') }}"><span>Anggota</span></a></li>
+        <li @if (request()->is('admin/santri')) class="active" @endif><a href="{{ url('admin/santri') }}"><span>Santri</span></a></li>
+        <li @if (request()->is('admin/pengajar')) class="active" @endif><a href="{{ url('admin/pengajar') }}"><span>Pengajar</span></a></li>
+        <li @if (request()->is('admin/kelompok')) class="active" @endif><a href="{{ url('admin/kelompok') }}"><span>Kelompok</span></a></li>
+        <li @if (request()->is('admin/spp')) class="active" @endif><a href="{{ url('admin/spp') }}"><span>SPP</span></a></li>
+        <li @if (request()->is('admin/download')) class="active" @endif><a href="{{ url('admin/download') }}"><span>Download</span></a></li>
       </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

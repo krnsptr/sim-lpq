@@ -11,14 +11,14 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             @if (Auth::guest())
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('daftar')}}">Daftar</a></li>
+              <li @if (request()->is('daftar')) class="active" @endif><a href="{{ url('admin/') }}<a href="{{url('daftar')}}">Daftar</a></li>
             @else
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor')}}">Dasbor</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/penjadwalan')}}">Penjadwalan</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/kelompok')}}">Kelompok</a></li>
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('dasbor/spp')}}">SPP</a></li>
+              <li @if (request()->is('dasbor')) class="active" @endif><a href="{{url('dasbor')}}">Dasbor</a></li>
+              <li @if (request()->is('dasbor/penjadwalan')) class="active" @endif><a href="{{url('dasbor/penjadwalan')}}">Penjadwalan</a></li>
+              <li @if (request()->is('dasbor/kelompok')) class="active" @endif><a href="{{url('dasbor/kelompok')}}">Kelompok</a></li>
+              <li @if (request()->is('dasbor/spp')) class="active" @endif><a href="{{url('dasbor/spp')}}">SPP</a></li>
             @endif
-              <li<?php //if(uri_string() == 'daftar') echo ' class="active"'; ?>><a href="{{url('jadwal')}}">Jadwal KBM</a></li>
+              <li @if (request()->is('jadwal')) class="active" @endif><a href="{{url('jadwal')}}">Jadwal KBM</a></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
