@@ -86,7 +86,7 @@
                <div class="col-md-5">
                  <label class="control-group">Sudah pernah ikut KBM di LPQ?</label>
                  <div class="form-group has-feedback">
-                   <select class="form-control" name="sudah_lulus">
+                   <select class="form-control" name="sudah_lulus"  autocomplete="off">
                       <?php $lulus = NULL; ?>
                         @foreach ($jenis_program->daftar_jenjang as $jenjang)
                           <option value="{{ $jenjang->id }}"@if ($santri->sudah_lulus == $jenjang) selected @endif>
@@ -108,10 +108,10 @@
                <div class="col-md-5">
                  <label class="control-group">Terakhir KBM tahun</label>
                  <div class="form-group has-feedback">
-                   <select class="form-control" name="tahun_kbm_terakhir">
+                   <select class="form-control" name="tahun_kbm_terakhir"  autocomplete="off">
                      <option value=""@if (is_null($santri->tahun_kbm_terakhir)) selected @endif>Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
                       @for ($i=intval(date('Y')); $i>=2011; $i--)
-                        <option value="{{ $i }}"@if ($santri->tahun_kbm_terakhir === $i) selected @endif>{{ $i }}</option>
+                        <option value="{{ $i }}"@if ($santri->tahun_kbm_terakhir == $i) selected @endif>{{ $i }}</option>
                       @endfor
                    </select>
                  </div>
@@ -121,10 +121,10 @@
                <div class="col-md-5">
                  <label class="control-group">Terakhir KBM semester</label>
                  <div class="form-group has-feedback">
-                   <select class="form-control" name="semester_kbm_terakhir">
+                   <select class="form-control" name="semester_kbm_terakhir" autocomplete="off">
                      <option value=""@if (is_null($santri->tahun_kbm_terakhir)) selected @endif>Belum pernah KBM {{ $jenis_program->nama }} di LPQ</option>
-                     <option value="1"@if ($santri->semester_kbm_terakhir === 1) selected @endif>Ganjil (September&ndash;Januari)</option>
-                     <option value="0"@if ($santri->semester_kbm_terakhir === 0) selected @endif>Genap (Februari&ndash;Juni)</option>
+                     <option value="1"@if ($santri->semester_kbm_terakhir == 1) selected @endif>Ganjil (September&ndash;Januari)</option>
+                     <option value="0"@if ($santri->semester_kbm_terakhir == 0) selected @endif>Genap (Februari&ndash;Juni)</option>
                    </select>
                  </div>
                </div>

@@ -82,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/pengajar/hapus', 'ControllerPengajar@hapus');
 
     Route::get('/santri', 'ControllerSantri@index');
+    Route::post('/santri/santri', 'ControllerSantri@santri');
     Route::post('/santri/tambah', 'ControllerSantri@tambah');
     Route::post('/santri/edit', 'ControllerSantri@simpan');
     Route::post('/santri/hapus', 'ControllerSantri@hapus');
