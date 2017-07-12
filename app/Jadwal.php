@@ -23,7 +23,7 @@ class Jadwal extends Model
       }
 
       public function kelompok() {
-        return $this->hasOne('App\Kelompok', 'id');
+        return $this->hasOne('App\Kelompok', 'id_jadwal');
       }
 
       public function getWaktuAttribute($value)

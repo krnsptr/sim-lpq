@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Input;
 use App\Pengajar;
-use App\kelompok;
+use App\Jenjang;
+use App\Jadwal;
+use App\Kelompok;
 
 class ControllerKelompok extends Controller
 {
@@ -14,9 +16,10 @@ class ControllerKelompok extends Controller
      */
     public function index()
     {
-        if(Auth::user()->hasRole('admin')) {
+        if(auth()->user()->hasRole('admin')) {
           //
         $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])->get();
+        $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
           return view('admin.kelompok', $data);
         }
         else {
@@ -33,13 +36,13 @@ class ControllerKelompok extends Controller
      */
     public function jadwal()
     {
-        $pengajar = Pengajar::find(Input::get('id_pengajar'));
+        $pengajar = Pengajar::with('daftar_jadwal.kelompok')->find(Input::get('id_pengajar'));
         if(!$pengajar) return abort(404);
         return $pengajar->toJson();
     }
 
     /**
-     * Memproses penambahan kelompok dari admin
+     * Memproses perubahan jenjang kelompok dari admin
      */
     public function edit()
     {
@@ -52,7 +55,16 @@ class ControllerKelompok extends Controller
      */
     public function tambah()
     {
-        //
+        $jadwal = Jadwal::find(Input::get('id_jadwal'));
+        $jenjang = Jenjang::find(Input::get('jenjang'));
+        if(!$jadwal || !$jenjang) return abort(404);
+
+        $kelompokBaru = new Kelompok;
+        $kelompokBaru->jadwal()->associate($jadwal);
+        $kelompokBaru->jenjang()->associate($jenjang);
+
+        if($kelompokBaru->save()) return 'Berhasil.';
+        else return abort(403);
     }
 
     /**
@@ -60,6 +72,12 @@ class ControllerKelompok extends Controller
      */
     public function hapus()
     {
-        //
+      $jadwal = Jadwal::find(Input::get('id_jadwal'));
+      if(!$jadwal) return abort(404);
+
+      $kelompok = $jadwal->kelompok;
+
+      if($kelompok->delete()) return 'Berhasil.';
+      else return abort(403);
     }
 }

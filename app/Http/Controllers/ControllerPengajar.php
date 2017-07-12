@@ -108,10 +108,11 @@ class ControllerPengajar extends Controller
 
     $pengajar->kapasitas_membina = $kapasitas_membina;
 
-    if($pengajar->save()) session()->flash('success', 'Jumlah kelompok yang siap dibina berhasil disimpan');
-    else session()->flash('error', 'Jumlah kelompok yang siap dibina gagal disimpan');
-
-    return redirect('dasbor/penjadwalan');
+    if($pengajar->save()) {
+      if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+      return redirect('dasbor')->with('success', 'Kapasitas membina berhasil disimpan');
+    }
+    else return redirect('dasbor')->with('error', 'Kapasitas membina gagal disimpan');
   }
 
   /**
