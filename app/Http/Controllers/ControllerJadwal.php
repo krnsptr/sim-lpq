@@ -8,6 +8,7 @@ use App\Pengajar;
 use App\Jadwal;
 use App\Sistem;
 use App\Santri;
+use DB;
 
 class ControllerJadwal extends Controller
 {
@@ -21,6 +22,8 @@ class ControllerJadwal extends Controller
         $data['daftar_santri'] = $member->daftar_santri;
         $data['penjadwalan_pengajar'] = sistem('penjadwalan_pengajar');
         $data['penjadwalan_santri'] = sistem('penjadwalan_santri');
+        $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+        $data['data_jadwal_kelompok'] = DB::table('kelompok_view')->get();
         return view('member.penjadwalan', $data);
     }
 
