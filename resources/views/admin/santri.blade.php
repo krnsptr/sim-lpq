@@ -48,11 +48,11 @@
           </tfoot>
           <tbody>
             @foreach ($daftar_santri as $santri)
-            <tr>
+            <tr data-id-santri="{{ $santri->id }}" data-program="{{ $santri->jenjang->jenis_program->id }}">
               <td>{{$loop->iteration}}</td>
               <td>{{$santri->pengguna->nama_lengkap}}</td>
               <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
-              <td>{{$santri->jenjang->Jenis_program->nama}}</td>
+              <td>{{$santri->jenjang->jenis_program->nama}}</td>
               <td>{{$santri->jenjang->nama}}</td>
               <td></td>
               <td>
@@ -89,17 +89,20 @@
                   </div>
                   <div class="form-group col-md-12">
                     <label class="control-group">Terakhir KBM tahun</label>
-                    <select class="form-control" id="kbm_tahun">
-
-                    </select>
+                      <select class="form-control" id="tahun_kbm_terakhir" autocomplete="off">
+                        <option value="">Belum pernah KBM di LPQ</option>
+                        @for ($i=intval(date('Y')); $i>=2011; $i--)
+                          <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                      </select>
                   </div>
                   <div class="form-group col-md-12">
                     <label class="control-group">Terakhir KBM semester</label>
-                    <select class="form-control" id="kbm_semester">
-                      <option value="0">Belum pernah KBM di LPQ</option>
-                      <option value="1">Ganjil (September&ndash;Januari)</option>
-                      <option value="2">Genap (Februari&ndash;Juni)</option>
-                    </select>
+                    <select class="form-control" id="semester_kbm_terakhir" autocomplete="off">
+                      <option value="">Belum pernah KBM di LPQ</option>
+    									<option value="1">Ganjil (September&ndash;Januari)</option>
+    									<option value="0">Genap (Februari&ndash;Juni)</option>
+    								</select>
                   </div>
                   <div class="form-group col-md-12">
                     <label class="control-group">Jenjang</label>
@@ -122,12 +125,36 @@
 
           </div>
   </div>
-
+  @foreach ($daftar_jenis_program as $jenis_program)
+        <select id="sl{{ $jenis_program->id }}">
+            <?php $lulus = NULL; ?>
+              @foreach ($jenis_program->daftar_jenjang as $jenjang)
+                <option value="{{ $jenjang->id }}">
+                  @if ($loop->first)
+                    Belum pernah KBM {{ $jenis_program->nama }} di LPQ
+                  @elseif ($loop->index == 1)
+                    Belum lulus {{ $jenjang->nama }}
+                  @else
+                    Lulus {{ $lulus }} atau belum lulus {{ $jenjang->nama }}
+                  @endif
+                </option>
+                <?php $lulus = $jenjang->nama ?>
+              @endforeach
+        </select>
+        <select id="jj{{ $jenis_program->id}}">
+          @foreach ($jenis_program->daftar_jenjang as $jenjang)
+            <option value="{{ $jenjang->id }}">{{ $jenjang->nama }}</option>
+          @endforeach
+        </select>
+    @endforeach
 
   <script>
-    /*$.ajaxSetup({
+    $.ajaxSetup({
         type:"post",
         cache:false,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
       });
     $(document).ajaxStart(function ()
     {
@@ -215,7 +242,7 @@
     $('[id^=sl], [id^=kt], [id^=jj]').hide();
     $('#modal').on('hidden.bs.modal', function () {
       $('#sudah_lulus > option').remove();
-      $('#kbm_tahun > option').remove();
+      //$('#tahun_kbm_terakhir > option').remove();
       $('#jenjang > option').remove();
       $('#id_kelompok > option').remove();
       $('#id_santri').val('');
@@ -230,20 +257,20 @@
       $.ajax({
             data: {'id_santri': id_santri},
             dataType: 'json',
-            url: '',
+            url: '{{ url('admin/santri/santri') }}',
             success: function(data){
               $('#sl'+program+' > option').clone().appendTo('#sudah_lulus');
-              $('#kt'+program+' > option').clone().appendTo('#kbm_tahun');
+              //$('#kt'+program+' > option').clone().appendTo('#tahun_kbm_terakhir');
               $('#jj'+program+' > option').clone().appendTo('#jenjang');
               $('#id_kelompok').append('<option value="">Belum ditentukan</option>');
               for(var i in data['jadwal']) {
                 $('#id_kelompok').append('<option value="'+data['jadwal'][i]['id_kelompok']+'"'+((data['id_kelompok'] == data['jadwal'][i]['id_kelompok']) ? ' selected' : '')+'>'+hari[data['jadwal'][i]['hari']]+' '+data['jadwal'][i]['waktu'].slice(0,-3)+' -- Kelompok '+data['jadwal'][i]['id_kelompok']+': '+data['jadwal'][i]['nama_lengkap']+' (sisa '+(10-data['jadwal'][i]['jumlah_santri'])+')</option>');
               }
               $('#id_santri').val(id_santri);
-              $('#sudah_lulus').val(data['sudah_lulus']).change();
-              $('#kbm_tahun').val(data['kbm_tahun']).change();
-              $('#kbm_semester').val(data['kbm_semester']).change();
-              $('#jenjang').val(data['jenjang']).change();
+              if(data['id_jenjang_lulus']) $('#sudah_lulus').val(data['id_jenjang_lulus']).change();
+              $('#tahun_kbm_terakhir').val(data['tahun_kbm_terakhir']).change();
+              $('#semester_kbm_terakhir').val(data['semester_kbm_terakhir']).change();
+              $('#jenjang').val(data['id_jenjang']).change();
               $('#modal').modal('show');
             },
             error: function(data){
@@ -257,12 +284,12 @@
           data: {
             id_santri: $('#id_santri').val(),
             sudah_lulus: $('#sudah_lulus').val(),
-            kbm_tahun: $('#kbm_tahun').val(),
-            kbm_semester: $('#kbm_semester').val(),
+            tahun_kbm_terakhir: $('#tahun_kbm_terakhir').val(),
+            semester_kbm_terakhir: $('#semester_kbm_terakhir').val(),
             jenjang: $('#jenjang').val(),
             id_kelompok: $('#id_kelompok').val()
           },
-          url: '',
+          url: '{{ url('admin/santri/edit') }}',
           success: function(){
             alert('berhasil');
             $('td', tr).eq(4).html($('#jenjang > option:selected').text());
@@ -274,7 +301,7 @@
             alert('gagal');
           }
         });
-    }*/
+    }
 
   </script>
 

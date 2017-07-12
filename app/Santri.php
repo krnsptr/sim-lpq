@@ -19,7 +19,7 @@ class Santri extends Program
 
   protected $casts = [
       'tahun_kbm_terakhir' => 'integer',
-      'semester_kbm_terakhir' => 'boolean',
+      'semester_kbm_terakhir' => 'integer',
       'spp_lunas' => 'boolean'
   ];
 
@@ -39,5 +39,7 @@ class Santri extends Program
     {
         if(intval($value) > intval(date('Y')) || intval($value) < 2011)
           $this->attributes['tahun_kbm_terakhir'] = NULL;
+        else
+          $this->attributes['tahun_kbm_terakhir'] = intval($value);
     }
 }

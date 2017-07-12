@@ -16,7 +16,18 @@ class ControllerSantri extends Controller
     public function index()
     {
         $data['daftar_santri'] = Santri::all();
+        $data['daftar_jenis_program'] = Jenis_program::all();
         return view('admin.santri',$data);
+    }
+
+    /**
+     * Mengirimkan data satu santri kepada admin
+     */
+    public function santri()
+    {
+        $santri = Santri::find(Input::get('id_santri'));
+        if(!$santri) return abort(404);
+        return $santri->toJson();
     }
 
     /**
@@ -30,7 +41,7 @@ class ControllerSantri extends Controller
         $tahun_kbm_terakhir = (int) Input::get('tahun_kbm_terakhir');
         $semester_kbm_terakhir = Input::get('semester_kbm_terakhir');
 
-        $jenjang_lulus = Jenjang::find($sudah_lulus);
+        $jenjang_lulus = Jenjang::find($id_jenjang_lulus);
         if(!$jenjang_lulus) return redirect('dasbor')->with('error');
 
         $jenis_program = $jenjang_lulus->jenis_program;
@@ -68,6 +79,7 @@ class ControllerSantri extends Controller
       $id_santri = (int) Input::get('id_santri');
 
       $sudah_lulus = Jenjang::find($id_jenjang_lulus);
+      if(!$sudah_lulus) return abort(404);
 
       $pengguna = auth()->user();
       $santri = Santri::find($id_santri);
@@ -79,13 +91,19 @@ class ControllerSantri extends Controller
       $santri->tahun_kbm_terakhir = $tahun_kbm_terakhir;
       $santri->semester_kbm_terakhir = $semester_kbm_terakhir;
 
-      if($santri->save()) session()->flash('success', 'Program berhasil disimpan');
-      else session()->flash('error', 'Program gagal disimpan');
+      if(auth()->user()->hasRole('admin')) {
+        $jenjang = Jenjang::find(Input::get('jenjang'));
+        if(!$jenjang) return abort(404);
+        $kelompok = Input::get('id_kelompok');
+        $santri->jenjang()->associate($jenjang);
+        //$santri->kelompok()->associate($kelompok);
+      }
 
-      return redirect('dasbor');
-
-      //if(Auth::user()->hasRole('admin'));
-      //else;
+      if($santri->save()) {
+        if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+        return redirect('dasbor')->with('success', 'Program berhasil disimpan');
+      }
+      else return redirect('dasbor')->with('error', 'Program gagal disimpan');
     }
 
     /**
