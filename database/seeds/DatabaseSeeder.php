@@ -14,11 +14,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SeederPengguna::class);
         $this->call(SeederProgram::class);
         $this->call(SeederPengajar::class);
-        $this->call(SeederSantri::class);
-        $this->call(SeederSistem::class);
         $this->call(SeederJadwal::class);
         $this->call(SeederKelompok::class);
-
-
+        $this->call(SeederSantri::class);
+        $this->call(SeederSistem::class);
     }
 }

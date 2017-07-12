@@ -39,13 +39,9 @@
               <tbody>
 
                 @foreach ($daftar_santri as $santri)
-                @if(($santri->id_jenjang !=1) && ($santri->id_jenjang !=5) && ($santri->id_jenjang !=8 ))
                 <td>{{$santri->jenjang->nama}}</td>
                 <td>{{"Rp.50.000"}}</td>
-                <td>@if($santri->spp_lunas){{"lunas"}}
-                @else {{"belum lunas"}}
-                @endif  </td>
-                @endif
+                <td>@if($santri->spp_lunas) Lunas @else Belum lunas @endif</td>
 
               </tbody>
                 @endforeach

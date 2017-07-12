@@ -45,22 +45,18 @@
             </tr>
           </tfoot>
           <tbody>
-          
+
           @foreach ($daftar_pengajar as $pengajar)
-          @if($pengajar->id_jenjang !=1)
-            <tr data-id-anggota="" data-program="" data-jenjang="">
+            <tr data-id-pengajar="{{ $pengajar->id }}" data-jenjang="{{ $pengajar->jenjang }}">
               <td>{{$loop->iteration}}</td>
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
-              <td>@if($pengajar->pengguna->jenis_kelamin){{"laki-laki"}}
-              @else {{"perempuan"}}
-              @endif  </td>
+              <td>@if($pengajar->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif </td>
               <td>{{ $pengajar->jenjang->Jenis_program->nama}}</td>
               <td>{{ $pengajar->jenjang->nama}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
               </td>
             </tr>
-            @endif
             @endforeach
           </tbody>
         </table>
@@ -230,9 +226,9 @@
       jenjang = tr.attr('data-jenjang');
 
       $.ajax({
-            data: {'id_anggota': id_anggota, 'program': program},
+            data: {'id_pengajar': id_anggota},
             dataType: 'json',
-            url: '',
+            url: '{{ url('admin/kelompok/jadwal') }}',
             success: function(data){
               $('#id_anggota').val(id_anggota);
               $('#program').val(program);
@@ -351,5 +347,5 @@
       });
     }
   </script>
-  
+
 @stop

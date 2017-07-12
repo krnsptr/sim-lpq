@@ -16,16 +16,26 @@ class ControllerKelompok extends Controller
     {
         if(Auth::user()->hasRole('admin')) {
           //
-        $data['daftar_pengajar'] = Pengajar::all();
+        $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])->get();
           return view('admin.kelompok', $data);
         }
         else {
         $member = auth()->user();
         $data['daftar_pengajar']=$member->daftar_pengajar;
         $data['daftar_santri'] = $member->daftar_santri;
-        $data['hari']=['NULL','Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+        $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
         return view('member.kelompok', $data);
         }
+    }
+
+    /**
+     * Mengirimkan daftar jadwal satu pengajar kepada admin
+     */
+    public function jadwal()
+    {
+        $pengajar = Pengajar::find(Input::get('id_pengajar'));
+        if(!$pengajar) return abort(404);
+        return $pengajar->toJson();
     }
 
     /**
