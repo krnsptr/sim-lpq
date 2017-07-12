@@ -31,20 +31,21 @@
             <h3 class="box-title">Mualim Bahasa Arab</h3>
           </div>
           <div class="box-body">
-          	<table class="table">
+
+            <table class="table">
           	<thead>
               <tr>
-              	<td><strong>Kelompok 7</strong></td>
+              	<td><strong>Kelompok </strong></td>
               </tr>
           	</thead>
           	<tbody>
               <tr>
               	<td width="20%">Jenjang</td>
-              	<td>: Tingkat 1</td>
+              	<td>:</td>
               </tr>
               <tr>
               	<td>Jadwal</td>
-              	<td>: Senin, 16.00 WIB</td>
+              	<td>:WIB</td>
               </tr>
             </tbody>
           	</table>
@@ -54,17 +55,19 @@
                 <tr>
                   <th>Nomor</th>
                   <th>Nama Santri</th>
-                  <th>Nomor HP/ WA</th>
+                  <th>Nomor HP/WA</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>Dony Rahmad Agung S</td>
-                  <td>B09877666555</td>
+                  <th></th>
+                  <th></th>
+                  <th></th>
                 </tr>
+                
               </tbody>
             </table>
+            
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

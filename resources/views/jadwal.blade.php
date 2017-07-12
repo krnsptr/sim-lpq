@@ -29,16 +29,18 @@
 						</tr>
 					</thead>
 					<tbody>
+						@foreach ($santri as $santri)
 						<tr>
-							<td>Tahsin</td>
-							<td>Pra-tahsin</td>
-							<td>Senin</td>
-							<td>16:00</td>
-							<td>Umar bin Abdul Aziz</td>
-							<td>13457</td>
-							<td>Khalid bin Walid</td>
-							<td>085666888223</td>
+							<td>{{$santri->jenjang->jenis_program->nama}}</td>
+							<td>{{$santri->jenjang->nama}}</td>
+							<td>{{$santri->kelompok->jadwal->hari}}</td>
+							<td>{{$santri->kelompok->jadwal->waktu}}</td>
+							<td>{{$santri->pengguna->nama_lengkap}}</td>
+							<td>{{$santri->pengguna->nomor_identitas}}</td>
+							<td>{{$santri->kelompok->jadwal->pengajar->pengguna->nama_lengkap}}</td>
+							<td>{{$santri->pengguna->nomor_hp}}</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

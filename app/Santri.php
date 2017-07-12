@@ -35,6 +35,10 @@ class Santri extends Program
         return $this->belongsTo('App\Pengguna', 'id_pengguna');
     }
 
+    function kelompok() {
+        return $this->belongsTo('App\Kelompok', 'id_kelompok');
+    }    
+
     public function setTahunKBMTerakhirAttribute($value)
     {
         if(intval($value) > intval(date('Y')) || intval($value) < 2011)

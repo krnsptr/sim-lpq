@@ -20,8 +20,11 @@ class ControllerKelompok extends Controller
           return view('admin.kelompok', $data);
         }
         else {
-          //
-          return view('member.kelompok');
+        $member = auth()->user();
+        $data['daftar_pengajar']=$member->daftar_pengajar;
+        $data['daftar_santri'] = $member->daftar_santri;
+        $data['hari']=['NULL','Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+        return view('member.kelompok', $data);
         }
     }
 

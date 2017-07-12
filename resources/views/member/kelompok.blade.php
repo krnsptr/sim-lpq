@@ -23,81 +23,92 @@
           </div>
         </div>
         <!-- Default box -->
+        @foreach ($daftar_pengajar as $pengajar)
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Mualim Bahasa Arab</h3>
+            <h3 class="box-title">Pengajar {{$pengajar->jenjang->nama}}</h3>
           </div>
+
+          @foreach ($pengajar->daftar_jadwal as $jadwal)
           <div class="box-body">
-          	<table class="table">
-          	<thead>
+            <table class="table">
+            <thead>
               <tr>
-              	<td><strong>Kelompok 7</strong></td>
+                <td><strong>Kelompok {{$jadwal->kelompok->id}}</strong></td>
               </tr>
-          	</thead>
-          	<tbody>
+            </thead>
+            <tbody>
               <tr>
-              	<td width="20%">Jenjang</td>
-              	<td>: Tingkat 1</td>
+                <td width="20%">Jenjang</td>
+                <td>: {{$jadwal->kelompok->jenjang->nama}}</td>
               </tr>
               <tr>
-              	<td>Jadwal</td>
-              	<td>: Senin, 16.00 WIB</td>
+                <td>Jadwal</td>
+                <td>: {{$hari[$jadwal->hari]}}, {{$jadwal->waktu}} WIB</td>
               </tr>
             </tbody>
-          	</table>
+            </table>
 
             <table class="table">
               <thead>
                 <tr>
                   <th>Nomor</th>
                   <th>Nama Santri</th>
-                  <th>Nomor HP/ WA</th>
+                  <th>Nomor HP/WA</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($jadwal->kelompok->daftar_santri as $santri)
                 <tr>
-                  <td>1</td>
-                  <td>Dony Rahmad Agung S</td>
-                  <td>B09877666555</td>
+                  <td>{{$loop->iteration}}</td>
+                  <td>{{$santri->pengguna->nama_lengkap}}</td>
+                  <td>{{$santri->pengguna->nomor_hp}}</td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
+            
           </div>
           <!-- /.box-body -->
+          @endforeach
+
           <div class="box-footer">
 
           </div>
           <!-- /.box-footer-->
         </div>
         <!-- /.box -->
+        @endforeach
 
+        @foreach ($daftar_santri as $santri)
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Santri Takhosus/ Tahfidz</h3>
+            <h3 class="box-title">Santri {{$santri->jenjang->nama}}</h3>
           </div>
+
           <div class="box-body">
           	<table class="table">
 	          	<thead>
 	              <tr>
-	              	<td><strong>Kelompok 9</strong></td>
+	              	<td><strong>Kelompok {{$santri->id}}</strong></td>
 	              </tr>
 	          	</thead>
 	          	<tbody>
 	              	<tr width="">
 	              		<td width="20%"> Jenjang</td>
-	              		<td>: Tingkat 1</td>
+	              		<td>: {{$santri->kelompok->jenjang->nama}}</td>
 	              	</tr>
 	              	<tr>
 		              	<td>Pengajar</td>
-		              	<td>: Abu Ubaidah Al Jarrah</td>
+		              	<td>: {{$santri->kelompok->jadwal->pengajar->pengguna->nama_lengkap}}</td>
 	              	</tr>
 	              	<tr>
 		              	<td>Jadwal</td>
-		              	<td>: Senin, 16.00 WIB</td>
+		              	<td>: {{$hari[$santri->kelompok->jadwal->hari]}}, {{$santri->kelompok->jadwal->waktu}}WIB</td>
 	              	</tr>
 	              	<tr>
 		              	<td>Nomor HP/ WA</td>
-		              	<td>: 087666555777</td>
+		              	<td>: {{$santri->kelompok->jadwal->pengajar->pengguna->nomor_hp}}</td>
 	              	</tr>
 	            </tbody>
           	</table>
@@ -112,13 +123,18 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>Dony Rahmad Agung S</td>
-                  <td>B09877666555</td>
+                  @foreach ($santri->kelompok->daftar_santri as $daftar_santri)
+                <tr>
+                  <td>{{$loop->iteration}}</td>
+                  <td>{{$daftar_santri->pengguna->nama_lengkap}}</td>
+                  <td>{{$daftar_santri->pengguna->nomor_hp}}</td>
+                </tr>
+                @endforeach
                 </tr>
               </tbody>
             </table>
           </div>
+
           <!-- /.box-body -->
           <div class="box-footer">
 
@@ -126,6 +142,7 @@
           <!-- /.box-footer-->
         </div>
         <!-- /.box -->
+        @endforeach
 
       </section>
   </div>

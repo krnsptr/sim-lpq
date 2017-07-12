@@ -28,6 +28,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+Route::get('/jadwal', 'ControllerJadwal@jadwal_KBM');
 
 Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function() {
     Route::get('/', 'ControllerMember@index');

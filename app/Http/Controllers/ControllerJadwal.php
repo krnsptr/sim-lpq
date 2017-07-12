@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Pengajar;
 use App\Jadwal;
 use App\Sistem;
+use App\Santri;
 
 class ControllerJadwal extends Controller
 {
@@ -28,8 +29,8 @@ class ControllerJadwal extends Controller
      */
     public function jadwal_KBM()
     {
-        //
-        return view('jadwal');
+        $data['santri'] = Santri::where('id_kelompok','!=','NULL')->get();
+        return view('jadwal',$data);
     }
 
     /**
