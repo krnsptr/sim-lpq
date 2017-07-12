@@ -23,7 +23,6 @@ class Kelompok extends Model
 
     function jadwal() {
           return $this->belongsTo('App\Jadwal', 'id_jadwal');
-
       }
     function jenjang(){
           return $this->belongsTo('App\Jenjang', 'id_jenjang');

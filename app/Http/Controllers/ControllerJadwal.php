@@ -58,13 +58,11 @@ class ControllerJadwal extends Controller
       $jadwalBaru->waktu = $waktu;
       $jadwalBaru->pengajar()->associate($pengajar);
 
-      if($jadwalBaru->save()) session()->flash('success', 'Jadwal berhasil ditambahkan');
-      else session()->flash('error', 'Jadwal gagal ditambahkan');
-
-      return redirect('dasbor/penjadwalan');
-
-      //if(Auth::user()->hasRole('admin'));
-      //else;
+      if($jadwalBaru->save()) {
+        if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+        return redirect('dasbor/penjadwalan')->with('success', 'Jadwal berhasil ditambahkan');
+      }
+      else return redirect('dasbor/penjadwalan')->with('error', 'Jadwal gagal ditambahkan');
     }
 
     /**
@@ -90,13 +88,11 @@ class ControllerJadwal extends Controller
       $jadwal->hari = $hari;
       $jadwal->waktu = $waktu;
 
-      if($jadwal->save()) session()->flash('success', 'Jadwal berhasil disimpan');
-      else session()->flash('error', 'Jadwal gagal disimpan');
-
-      return redirect('dasbor/penjadwalan');
-
-      //if(Auth::user()->hasRole('admin'));
-      //else;
+      if($jadwal->save()) {
+        if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+        return redirect('dasbor/penjadwalan')->with('success', 'Jadwal berhasil disimpan');
+      }
+      else return redirect('dasbor/penjadwalan')->with('error', 'Jadwal gagal disimpan');
     }
 
     /**
@@ -142,12 +138,10 @@ class ControllerJadwal extends Controller
       $pengguna = auth()->user();
       if($pengguna->hasRole('member') && $pengguna != $jadwal->pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
-      if($jadwal->delete()) session()->flash('success', 'Jadwal berhasil dihapus');
-      else session()->flash('error', 'Jadwal gagal dihapus');
-
-      return redirect('dasbor/penjadwalan');
-
-      //if(Auth::user()->hasRole('admin'));
-      //else;
+      if($jadwal->delete()) {
+        if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+        return redirect('dasbor/penjadwalan')->with('success', 'Jadwal berhasil dihapus');
+      }
+      else return redirect('dasbor/penjadwalan')->with('error', 'Jadwal gagal dihapus');
     }
 }

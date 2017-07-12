@@ -47,14 +47,14 @@
           <tbody>
 
           @foreach ($daftar_pengajar as $pengajar)
-            <tr data-id-pengajar="{{ $pengajar->id }}" data-jenjang="{{ $pengajar->jenjang }}">
+            <tr data-id-pengajar="{{ $pengajar->id }}" data-id-jenjang="{{ $pengajar->jenjang->id }}">
               <td>{{$loop->iteration}}</td>
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
               <td>@if($pengajar->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif </td>
               <td>{{ $pengajar->jenjang->Jenis_program->nama}}</td>
               <td>{{ $pengajar->jenjang->nama}}</td>
               <td>
-                <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
+                <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Jadwal</button>
               </td>
             </tr>
             @endforeach
@@ -72,23 +72,19 @@
 
             <!-- Modal content-->
             <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Jadwal</h4>
-              </div>
+              <ddiv>
               <div class="modal-body table-condensed">
-                <input type="hidden" id="id_anggota">
-                <input type="hidden" id="program">
+                <input type="hidden" id="id_pengajar">
                 <input type="hidden" id="jenjang">
                 <div class="form-group col-md-4">
                   <label class="control-group col-md-12"> Jumlah kelompok yang siap dibina</label>
                   <div class="col-md-6">
                     <div class="form-group has-feedback">
-                      <input type="number" class="form-control" id="jumlah_kelompok" value="">
+                      <input type="number" class="form-control" id="kapasitas_membina" value="">
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <a onclick="jumlah_kelompok()" class="btn btn-primary btn-flat">Ubah</a>
+                    <a onclick="kapasitas_membina()" class="btn btn-primary btn-flat">Ubah</a>
                   </div>
                 </div>
                 <div class="form-group col-md-8">
@@ -96,12 +92,14 @@
                   <div class="col-md-8">
                     <div class="form-group has-feedback">
                       <div class="col-md-6">
-                      <select id="hari" class="form-control">
-
+                      <select id="hari" class="form-control" autocomplete="off">
+                        @for ($i=1; $i<=7; $i++)
+                          <option value="{{ $i }}">{{ $hari[$i] }}</option>
+                        @endfor
                       </select>
                       </div>
                       <div class="col-md-6">
-                      <input type="text" id="waktu" class="form-control" value="00:00">
+                      <input type="text" id="waktu" class="form-control" value="00:00" autocomplete="off">
                       </div>
                     </div>
                   </div>
@@ -125,6 +123,9 @@
     $.ajaxSetup({
         type:"post",
         cache:false,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
       });
     $(document).ajaxStart(function ()
     {
@@ -210,37 +211,36 @@
       } ).draw();
 
     $('#modal').on('hidden.bs.modal', function () {
-      $('#id_anggota').val('');
-      $('#jumlah_kelompok').val('');
+      $('#id_pengajar').val('');
+      $('#kapasitas_membina').val('');
       $('#program').val('');
       $('#jenjang').val('');
       $('#tabel-jadwal tr').remove();
     });
 
-    var tr, id_anggota, program;
+    var tr, id_pengajar, program;
 
     function edit(pointer) {
       tr = $(pointer).parent().parent();
-      id_anggota = tr.attr('data-id-anggota');
-      program = tr.attr('data-program');
-      jenjang = tr.attr('data-jenjang');
+      id_pengajar = tr.attr('data-id-pengajar');
+      jenjang = tr.attr('data-id-jenjang');
 
       $.ajax({
-            data: {'id_pengajar': id_anggota},
+            data: {'id_pengajar': id_pengajar},
             dataType: 'json',
             url: '{{ url('admin/kelompok/jadwal') }}',
             success: function(data){
-              $('#id_anggota').val(id_anggota);
+              $('#id_pengajar').val(id_pengajar);
               $('#program').val(program);
               $('#jenjang').val(jenjang);
-              $('#jumlah_kelompok').val(data['jumlah_kelompok'])
+              $('#kapasitas_membina').val(data['kapasitas_membina'])
               $('#tabel-jadwal').append('<tr><th>Alternatif (Jadwal kosong)</th><th>Aksi</th></tr>');
-              for(var i in data['jadwal']) {
-                $('#tabel-jadwal').append('<tr data-id-jadwal="'+data['jadwal'][i]['id_jadwal']+'" data-id-kelompok="'+data['jadwal'][i]['id_kelompok']+'"><td></td><td><button class="btn btn-sm btn-success tambah-kelompok" onclick="tambah_kelompok(this);">Tambah Kelompok</button> <button class="btn btn-sm btn-danger hapus-kelompok hidden" onclick="hapus_kelompok(this);">Hapus Kelompok</button> <button class="btn btn-sm btn-primary" onclick="ubah(this);">Ubah</button> <button class="btn btn-sm btn-danger" onclick="hapus(this);">Hapus</button></td></tr>');
+              for(var i in data['daftar_jadwal']) {
+                $('#tabel-jadwal').append('<tr data-id-jadwal="'+data['daftar_jadwal'][i]['id']+'" data-id-kelompok="'+data['daftar_jadwal'][i]['kelompok']+'"><td></td><td><button class="btn btn-sm btn-success tambah-kelompok" onclick="tambah_kelompok(this);">Tambah ke Kelompok</button> <button class="btn btn-sm btn-warning hapus-kelompok hidden" onclick="hapus_kelompok(this);">Hapus dari Kelompok</button> <button class="btn btn-sm btn-primary" onclick="ubah(this);">Ubah</button> <button class="btn btn-sm btn-danger" onclick="hapus(this);">Hapus</button></td></tr>');
                 var tr = $('#tabel-jadwal tr:last');
-                if(data['jadwal'][i]['id_kelompok'] !== null) $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');
-                $('#hari').clone().removeAttr('id').attr('class', 'hari').val(data['jadwal'][i]['hari']).change().appendTo('#tabel-jadwal tr:last td:first');
-                $('#waktu').clone().removeAttr('id').attr('class', 'waktu').val(data['jadwal'][i]['waktu'].slice(0,-3)).change().appendTo('#tabel-jadwal tr:last td:first');
+                if(data['daftar_jadwal'][i]['kelompok'] !== null) $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');
+                $('#hari').clone().removeAttr('id').attr('class', 'hari').val(data['daftar_jadwal'][i]['hari']).appendTo('#tabel-jadwal tr:last td:first');
+                $('#waktu').clone().removeAttr('id').attr('class', 'waktu').val(data['daftar_jadwal'][i]['waktu']).change().appendTo('#tabel-jadwal tr:last td:first');
               }
               $('#modal').modal('show');
         waktu},
@@ -250,11 +250,11 @@
       });
     }
 
-    function jumlah_kelompok() {
-      var jumlah_kelompok = $('#jumlah_kelompok').val();
+    function kapasitas_membina() {
+      var kapasitas_membina = $('#kapasitas_membina').val();
       $.ajax({
-            data: {'id_anggota': id_anggota, 'program': program, 'jumlah_kelompok' : jumlah_kelompok},
-            url: '',
+            data: {'id_pengajar': id_pengajar, 'kapasitas_membina' : kapasitas_membina},
+            url: '{{ url('admin/kelompok/jadwal/kapasitas-membina') }}',
             success: function(){
               alert('berhasil');
             },
@@ -269,9 +269,9 @@
       var hari = $('#hari').val();
       var waktu = $('#waktu').val();
       $.ajax({
-            data: {'id_anggota': id_anggota, 'program': program, 'hari': hari, 'waktu': waktu},
-            url: '',
-            success: function(id_jadwal){
+            data: {'id_pengajar': id_pengajar, 'hari': hari, 'waktu': waktu},
+            url: '{{ url('admin/kelompok/jadwal/tambah') }}',
+            success: function(){
               alert('berhasil');
               $('#modal').modal('hide');
             },
@@ -287,8 +287,8 @@
       var hari = $('.hari', tr).val();
       var waktu = $('.waktu', tr).val();
       $.ajax({
-            data: {'id_anggota': id_anggota, 'program': program, 'id_jadwal' : id_jadwal, 'hari': hari, 'waktu': waktu},
-            url: '',
+            data: {'id_jadwal' : id_jadwal, 'hari': hari, 'waktu': waktu},
+            url: '{{ url('admin/kelompok/jadwal/edit') }}',
             success: function(){
               alert('berhasil');
             },
@@ -303,8 +303,8 @@
       var tr = $(pointer).parent().parent();
       var id_jadwal = tr.attr('data-id-jadwal');
       if(confirm('Anda yakin?')) $.ajax({
-            data: {'id_anggota': id_anggota, 'program': program, 'id_jadwal' : id_jadwal},
-            url: '',
+            data: {'id_jadwal' : id_jadwal},
+            url: '{{ url('admin/kelompok/jadwal/hapus') }}',
             success: function(){
               alert('berhasil');
               tr.remove();
@@ -320,7 +320,7 @@
       var id_jadwal = tr.attr('data-id-jadwal');
       $.ajax({
             data: {'id_jadwal' : id_jadwal, 'jenjang': jenjang},
-            url: '',
+            url: '{{ url('admin/kelompok/tambah') }}',
             success: function(){
               alert('berhasil');
               $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');
@@ -336,7 +336,7 @@
       var id_jadwal = tr.attr('data-id-jadwal');
       if(confirm('Anda yakin?')) $.ajax({
             data: {'id_jadwal' : id_jadwal},
-            url: '',
+            url: '{{ url('admin/kelompok/hapus') }}',
             success: function(){
               alert('berhasil');
               $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');

@@ -88,8 +88,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/santri/hapus', 'ControllerSantri@hapus');
 
     Route::get('/kelompok', 'ControllerKelompok@index');
+    Route::post('/kelompok/jadwal', 'ControllerKelompok@jadwal');
     Route::post('/kelompok/jadwal/tambah', 'ControllerJadwal@tambah');
     Route::post('/kelompok/jadwal/edit', 'ControllerJadwal@simpan');
+    Route::post('/kelompok/jadwal/kapasitas-membina', 'ControllerPengajar@kapasitas_membina_simpan');
     Route::post('/kelompok/jadwal/hapus', 'ControllerJadwal@hapus');
     Route::post('/kelompok/tambah', 'ControllerKelompok@tambah');
     Route::post('/kelompok/hapus', 'ControllerKelompok@hapus');
