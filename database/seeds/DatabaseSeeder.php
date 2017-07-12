@@ -16,5 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SeederPengajar::class);
         $this->call(SeederSantri::class);
         $this->call(SeederSistem::class);
+        $this->call(SeederJadwal::class);
+        $this->call(SeederKelompok::class);
+
+
     }
 }
