@@ -13,7 +13,7 @@
             </div>
 			<div class="box-body table-condensed">
 				<div class="form-group col-md-5">
-					
+
 				</div>
 				<table class="table">
 					<thead>
@@ -33,7 +33,7 @@
 						<tr>
 							<td>{{$santri->jenjang->jenis_program->nama}}</td>
 							<td>{{$santri->jenjang->nama}}</td>
-							<td>{{$santri->kelompok->jadwal->hari}}</td>
+							<td>{{$hari[$santri->kelompok->jadwal->hari]}}</td>
 							<td>{{$santri->kelompok->jadwal->waktu}}</td>
 							<td>{{$santri->pengguna->nama_lengkap}}</td>
 							<td>{{$santri->pengguna->nomor_identitas}}</td>
