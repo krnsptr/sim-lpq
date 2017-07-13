@@ -54,7 +54,7 @@
               <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
               <td>{{$santri->jenjang->jenis_program->nama}}</td>
               <td>{{$santri->jenjang->nama}}</td>
-              <td>{{$santri->kelompok->id}}</td>
+              <td>@if ($santri->kelompok) {{$santri->kelompok->id}} @endif</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
                 <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
