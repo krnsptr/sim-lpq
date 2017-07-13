@@ -8,6 +8,7 @@ use App\Pengajar;
 use App\Jadwal;
 use App\Sistem;
 use App\Santri;
+use App\Kelompok;
 use DB;
 
 class ControllerJadwal extends Controller
@@ -25,13 +26,11 @@ class ControllerJadwal extends Controller
         $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 
         foreach ($data['daftar_santri'] as $santri) {
-          $data['kelompok'][$santri->id] = DB::table('kelompok_view')->where([
+          $data['daftar_kelompok'][$santri->id] = DB::table('kelompok_view')->where([
             ['id_jenjang', '=', $santri->jenjang->id],
             ['jenis_kelamin', '=', $santri->pengguna->jenis_kelamin],
           ])->get();
-        } 
-
-        //dd($data['kelompok']);
+        }
         return view('member.penjadwalan', $data);
     }
 
@@ -107,13 +106,33 @@ class ControllerJadwal extends Controller
     }
 
     /**
-     * Memproses pengeditan kelompok santri dari member dan admin
+     * Memproses pengeditan kelompok santri dari member
      */
     public function ganti()
     {
-        //
-        //if(Auth::user()->hasRole('admin'));
-        //else;
+        $santri = Santri::find(Input::get('id_santri'));
+        if(!$santri) return response('Santri tidak ditemukan.', 404);
+        if(auth()->user() != $santri->pengguna) return response('Tidak diizinkan.', 403);
+
+        $id_kelompok = Input::get('id_kelompok');
+        if(!empty($id_kelompok)) {
+          return DB::transaction(function () use($santri, $id_kelompok) {
+            $kelompok = DB::table('kelompok_view')->where('id_k', '=', $id_kelompok)->first();
+            if(!$kelompok) return response('Kelompok tidak ditemukan.', 404);
+            if($kelompok->id_jenjang != $santri->jenjang->id || $kelompok->jenis_kelamin != $santri->pengguna->jenis_kelamin)
+              return response('Tidak diizinkan.', 403);
+            if($kelompok->sisa < 1) return redirect('dasbor')->with('error', 'Kelompok sudah penuh.');
+
+            $santri->kelompok()->associate($id_kelompok);
+            if($santri->save()) return redirect('dasbor/penjadwalan')->with('success', 'Jadwal berhasil diubah');
+            else return redirect('dasbor/penjadwalan')->with('error', 'Jadwal gagal diubah');
+          });
+        }
+        else {
+          $santri->kelompok()->dissociate();
+          if($santri->save()) return redirect('dasbor/penjadwalan')->with('success', 'Jadwal berhasil diubah');
+          else return redirect('dasbor/penjadwalan')->with('error', 'Jadwal gagal diubah');
+        }
     }
 
     /**

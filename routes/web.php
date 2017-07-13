@@ -39,7 +39,10 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
 
     Route::post('/program/tambah', 'ControllerMember@program_baru');
     Route::post('/program/tambah/pengajar', 'ControllerPengajar@tambah');
-    Route::post('/program/tambah/santri', 'ControllerSantri@tambah');
+    Route::post('/program/
+
+
+    tambah/santri', 'ControllerSantri@tambah');
 
     Route::post('/program/edit', 'ControllerMember@program_edit');
     Route::post('/program/edit/pengajar', 'ControllerPengajar@simpan');
@@ -50,6 +53,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
     Route::post('/program/hapus/santri', 'ControllerSantri@hapus');
 
     Route::get('/penjadwalan', 'ControllerJadwal@index');
+    Route::post('/penjadwalan/ganti', 'ControllerJadwal@ganti');
     Route::post('/penjadwalan/tambah', 'ControllerJadwal@tambah');
     Route::post('/penjadwalan/edit', 'ControllerJadwal@simpan');
     Route::post('/penjadwalan/kapasitas-membina', 'ControllerPengajar@kapasitas_membina_simpan');

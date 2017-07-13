@@ -163,23 +163,31 @@
         						</tr>
         						<tr>
         							<td>Jadwal</td>
-        							<td>: @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Belum dipilih @else {{$hari[$santri->kelompok->jadwal->hari]}}, {{$santri->kelompok->jadwal->waktu}} @endif </td>
+        							<td>: @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Belum dipilih
+                            @else
+                              <?php $kelompok = $santri->kelompok; ?>
+                              {{$hari[$kelompok->jadwal->hari]}}, {{date('H:i', strtotime($kelompok->jadwal->waktu))}}, Kelompok {{$kelompok->id}}
+                            @endif
+                      </td>
         						</tr>
         						<tr>
                     @if(!$penjadwalan_santri) Penjadwalan telah ditutup
                     @else
         							<td>Ganti Jadwal</td>
         							<td>
-                              @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Anda belum mengikuti proses placement test 
+                              @if ($santri->jenjang->id === 1 || $santri->jenjang->id === 3 || $santri->jenjang->id === 5) Anda belum mengikuti placement test.
                               @else
-                      		<div class="form-group col-md-12"> 
-            									<div class="col-md-4">
+                      		<div class="form-group col-md-12">
+                            <form action="{{ url('dasbor/penjadwalan/ganti') }}" method="post">
+                              {{ csrf_field() }}
+                              <input type="hidden" name="id_santri" value="{{ $santri->id }}" />
+            									<div class="col-md-6">
             										<div class="form-group has-feedback">
-                                  <select name="hari" class="form-control" autocomplete="off">
+                                  <select name="id_kelompok" class="form-control" autocomplete="off">
                                     <option value="">Belum dipilih</option>
                                     <?php $id_santri = $santri->id; ?>
-                                    @foreach($kelompok[$id_santri] as $data_kelompok_views)
-                                      <option value="{{$data_kelompok_views->hari}}"@if ($data_kelompok_views->id_k == $santri->kelompok->id) selected  @endif> {{$hari[$data_kelompok_views->hari]}}, {{$data_kelompok_views->waktu}} ({{$data_kelompok_views->kuota}})</option>
+                                    @foreach($daftar_kelompok[$id_santri] as $kelompok)
+                                      <option value="{{$kelompok->id_k}}"@if ($santri->kelompok && $kelompok->id_k == $santri->kelompok->id) selected  @endif> {{$hari[$kelompok->hari]}}, {{date('H:i', strtotime($kelompok->waktu))}}, Kelompok {{$kelompok->id_k}}: {{$kelompok->nama_lengkap}} (sisa {{$kelompok->sisa}})</option>
                                     @endforeach
             											</select>
             										</div>
@@ -187,6 +195,7 @@
             									<div class="col-md-4">
             										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
             									</div>
+                            </form>
         								  </div>
                                 @endif
         							</td>

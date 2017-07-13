@@ -28,6 +28,6 @@ class Kelompok extends Model
           return $this->belongsTo('App\Jenjang', 'id_jenjang');
       }
     function daftar_santri(){
-          return $this->hasMany('App\Santri', 'id');
+          return $this->hasMany('App\Santri', 'id_kelompok');
       }
 }

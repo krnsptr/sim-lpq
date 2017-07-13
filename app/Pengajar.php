@@ -32,4 +32,8 @@ class Pengajar extends Program
   function daftar_jadwal() {
       return $this->hasMany('App\Jadwal', 'id_pengajar');
   }
+
+  function daftar_kelompok() {
+      return $this->hasManyThrough('App\Kelompok', 'App\Jadwal', 'id_pengajar', 'id_jadwal');
+  }
 }

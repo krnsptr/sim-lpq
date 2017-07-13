@@ -29,22 +29,22 @@
             <h3 class="box-title">Pengajar {{$pengajar->jenjang->nama}}</h3>
           </div>
 
-          @foreach ($pengajar->daftar_jadwal as $jadwal)
+          @foreach ($pengajar->daftar_kelompok as $kelompok)
           <div class="box-body">
             <table class="table">
             <thead>
               <tr>
-                <td><strong>Kelompok {{$jadwal->kelompok->id}}</strong></td>
+                <td><strong>Kelompok {{$kelompok->id}}</strong></td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td width="20%">Jenjang</td>
-                <td>: {{$jadwal->kelompok->jenjang->nama}}</td>
+                <td>: {{$kelompok->jenjang->nama}}</td>
               </tr>
               <tr>
                 <td>Jadwal</td>
-                <td>: {{$hari[$jadwal->hari]}}, {{$jadwal->waktu}} WIB</td>
+                <td>: {{$hari[$kelompok->jadwal->hari]}}, {{$kelompok->jadwal->waktu}} WIB</td>
               </tr>
             </tbody>
             </table>
@@ -58,7 +58,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($jadwal->kelompok->daftar_santri as $santri)
+                @foreach ($kelompok->daftar_santri as $santri)
                 <tr>
                   <td>{{$loop->iteration}}</td>
                   <td>{{$santri->pengguna->nama_lengkap}}</td>
@@ -67,7 +67,7 @@
                 @endforeach
               </tbody>
             </table>
-            
+
           </div>
           <!-- /.box-body -->
           @endforeach
@@ -87,28 +87,30 @@
           </div>
 
           <div class="box-body">
+            @if ($santri->kelompok)
+            <?php $kelompok = $santri->kelompok; ?>
           	<table class="table">
 	          	<thead>
 	              <tr>
-	              	<td><strong>Kelompok {{$santri->id}}</strong></td>
+	              	<td><strong>Kelompok {{$kelompok->id}}</strong></td>
 	              </tr>
 	          	</thead>
 	          	<tbody>
 	              	<tr width="">
 	              		<td width="20%"> Jenjang</td>
-	              		<td>: {{$santri->kelompok->jenjang->nama}}</td>
+	              		<td>: {{$kelompok->jenjang->nama}}</td>
 	              	</tr>
 	              	<tr>
 		              	<td>Pengajar</td>
-		              	<td>: {{$santri->kelompok->jadwal->pengajar->pengguna->nama_lengkap}}</td>
+		              	<td>: {{$kelompok->jadwal->pengajar->pengguna->nama_lengkap}}</td>
 	              	</tr>
 	              	<tr>
 		              	<td>Jadwal</td>
-		              	<td>: {{$hari[$santri->kelompok->jadwal->hari]}}, {{$santri->kelompok->jadwal->waktu}}WIB</td>
+		              	<td>: {{$hari[$kelompok->jadwal->hari]}}, {{date('H:i', strtotime($kelompok->jadwal->waktu))}}</td>
 	              	</tr>
 	              	<tr>
 		              	<td>Nomor HP/ WA</td>
-		              	<td>: {{$santri->kelompok->jadwal->pengajar->pengguna->nomor_hp}}</td>
+		              	<td>: {{$kelompok->jadwal->pengajar->pengguna->nomor_hp}} / {{$kelompok->jadwal->pengajar->pengguna->nomor_wa}}</td>
 	              	</tr>
 	            </tbody>
           	</table>
@@ -122,17 +124,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  @foreach ($santri->kelompok->daftar_santri as $daftar_santri)
+                @foreach ($kelompok->daftar_santri as $santri)
                 <tr>
                   <td>{{$loop->iteration}}</td>
-                  <td>{{$daftar_santri->pengguna->nama_lengkap}}</td>
-                  <td>{{$daftar_santri->pengguna->nomor_hp}}</td>
+                  <td>{{$santri->pengguna->nama_lengkap}}</td>
+                  <td>{{$santri->pengguna->nomor_hp}} / {{$santri->pengguna->nomor_wa}}</td>
                 </tr>
                 @endforeach
                 </tr>
               </tbody>
             </table>
+            @else
+              Anda belum memilih jadwal.
+            @endif
           </div>
 
           <!-- /.box-body -->
