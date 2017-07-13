@@ -104,7 +104,7 @@ class ControllerJadwal extends Controller
     public function ganti()
     {
         if(auth()->user()->hasRole('member') && !sistem('penjadwalan_santri'))
-          return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan santri sudah ditutup')
+          return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan santri sudah ditutup');
 
         $santri = Santri::find(Input::get('id_santri'));
         $id_kelompok = Input::get('id_kelompok');
