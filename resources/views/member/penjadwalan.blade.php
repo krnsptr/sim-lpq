@@ -163,24 +163,32 @@
         						</tr>
         						<tr>
         							<td>Jadwal</td>
-        							<td>: @if (is_null($santri->kelompok)) Belum dipilih @endif</td>
+        							<td>: @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Belum dipilih @else {{$hari[$santri->kelompok->jadwal->hari]}}, {{$santri->kelompok->jadwal->waktu}} WIB @endif </td>
         						</tr>
         						<tr>
+                    @if(!$penjadwalan_santri) Penjadwalan telah ditutup
+                    @else
         							<td>Ganti Jadwal</td>
         							<td>
-        								<div class="form-group col-md-12">
-        									<div class="col-md-4">
-        										<div class="form-group has-feedback">
-        											<select name="hari" class="form-control">
-        											</select>
-        										</div>
-        									</div>
-        									<div class="col-md-4">
-        										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
-        										<a href="" class="btn btn-danger btn-flat">Hapus</a>
-        									</div>
-        								</div>
+                              @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Anda belum mengikuti proses placement test 
+                              @else
+                      		<div class="form-group col-md-12"> 
+                									<div class="col-md-4">
+                										<div class="form-group has-feedback">
+                                        @foreach($data_jadwal_kelompok as $data_kelompok_views)
+                                          <option value="1"@if ($data_kelompok_views->hari == 1) selected @endif> {{$hari[$data_kelompok_views->hari]}}, {{$data_kelompok_views->waktu}} ({{$data_kelompok_views->kuota}})</option>
+                                        @endforeach
+                											</select>
+                										</div>
+                									</div>
+                									<div class="col-md-4">
+                										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
+                										<a href="" class="btn btn-danger btn-flat">Hapus</a>
+                									</div>
+        								  </div>
+                                @endif
         							</td>
+                      @endif
         						</tr>
         					</tbody>
         				</table>

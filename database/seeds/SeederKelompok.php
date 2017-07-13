@@ -41,9 +41,5 @@ class SeederKelompok extends Seeder
         $kelompok->jadwal()->associate(4);
         $kelompok->jenjang()->associate($kelompok->jadwal->pengajar->jenjang);
         $kelompok->save();
-
-
-
-
     }
 }

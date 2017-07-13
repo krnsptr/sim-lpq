@@ -9,7 +9,7 @@
         </h1>
         <ol class="breadcrumb">
           <li><a href=""><i class="fa fa-dashboard"></i> SIM LPQ</a></li>
-          <li><a href="">Admin</a></li>
+          <li><a href="">User</a></li>
           <li class="active">Dasbor</li>
         </ol>
       </section>
