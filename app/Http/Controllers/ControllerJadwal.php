@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Pengajar;
-use App\Santri;
 use App\Jadwal;
-use App\Kelompok;
+use App\Sistem;
+use App\Santri;
 use DB;
 
 class ControllerJadwal extends Controller
@@ -23,7 +23,15 @@ class ControllerJadwal extends Controller
         $data['penjadwalan_pengajar'] = sistem('penjadwalan_pengajar');
         $data['penjadwalan_santri'] = sistem('penjadwalan_santri');
         $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-        $data['data_jadwal_kelompok'] = DB::table('kelompok_view')->get();
+
+        foreach ($data['daftar_santri'] as $santri) {
+          $data['kelompok'][$santri->id] = DB::table('kelompok_view')->where([
+            ['id_jenjang', '=', $santri->jenjang->id],
+            ['jenis_kelamin', '=', $santri->pengguna->jenis_kelamin],
+          ])->get();
+        } 
+
+        //dd($data['kelompok']);
         return view('member.penjadwalan', $data);
     }
 
@@ -103,23 +111,9 @@ class ControllerJadwal extends Controller
      */
     public function ganti()
     {
-        if(auth()->user()->hasRole('member') && !sistem('penjadwalan_santri'))
-          return redirect('dasbor/penjadwalan')->with('error', 'Penjadwalan santri sudah ditutup');
-
-        $santri = Santri::find(Input::get('id_santri'));
-        $id_kelompok = Input::get('id_kelompok');
-
-        if(!$santri) return response('Santri tidak ditemukan.', 404);
-        if(!empty('id_kelompok') && !Kelompok::find($id_kelompok)) return response('Kelompok tidak ditemukan.', 404);
-
-        $santri->kelompok()->associate($id_kelompok);
-
-        if($santri->save()) {
-          if(auth()->user()->hasRole('admin')) return 'Berhasil.';
-          return redirect('dasbor/penjadwalan')->with('success', 'Jadwal berhasil diubah');
-        }
-        else return redirect('dasbor/penjadwalan')->with('error', 'Jadwal gagal diubah');
-
+        //
+        //if(Auth::user()->hasRole('admin'));
+        //else;
     }
 
     /**

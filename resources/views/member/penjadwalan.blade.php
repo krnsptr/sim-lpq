@@ -146,7 +146,7 @@
         				Pengajar <strong>bertanggung jawab penuh</strong> atas jadwal yang dipilih.<br />
         				Departemen Administrasi akan menentukan jadwal mana yang akan digunakan untuk KBM.<br />
             	</div>
-          </div>
+        </div>
           <!-- /.box -->
           @endforeach
           @foreach ($daftar_santri as $santri)
@@ -163,7 +163,7 @@
         						</tr>
         						<tr>
         							<td>Jadwal</td>
-        							<td>: @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Belum dipilih @else {{$hari[$santri->kelompok->jadwal->hari]}}, {{$santri->kelompok->jadwal->waktu}} WIB @endif </td>
+        							<td>: @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Belum dipilih @else {{$hari[$santri->kelompok->jadwal->hari]}}, {{$santri->kelompok->jadwal->waktu}} @endif </td>
         						</tr>
         						<tr>
                     @if(!$penjadwalan_santri) Penjadwalan telah ditutup
@@ -173,18 +173,20 @@
                               @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Anda belum mengikuti proses placement test 
                               @else
                       		<div class="form-group col-md-12"> 
-                									<div class="col-md-4">
-                										<div class="form-group has-feedback">
-                                        @foreach($data_jadwal_kelompok as $data_kelompok_views)
-                                          <option value="1"@if ($data_kelompok_views->hari == 1) selected @endif> {{$hari[$data_kelompok_views->hari]}}, {{$data_kelompok_views->waktu}} ({{$data_kelompok_views->kuota}})</option>
-                                        @endforeach
-                											</select>
-                										</div>
-                									</div>
-                									<div class="col-md-4">
-                										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
-                										<a href="" class="btn btn-danger btn-flat">Hapus</a>
-                									</div>
+            									<div class="col-md-4">
+            										<div class="form-group has-feedback">
+                                  <select name="hari" class="form-control" autocomplete="off">
+                                    <option value="">Belum dipilih</option>
+                                    <?php $id_santri = $santri->id; ?>
+                                    @foreach($kelompok[$id_santri] as $data_kelompok_views)
+                                      <option value="{{$data_kelompok_views->hari}}"@if ($data_kelompok_views->id_k == $santri->kelompok->id) selected  @endif> {{$hari[$data_kelompok_views->hari]}}, {{$data_kelompok_views->waktu}} ({{$data_kelompok_views->kuota}})</option>
+                                    @endforeach
+            											</select>
+            										</div>
+            									</div>
+            									<div class="col-md-4">
+            										<button type="submit" class="btn btn-primary btn-flat">Ubah</button>
+            									</div>
         								  </div>
                                 @endif
         							</td>
