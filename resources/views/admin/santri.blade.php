@@ -54,7 +54,7 @@
               <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
               <td>{{$santri->jenjang->jenis_program->nama}}</td>
               <td>{{$santri->jenjang->nama}}</td>
-              <td></td>
+              <td>{{$santri->kelompok->id}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
                 <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
@@ -264,7 +264,7 @@
               $('#jj'+program+' > option').clone().appendTo('#jenjang');
               $('#id_kelompok').append('<option value="">Belum ditentukan</option>');
               for(var i in data['jadwal']) {
-                $('#id_kelompok').append('<option value="'+data['jadwal'][i]['id_kelompok']+'"'+((data['id_kelompok'] == data['jadwal'][i]['id_kelompok']) ? ' selected' : '')+'>'+hari[data['jadwal'][i]['hari']]+' '+data['jadwal'][i]['waktu'].slice(0,-3)+' -- Kelompok '+data['jadwal'][i]['id_kelompok']+': '+data['jadwal'][i]['nama_lengkap']+' (sisa '+(10-data['jadwal'][i]['jumlah_santri'])+')</option>');
+                $('#id_kelompok').append('<option value="'+data['jadwal'][i]['id_k']+'"'+((data['id_kelompok'] == data['jadwal'][i]['id_k']) ? ' selected' : '')+'>'+hari[data['jadwal'][i]['hari']]+' '+data['jadwal'][i]['waktu'].slice(0,-3)+' -- Kelompok '+data['jadwal'][i]['id_k']+': '+data['jadwal'][i]['nama_lengkap']+' (sisa '+(data['jadwal'][i]['sisa'])+')</option>');
               }
               $('#id_santri').val(id_santri);
               if(data['id_jenjang_lulus']) $('#sudah_lulus').val(data['id_jenjang_lulus']).change();
@@ -278,6 +278,27 @@
             }
       });
     }
+
+    /*function kelompok() {
+      $.ajax({
+          data: {
+            id_santri: $('#id_santri').val(),
+          },
+          url: '{{ url('admin/santri/kelompok') }}',
+          success: function(data){
+              $('option', '#id_kelompok').remove();
+              $('#id_kelompok').append('<option value="">Belum ditentukan</option>');
+              console.log(data['jadwal']);
+              for(var i in data['jadwal']) {
+                $('#id_kelompok').append('<option value="'+data['jadwal'][i]['id_k']+'"'+((data['id_k'] == data['jadwal'][i]['id_k']) ? ' selected' : '')+'>'+hari[data['jadwal'][i]['hari']]+' '+data['jadwal'][i]['waktu'].slice(0,-3)+' -- Kelompok '+data['jadwal'][i]['id_k']+': '+data['jadwal'][i]['nama_lengkap']+' (sisa '+(data['jadwal'][i]['sisa'])+')</option>');
+              }
+          },
+          error: function() {
+            alert('gagal');
+            $('#modal').modal('hide');
+          }
+        });
+    }*/
 
     function simpan() {
       $.ajax({

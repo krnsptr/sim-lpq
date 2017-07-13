@@ -44,6 +44,9 @@
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="{{ url('dasbor/akun') }}" class="btn btn-default btn-flat">Akun</a>
+                    </div>
                     <div class="pull-right">
                       <a href="{{ route('logout') }}"
                           class="btn btn-default btn-flat"

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use DB;
 use App\Pengajar;
+use App\Santri;
 use App\Jenjang;
 use App\Jadwal;
 use App\Kelompok;
@@ -39,6 +41,22 @@ class ControllerKelompok extends Controller
         $pengajar = Pengajar::with('daftar_jadwal.kelompok')->find(Input::get('id_pengajar'));
         if(!$pengajar) return abort(404);
         return $pengajar->toJson();
+    }
+
+    /**
+     * Mengirimkan daftar kelompok dengan jenjang dan jenis kelamin tertentu kepada admin
+     */
+    public function kelompok()
+    {
+      $santri = Santri::find(Input::get('id_santri'));
+      $daftar_kelompok = DB::table('kelompok_view')->where([
+        ['id_jenjang', '=', $santri->jenjang->id],
+        ['jenis_kelamin', '=', $santri->pengguna->jenis_kelamin],
+      ])->get();
+      if(!$santri) return abort(404);
+      $santri = $santri->toArray();
+      $santri['jadwal'] = $daftar_kelompok->toArray();
+      return json_encode($santri);
     }
 
     /**

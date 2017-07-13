@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use DB;
 use App\Santri;
 use App\Jenjang;
 use App\Jenis_program;
@@ -26,8 +27,14 @@ class ControllerSantri extends Controller
     public function santri()
     {
         $santri = Santri::find(Input::get('id_santri'));
+        $daftar_kelompok = DB::table('kelompok_view')->where([
+          ['id_jenjang', '=', $santri->jenjang->id],
+          ['jenis_kelamin', '=', $santri->pengguna->jenis_kelamin],
+        ])->get();
         if(!$santri) return abort(404);
-        return $santri->toJson();
+        $santri = $santri->toArray();
+        $santri['jadwal'] = $daftar_kelompok->toArray();
+        return json_encode($santri);
     }
 
     /**
@@ -96,7 +103,7 @@ class ControllerSantri extends Controller
         if(!$jenjang) return abort(404);
         $kelompok = Input::get('id_kelompok');
         $santri->jenjang()->associate($jenjang);
-        //$santri->kelompok()->associate($kelompok);
+        $santri->kelompok()->associate($kelompok);
       }
 
       if($santri->save()) {
