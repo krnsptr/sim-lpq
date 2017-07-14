@@ -39,10 +39,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
 
     Route::post('/program/tambah', 'ControllerMember@program_baru');
     Route::post('/program/tambah/pengajar', 'ControllerPengajar@tambah');
-    Route::post('/program/
-
-
-    tambah/santri', 'ControllerSantri@tambah');
+    Route::post('/program/tambah/santri', 'ControllerSantri@tambah');
 
     Route::post('/program/edit', 'ControllerMember@program_edit');
     Route::post('/program/edit/pengajar', 'ControllerPengajar@simpan');
