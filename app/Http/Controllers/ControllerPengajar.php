@@ -48,7 +48,7 @@ class ControllerPengajar extends Controller
     $terdaftar = Pengajar::where('id_pengguna', '=', auth()->user()->id)->whereHas('jenjang.jenis_program',function ($query) use($id_jenis_program) {
           $query->whereId($id_jenis_program);
     })->count();
-    if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Pengajar '.$data['jenis_program']->nama);
+    if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Pengajar '.$jenis_program->nama);
 
     if(!is_null($jenis_program->enrollment_pengajar) && $jenis_program->enrollment_pengajar !== $enrollment_key)
       return redirect('dasbor')->with('error', 'Enrollment key tidak cocok');
