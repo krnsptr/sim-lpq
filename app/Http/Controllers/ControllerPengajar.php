@@ -38,6 +38,8 @@ class ControllerPengajar extends Controller
   {
     if(!sistem('pendaftaran_pengajar')) return redirect('dasbor')->with('error', 'Pendaftaran pengajar sudah ditutup');
 
+    $pendaftaran = Input::get('pendaftaran');
+    $memenuhi_syarat = Input::get('memenuhi_syarat');
     $motivasi_mengajar = Input::get('motivasi_mengajar');
     $enrollment_key = Input::get('enrollment_key');
     $id_jenis_program = (int) Input::get('jenis_program');
@@ -58,6 +60,8 @@ class ControllerPengajar extends Controller
 
     $pengajarBaru = new Pengajar;
     $pengajarBaru->jenjang()->associate($jenjang);
+    $pengajarBaru->pendaftaran = $pendaftaran;
+    if($id_jenis_program === 1) $pengajarBaru->memenuhi_syarat = $memenuhi_syarat;
     $pengajarBaru->motivasi_mengajar = $motivasi_mengajar;
     $pengajarBaru->pengguna()->associate($pengguna);
 
@@ -70,6 +74,8 @@ class ControllerPengajar extends Controller
    */
   public function simpan()
   {
+    $pendaftaran = Input::get('pendaftaran');
+    $memenuhi_syarat = Input::get('memenuhi_syarat');
     $motivasi_mengajar = Input::get('motivasi_mengajar');
     $id_pengajar = (int) Input::get('id_pengajar');
 
@@ -78,6 +84,8 @@ class ControllerPengajar extends Controller
     if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
     if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
+    $pengajar->pendaftaran = $pendaftaran;
+    if($pengajar->jenjang->jenis_program->id == 1) $pengajar->memenuhi_syarat = $memenuhi_syarat;
     $pengajar->motivasi_mengajar = $motivasi_mengajar;
     if(auth()->user()->hasRole('admin')) {
       $jenjang = Jenjang::find(Input::get('jenjang'));

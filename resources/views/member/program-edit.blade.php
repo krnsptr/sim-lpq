@@ -35,41 +35,42 @@
            <form action="{{ url('dasbor/program/edit/pengajar') }}" method="post">
               {{ csrf_field() }}
               <input type="hidden" name="id_pengajar" value="{{ $pengajar->id }}" />
-             <?php //if($program == 1) { ?>
-             <!--div class="form-group col-md-12">
-               <div class="col-md-5">
-                 <label class="control-group">Pendaftaran</label>
-                 <div class="form-group has-feedback">
-                   <select class="form-control" name="pendaftaran">
-                     <option value="0">Pendaftaran baru</option>
-                     <option value="1">Pendaftaran ulang</option>
-                   </select><br />
-                   Pendaftaran ulang khusus Instruktur Tahsin lama yang sudah pernah mengikuti wawancara.<br />
-                 </div>
-               </div>
-             </div>
-             <div class="form-group col-md-12">
-               <div class="col-md-5">
-                 <label class="control-group">Memenuhi syarat</label>
-                 <div class="form-group has-feedback">
-                   <input type="checkbox" name="memenuhi_syarat[]" value="1"> Lulus Tahsin 2<br />
-                   <input type="checkbox" name="memenuhi_syarat[]" value="1"> Lulus Dauroh Syahadah<br />
-                   <input type="checkbox" name="memenuhi_syarat[]" value="1"> Berkompetensi mengajar<br />
-                 </div>
-               </div>
-             </div-->
-             <div class="form-group col-md-12">
+              <div class="form-group col-md-12">
+                <div class="col-md-5">
+                  <label class="control-group">Pendaftaran</label>
+                  <div class="form-group has-feedback">
+                    <select class="form-control" name="pendaftaran">
+                      <option value="0"@if ($pengajar->pendaftaran === 0) selected @endif>Pendaftaran baru</option>
+                      <option value="1"@if ($pengajar->pendaftaran === 1) selected @endif>Pendaftaran ulang</option>
+                    </select><br />
+                    <small id="passwordHelpBlock" class="form-text text-muted">Pendaftaran ulang khusus yang pernah mengajar {{ $jenis_program->nama }} di LPQ.</small>
+                  </div>
+                </div>
+              </div>
+              @if ($jenis_program->id == 1)
+              <div class="form-group col-md-12">
+                <div class="col-md-5">
+                  <label class="control-group">Memenuhi syarat</label>
+                  <div class="form-group has-feedback">
+                    <input type="checkbox" name="memenuhi_syarat[0]" value="1"@if ($pengajar->memenuhi_syarat[0]) checked @endif> Lulus Tahsin 2<br />
+                    <input type="checkbox" name="memenuhi_syarat[1]" value="1"@if ($pengajar->memenuhi_syarat[1]) checked @endif> Lulus Dauroh Syahadah<br />
+                    <input type="checkbox" name="memenuhi_syarat[2]" value="1"@if ($pengajar->memenuhi_syarat[2]) checked @endif> Berkompetensi mengajar<br />
+                  </div>
+                </div>
+              </div>
+              @endif
+              <div class="form-group col-md-12">
                <div class="col-md-5">
                  <label class="control-group">Motivasi mengajar</label>
                  <div class="form-group has-feedback">
                    <input type="text" class="form-control" name="motivasi_mengajar" value="{{ $pengajar->motivasi_mengajar }}"><br />
                  </div>
                </div>
-             </div>
-               <div class="col-md-2">
+              </div>
+              <div class="col-md-2">
                  <button type="submit" class="btn btn-primary btn-flat">Simpan</button>
                  <a href="{{ url('dasbor') }}" class="btn btn-default btn-flat">Batal</a>
-               </div>
+              </div>
            </form>
          </div>
         </div>

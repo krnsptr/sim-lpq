@@ -80,6 +80,19 @@
               <div class="modal-body">
                   <input type="hidden" id="id_pengajar" value="" />
                   <div class="form-group col-md-12">
+                    <label class="control-group">Pendaftaran</label>
+                    <select class="form-control" id="pendaftaran">
+    									<option value="0">Pendaftaran baru</option>
+    									<option value="1">Pendaftaran ulang</option>
+    								</select><br />
+                  </div>
+                  <div class="form-group col-md-12 hidden" id="memenuhi_syarat">
+                    <label class="control-group">Memenuhi Syarat</label><br />
+                    <input type="checkbox" id="memenuhi_syarat0" value="1"> Lulus Tahsin 2<br />
+    								<input type="checkbox" id="memenuhi_syarat1" value="1"> Lulus Dauroh Syahadah<br />
+    								<input type="checkbox" id="memenuhi_syarat2" value="1"> Berkompetensi mengajar<br />
+                  </div>
+                  <div class="form-group col-md-12">
                     <label class="control-group">Motivasi mengajar</label>
                     <textarea class="form-control" id="motivasi_mengajar"></textarea>
                   </div>
@@ -202,6 +215,8 @@
     $('#modal').on('hidden.bs.modal', function () {
       $('#jenjang > option').remove();
       $('#id_pengajar').val('');
+      $('#memenuhi_syarat').addClass('hidden');
+      $('#memenuhi_syarat > input').prop('checked', false);
     });
     var id_pengajar;
 
@@ -209,6 +224,7 @@
       tr = $(pointer).parent().parent();
       id_pengajar = tr.attr('data-id-pengajar');
       program = tr.attr('data-program');
+      if(program == 1) $('#memenuhi_syarat').removeClass('hidden');
       $('#jj'+program+' > option').clone().appendTo('#jenjang');
       $.ajax({
             data: {'id_pengajar': id_pengajar},
@@ -216,6 +232,10 @@
             url: '{{ url('admin/pengajar/pengajar') }}',
             success: function(data){
               $('#id_pengajar').val(id_pengajar);
+              $('#pendaftaran').val(data['pendaftaran']).change();
+              for(i=0; i<3; i++) {
+                if(data['memenuhi_syarat'][i] == 1) $('#memenuhi_syarat'+i).prop('checked', true);
+              }
               $('#motivasi_mengajar').val(data['motivasi_mengajar']);
               $('#jenjang').val(data['id_jenjang']).change();
               $('#modal').modal('show');
@@ -231,6 +251,12 @@
           data: {
             id_pengajar: $('#id_pengajar').val(),
             jenjang: $('#jenjang').val(),
+            pendaftaran: $('#pendaftaran').val(),
+            memenuhi_syarat: [
+              $('#memenuhi_syarat0').prop('checked') ? 1 : null,
+              $('#memenuhi_syarat1').prop('checked') ? 1 : null,
+              $('#memenuhi_syarat2').prop('checked') ? 1 : null
+            ],
             motivasi_mengajar: $('#motivasi_mengajar').val()
           },
           url: '{{ url('admin/pengajar/edit') }}',

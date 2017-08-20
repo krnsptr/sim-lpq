@@ -14,12 +14,25 @@ class Pengajar extends Program
    * @var array
    */
   protected $fillable = [
-      'kapasitas_membina', 'motivasi_mengajar'
+      'kapasitas_membina', 'motivasi_mengajar', 'pendaftaran', 'memenuhi_syarat'
   ];
 
   protected $casts = [
       'kapasitas_membina' => 'integer'
   ];
+
+  public function getMemenuhiSyaratAttribute($value)
+  {
+      return explode(':', $value, 4);
+  }
+
+  public function setMemenuhiSyaratAttribute($array) {
+    $memenuhi_syarat = '';
+    for($i=0; $i<3; $i++) {
+      if(isset($array[$i])) $memenuhi_syarat .= '1:'; else $memenuhi_syarat .= '0:';
+    }
+    $this->attributes['memenuhi_syarat'] = $memenuhi_syarat;
+  }
 
   function jenjang() {
       return $this->belongsTo('App\Jenjang', 'id_jenjang');
