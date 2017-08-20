@@ -61,13 +61,8 @@ class ControllerPengajar extends Controller
     $pengajarBaru->motivasi_mengajar = $motivasi_mengajar;
     $pengajarBaru->pengguna()->associate($pengguna);
 
-    if($pengajarBaru->save()) session()->flash('success', 'Program berhasil ditambahkan');
-    else session()->flash('error', 'Program gagal ditambahkan');
-
-    return redirect('dasbor');
-
-    //if(Auth::user()->hasRole('admin'));
-    //else;
+    if($pengajarBaru->save()) return redirect('dasbor/penjadwalan')->with('success', 'Program berhasil ditambahkan. Harap melakukan penjadwalan.');
+    else return redirect('dasbor')->with('error', 'Program gagal ditambahkan');
   }
 
   /**

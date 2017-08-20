@@ -30,6 +30,12 @@ class ControllerJadwal extends Controller
           Harap tambahkan program yang ingin didaftarkan.
           Silakan menuju <a href="/dasbor">Dasbor.</a>';
 
+        elseif(
+          $data['daftar_pengajar']->isNotEmpty() &&
+          Pengajar::where('id_pengguna', $member->id)->whereHas('daftar_jadwal')->count() !== $data['daftar_pengajar']->count()
+        ) $data['warning'] = 'Anda terdaftar sebagai pengajar tetapi belum semua program pengajar dijadwalkan.
+        Harap melakukan penjadwalan.';
+
         foreach ($data['daftar_santri'] as $santri) {
           $data['daftar_kelompok'][$santri->id] = DB::table('kelompok_view')->where([
             ['id_jenjang', '=', $santri->jenjang->id],
