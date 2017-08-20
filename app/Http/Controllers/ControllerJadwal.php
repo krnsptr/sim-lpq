@@ -25,6 +25,11 @@ class ControllerJadwal extends Controller
         $data['penjadwalan_santri'] = sistem('penjadwalan_santri');
         $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 
+        if($data['daftar_pengajar']->isEmpty() && $data['daftar_santri']->isEmpty())
+          $data['warning'] = 'Anda belum terdaftar sebagai santri ataupun pengajar.
+          Harap tambahkan program yang ingin didaftarkan.
+          Silakan menuju <a href="/dasbor">Dasbor.</a>';
+
         foreach ($data['daftar_santri'] as $santri) {
           $data['daftar_kelompok'][$santri->id] = DB::table('kelompok_view')->where([
             ['id_jenjang', '=', $santri->jenjang->id],

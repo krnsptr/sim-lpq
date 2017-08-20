@@ -22,7 +22,7 @@
         <div style="margin-top:10px">
           <div class="callout callout-info">
             <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-            {{ sistem('pengumuman') }}
+            {!! sistem('pengumuman') !!}
           </div>
         </div>
         <div class="box box-default">

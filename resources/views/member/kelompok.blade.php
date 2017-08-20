@@ -16,10 +16,19 @@
 
       <!-- Main content -->
       <section class="content">
+
+        @if (isset($warning))
+        <div class="alert alert-warning alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h4><i class="icon fa fa-warning"></i> Peringatan!</h4>
+          {!! $warning !!}
+        </div>
+        @endif
+
         <div style="margin-top:10px">
           <div class="callout callout-info">
             <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-            {{ sistem('pengumuman') }}
+            {!! sistem('pengumuman') !!}
           </div>
         </div>
         <!-- Default box -->

@@ -26,11 +26,11 @@
             {{ session()->get('error') }}
     			</div>
           @endif
-          @if (session()->has('warning'))
+          @if (isset($warning))
     			<div class="alert alert-warning alert-dismissible">
     				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     				<h4><i class="icon fa fa-warning"></i> Peringatan!</h4>
-            {{ session()->get('warning') }}
+            {!! $warning !!}
     			</div>
           @endif
           @if (session()->has('success'))
@@ -43,7 +43,7 @@
 
           <div class="callout callout-info">
             <h4><i class="icon fa fa-info"></i>&emsp;Pengumuman</h4>
-            {{ sistem('pengumuman') }}
+            {!! sistem('pengumuman') !!}
           </div>
     		</div>
 		<!--Untuk mengubah data atau menghapus akun, silahkan menuju <a href="#">Akun</a>-->

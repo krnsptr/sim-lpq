@@ -19,17 +19,22 @@ class ControllerKelompok extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('admin')) {
-          //
-        $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])->get();
-        $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-          return view('admin.kelompok', $data);
+          $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])->get();
+          $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+            return view('admin.kelompok', $data);
         }
         else {
-        $member = auth()->user();
-        $data['daftar_pengajar']=$member->daftar_pengajar;
-        $data['daftar_santri'] = $member->daftar_santri;
-        $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-        return view('member.kelompok', $data);
+          $member = auth()->user();
+          $data['daftar_pengajar']=$member->daftar_pengajar;
+          $data['daftar_santri'] = $member->daftar_santri;
+          $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+          if($data['daftar_pengajar']->isEmpty() && $data['daftar_santri']->isEmpty())
+            $data['warning'] = 'Anda belum terdaftar sebagai santri ataupun pengajar.
+            Harap tambahkan program yang ingin didaftarkan.
+            Silakan menuju <a href="/dasbor">Dasbor.</a>';
+
+          return view('member.kelompok', $data);
         }
     }
 

@@ -32,6 +32,9 @@ class ControllerMember extends Controller
         $data['daftar_pengajar'] = $pengguna->daftar_pengajar;
         $data['daftar_santri'] = $pengguna->daftar_santri;
         $data['daftar_jenis_program'] = Jenis_program::all();
+        if($data['daftar_pengajar']->isEmpty() && $data['daftar_santri']->isEmpty())
+          $data['warning'] = 'Anda belum terdaftar sebagai santri ataupun pengajar.
+          Harap tambahkan program yang ingin didaftarkan.';
         return view('member.dasbor', $data);
     }
 
