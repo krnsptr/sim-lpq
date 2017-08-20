@@ -19,7 +19,7 @@ class ControllerJadwal extends Controller
     public function index()
     {
         $member = auth()->user();
-        $data['daftar_pengajar'] = $member->daftar_pengajar;
+        $data['daftar_pengajar'] = Pengajar::where('id_pengguna', $member->id)->with('daftar_jadwal')->get();
         $data['daftar_santri'] = $member->daftar_santri;
         $data['penjadwalan_pengajar'] = sistem('penjadwalan_pengajar');
         $data['penjadwalan_santri'] = sistem('penjadwalan_santri');

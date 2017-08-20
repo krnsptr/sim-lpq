@@ -15,7 +15,9 @@ class ControllerPengajar extends Controller
    */
   public function index()
   {
-      $data['daftar_pengajar'] = Pengajar::all();
+      $data['daftar_pengajar'] = Pengajar::with([
+        'pengguna', 'jenjang', 'jenjang.jenis_program'
+      ])->get();
       $data['daftar_jenis_program'] = Jenis_program::all();
       return view('admin.pengajar', $data);
 

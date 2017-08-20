@@ -16,7 +16,9 @@ class ControllerSantri extends Controller
      */
     public function index()
     {
-        $data['daftar_santri'] = Santri::all();
+        $data['daftar_santri'] = Santri::with([
+          'pengguna', 'jenjang', 'jenjang.jenis_program'
+        ])->get();
         $data['daftar_jenis_program'] = Jenis_program::all();
         return view('admin.santri',$data);
     }

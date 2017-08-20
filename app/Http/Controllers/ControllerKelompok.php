@@ -19,14 +19,17 @@ class ControllerKelompok extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('admin')) {
-          $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])->get();
+          $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])
+            ->with(['pengguna', 'jenjang', 'jenjang.jenis_program'])->get();
           $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
             return view('admin.kelompok', $data);
         }
         else {
           $member = auth()->user();
-          $data['daftar_pengajar']=$member->daftar_pengajar;
-          $data['daftar_santri'] = $member->daftar_santri;
+          $data['daftar_pengajar'] = Pengajar::where('id_pengguna', $member->id)
+            ->with(['jenjang', 'jenjang.jenis_program', 'daftar_kelompok', 'daftar_kelompok.jadwal', 'daftar_kelompok.daftar_santri.pengguna'])->get();
+          $data['daftar_santri'] = Santri::where('id_pengguna', $member->id)
+            ->with(['jenjang', 'jenjang.jenis_program', 'kelompok', 'kelompok.jadwal', 'kelompok.daftar_santri.pengguna'])->get();
           $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 
           if($data['daftar_pengajar']->isEmpty() && $data['daftar_santri']->isEmpty())

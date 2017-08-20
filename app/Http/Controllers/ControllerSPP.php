@@ -15,11 +15,13 @@ class ControllerSPP extends Controller
     {
         if(auth()->user()->hasRole('admin')) {
           //
-          $data['daftar_santri'] = Santri::whereNotIn('id_jenjang', [1, 5, 8])->get();
+          $data['daftar_santri'] = Santri::whereNotIn('id_jenjang', [1, 5, 8])
+          ->with(['pengguna', 'jenjang', 'jenjang.jenis_program'])->get();
           return view('admin.spp', $data);
         }
         else {
-          $data['daftar_santri']= auth()->user()->daftar_santri->whereNotIn('id_jenjang', [1, 5, 8]);
+          $data['daftar_santri']= Santri::where('id_pengguna', auth()->user()->id)
+            ->with('jenjang.jenis_program')->get();
           return view('member.spp', $data);
         }
     }

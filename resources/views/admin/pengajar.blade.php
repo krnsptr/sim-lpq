@@ -49,9 +49,7 @@
             <tr data-id-pengajar="{{ $pengajar->id }}" data-program="{{ $pengajar->jenjang->jenis_program->id }}">
               <td>{{$loop->iteration}}</td>
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
-              <td>@if($pengajar->pengguna->jenis_kelamin){{"laki-laki"}}
-              @else {{"perempuan"}}
-              @endif  </td>
+              <td>@if($pengajar->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
               <td>{{ $pengajar->jenjang->jenis_program->nama}}</td>
               <td>{{ $pengajar->jenjang->nama}}</td>
               <td>

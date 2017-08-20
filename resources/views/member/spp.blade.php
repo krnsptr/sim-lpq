@@ -39,7 +39,7 @@
               <tbody>
 
                 @foreach ($daftar_santri as $santri)
-                <td>{{$santri->jenjang->nama}}</td>
+                <td>{{$santri->jenjang->jenis_program->nama}}</td>
                 <td>{{"Rp.50.000"}}</td>
                 <td>@if($santri->spp_lunas) Lunas @else Belum lunas @endif</td>
 
