@@ -34,7 +34,7 @@ class Pengguna extends Authenticatable
 
     protected $casts = [
         'jenis_kelamin' => 'boolean',
-        'mahasiswa_ipb' => 'boolean'
+        'mahasiswa_ipb' => 'integer'
     ];
 
     function daftar_pengajar() {

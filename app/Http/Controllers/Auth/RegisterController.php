@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'username' => 'required|min:4|max:16|regex:/[a-z_0-9]{4,16}/|unique:pengguna',
             'password' => 'required|min:6|confirmed',
             'jenis_kelamin' => 'required|boolean',
-            'mahasiswa_ipb' => 'required|boolean',
+            'mahasiswa_ipb' => 'required|integer|between:0,2',
             'nomor_identitas' => 'required|min:9|max:255|unique:pengguna',
             'nomor_hp' => 'required|min:8|max:13|regex:/08[0-9]{6,11}/|unique:pengguna',
             'nomor_wa' => 'nullable|min:8|max:13|regex:/08[0-9]{6,11}/',
@@ -70,8 +70,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $pengguna = Pengguna::create([
-            'nama_lengkap' => $data['nama_lengkap'],
-            'email' => $data['email'],
+            'nama_lengkap' => ucwords(strtolower($data['nama_lengkap'])),
+            'email' => strtolower($data['email']),
             'username' => $data['username'],
             'password' => bcrypt($data['password']),
             'jenis_kelamin' => $data['jenis_kelamin'],

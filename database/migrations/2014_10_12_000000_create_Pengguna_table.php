@@ -20,7 +20,7 @@ class CreatePenggunaTable extends Migration
             $table->string('username', 16)->unique();
             $table->string('password');
             $table->boolean('jenis_kelamin');
-            $table->boolean('mahasiswa_ipb');
+            $table->unsignedTinyInteger('mahasiswa_ipb');
             $table->string('nomor_identitas')->unique();
             $table->string('nomor_hp', 13)->unique();
             $table->string('nomor_wa', 13)->nullable();

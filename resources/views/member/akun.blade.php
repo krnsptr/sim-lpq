@@ -57,53 +57,11 @@
               <form action="{{ url('dasbor/akun/edit') }}" method="post">
                 {{ csrf_field() }}
       					<div class="col-md-6">
-      						<div class="row" style="margin:10px 10px 10px 10px">
-      							<div class="form-group has-feedback">
-      								<label class="control-group">Username</label>
-      								<input type="text" name="username" class="form-control" placeholder="Username" value="{{ $member->username }}" pattern="[a-z0-9_]{4,16}" data-pattern-error = "Username hanya boleh mengandung huruf kecil, angka, dan underscore (4-16 karakter)." data-required-error="Username wajib diisi."autocomplete="off" required>
-      								<span class="glyphicon glyphicon-user form-control-feedback"></span>
-      								<div class="help-block with-errors"></div>
-      							</div>
-      						</div>
-      						<div class="row" style="margin:10px 10px 10px 10px">
-      							<div class="form-group has-feedback">
-      								<label class="control-group">Alamat Email</label>
-      								<input type="email" name="email" class="form-control" placeholder="Email" value="{{ $member->email }}" data-error="Format email salah." data-required-error="Email wajib diisi."autocomplete="off" required>
-      								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      								<div class="help-block with-errors"></div>
-      							</div>
-      						</div>
-      						<div class="row" style="margin:10px 10px 10px 10px">
-      							<div class="form-group has-feedback">
-      								<label class="control-group">Nomor HP (SMS)</label>
-      								<input type="text" name="nomor_hp" class="form-control" placeholder="08xxxxxxxxxx" value="{{ $member->nomor_hp }}" pattern="08[0-9]{8,11}" data-pattern-error="Format nomor HP salah. Contoh: 081234567890 (10-13 digit)." data-required-error="Nomor HP wajib diisi."autocomplete="off" required>
-      								<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
-      								<div class="help-block with-errors"></div>
-      							</div>
-      						</div>
-      						<div class="row" style="margin:10px 10px 10px 10px">
-      							<div class="form-group has-feedback">
-      								<label class="control-group">Nomor WA (tidak wajib)</label>
-      								<input type="text" name="nomor_wa" class="form-control" placeholder="08xxxxxxxxxxx" value="{{ $member->nomor_wa }}" pattern="08[0-9]{8,11}" data-pattern-error="Format nomor HP salah. Contoh: 081234567890 (10-13 digit)." autocomplete="off">
-      								<span class="glyphicon glyphicon form-control-feedback"></span>
-      								<div class="help-block with-errors"></div>
-      							</div>
-      						</div>
-      					</div>
-      					<div class="col-md-6">
-      						<div class="row" style="margin:10px 10px 10px 10px">
+                  <div class="row" style="margin:10px 10px 10px 10px">
       							<div class="form-group has-feedback">
       								<label class="control-group">Nama Lengkap</label>
       								<input type="text" name="nama_lengkap" class="form-control" placeholder="Nama lengkap sesuai identitas" value="{{ $member->nama_lengkap }}" data-required-error="Nama lengkap wajib diisi."autocomplete="off" required>
       								<span class="glyphicon glyphicon-flower form-control-feedback"></span>
-      								<div class="help-block with-errors"></div>
-      							</div>
-      						</div>
-      						<div class="row" style="margin:10px 10px 10px 10px">
-      							<div class="form-group has-feedback">
-      								<label class="control-group">Nomor Identitas</label>
-      								<input type="text" name="nomor_identitas" class="form-control" placeholder="NIM / NIP / KTP / SIM / KK / ..." value="{{ $member->nomor_identitas }}" data-required-error="Nomor Identitas wajib diisi."autocomplete="off" required>
-      								<span class="glyphicon glyphicon- form-control-feedback"></span>
       								<div class="help-block with-errors"></div>
       							</div>
       						</div>
@@ -121,9 +79,52 @@
       							<div class="form-group has-feedback">
       								<label class="control-group">Mahasiswa IPB</label>
       								<select name="mahasiswa_ipb" class="form-control"autocomplete="off" required>
-      									<option value="0"@if ($member->mahasiswa_ipb === 1) selected @endif> Ya </option>
-      									<option value="1"@if ($member->mahasiswa_ipb === 0) selected @endif> Bukan </option>
+      									<option value="0"@if ($member->mahasiswa_ipb === 0) selected @endif> Bukan </option>
+      									<option value="1"@if ($member->mahasiswa_ipb === 1) selected @endif> Ya (Diploma/Sarjana) </option>
+                        <option value="2"@if ($member->mahasiswa_ipb === 2) selected @endif> Ya (Pascasarjana) </option>
       								</select>
+      								<div class="help-block with-errors"></div>
+      							</div>
+      						</div>
+      						<div class="row" style="margin:10px 10px 10px 10px">
+      							<div class="form-group has-feedback">
+      								<label class="control-group">Nomor HP (SMS)</label>
+      								<input type="text" name="nomor_hp" class="form-control" placeholder="08xxxxxxxxxx" value="{{ $member->nomor_hp }}" pattern="08[0-9]{8,11}" data-pattern-error="Format nomor HP salah. Contoh: 081234567890 (10-13 digit)." data-required-error="Nomor HP wajib diisi."autocomplete="off" required>
+      								<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+      								<div class="help-block with-errors"></div>
+      							</div>
+      						</div>
+      					</div>
+      					<div class="col-md-6">
+                  <div class="row" style="margin:10px 10px 10px 10px">
+      							<div class="form-group has-feedback">
+      								<label class="control-group">Username</label>
+      								<input type="text" name="username" class="form-control" placeholder="Username" value="{{ $member->username }}" pattern="[a-z0-9_]{4,16}" data-pattern-error = "Username hanya boleh mengandung huruf kecil, angka, dan underscore (4-16 karakter)." data-required-error="Username wajib diisi."autocomplete="off" required>
+      								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+      								<div class="help-block with-errors"></div>
+      							</div>
+      						</div>
+      						<div class="row" style="margin:10px 10px 10px 10px">
+      							<div class="form-group has-feedback">
+      								<label class="control-group">Alamat Email</label>
+      								<input type="email" name="email" class="form-control" placeholder="Email" value="{{ $member->email }}" data-error="Format email salah." data-required-error="Email wajib diisi."autocomplete="off" required>
+      								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      								<div class="help-block with-errors"></div>
+      							</div>
+      						</div>
+      						<div class="row" style="margin:10px 10px 10px 10px">
+      							<div class="form-group has-feedback">
+      								<label class="control-group">Nomor Identitas</label>
+      								<input type="text" name="nomor_identitas" class="form-control" placeholder="NIM / NIP / KTP / SIM / KK / ..." value="{{ $member->nomor_identitas }}" data-required-error="Nomor Identitas wajib diisi."autocomplete="off" required>
+      								<span class="glyphicon glyphicon- form-control-feedback"></span>
+      								<div class="help-block with-errors"></div>
+      							</div>
+      						</div>
+      						<div class="row" style="margin:10px 10px 10px 10px">
+      							<div class="form-group has-feedback">
+      								<label class="control-group">Nomor WA (tidak wajib)</label>
+      								<input type="text" name="nomor_wa" class="form-control" placeholder="08xxxxxxxxxxx" value="{{ $member->nomor_wa }}" pattern="08[0-9]{8,11}" data-pattern-error="Format nomor HP salah. Contoh: 081234567890 (10-13 digit)." autocomplete="off">
+      								<span class="glyphicon glyphicon form-control-feedback"></span>
       								<div class="help-block with-errors"></div>
       							</div>
       						</div>
@@ -178,13 +179,13 @@
                 <!-- /.box-body -->
               </div>
               <!-- /.box -->
-              <div class="box box-default">
+              <!--div class="box box-default">
                   <div class="box-header with-border">
                   	<h4>Hapus Akun</h4>
                   </div>
       			<div class="box-body">
       				Fitur ini belum tersedia. Silakan coba kembali nanti.
-      			</div>
+      			</div-->
                 <!-- /.box-body -->
         </div>
         <!-- /.box -->

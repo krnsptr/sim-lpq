@@ -15,7 +15,7 @@
                             <label for="nama_lengkap" class="col-md-4 control-label">Nama Lengkap</label>
 
                             <div class="col-md-6">
-                                <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required autofocus>
+                                <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
 
                                 @if ($errors->has('nama_lengkap'))
                                     <span class="help-block">
@@ -30,6 +30,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <small id="passwordHelpBlock" class="form-text text-muted">Pastikan alamat email aktif.</small>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -43,9 +44,9 @@
                             <label for="jenis_kelamin" class="col-md-4 control-label">Jenis Kelamin</label>
 
                             <div class="col-md-6">
-                                <select id="jenis_kelamin" class="form-control" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}" required autofocus>
-                                    <option value="0">Laki-Laki</option>
-                                    <option value="1">Perempuan</option>
+                                <select id="jenis_kelamin" class="form-control" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}" required>
+                                    <option value="1">Laki-Laki</option>
+                                    <option value="0">Perempuan</option>
                                 </select>
 
                                 @if ($errors->has('jenis_kelamin'))
@@ -60,9 +61,10 @@
                             <label for="mahasiswa_ipb" class="col-md-4 control-label">Mahasiswa IPB?</label>
 
                             <div class="col-md-6">
-                                <select id="mahasiswa_ipb" class="form-control" name="mahasiswa_ipb" value="{{ old('mahasiswa_ipb') }}" required autofocus>
-                                    <option value="0">Bukan</option>
-                                    <option value="1">Ya</option>
+                                <select id="mahasiswa_ipb" class="form-control" name="mahasiswa_ipb" value="{{ old('mahasiswa_ipb') }}" required>
+                                    <option value="0">Bukan (Umum)</option>
+                                    <option value="1">Ya (Diploma/Sarjana)</option>
+                                    <option value="2">Ya (Pascasarjana)</option>
                                 </select>
 
                                 @if ($errors->has('mahasiswa_ipb'))
@@ -77,7 +79,8 @@
                             <label for="nomor_identitas" class="col-md-4 control-label">Nomor Identitas</label>
 
                             <div class="col-md-6">
-                                <input id="nomor_identitas" type="text" class="form-control" name="nomor_identitas" value="{{ old('nomor_identitas') }}" required autofocus>
+                                <input id="nomor_identitas" type="text" class="form-control" name="nomor_identitas" value="{{ old('nomor_identitas') }}" required>
+                                <small id="passwordHelpBlock" class="form-text text-muted">Mahasiswa: NIM; Umum: Nomor KTP/KK (NIK), SIM, atau Paspor.</small>
 
                                 @if ($errors->has('nomor_identitas'))
                                     <span class="help-block">
@@ -91,7 +94,8 @@
                             <label for="nomor_hp" class="col-md-4 control-label">Nomor HP</label>
 
                             <div class="col-md-6">
-                                <input id="nomor_hp" type="text" class="form-control" name="nomor_hp" value="{{ old('nomor_hp') }}" required autofocus>
+                                <input id="nomor_hp" type="text" class="form-control" name="nomor_hp" value="{{ old('nomor_hp') }}" placeholder="08xxxxxxxx..." required>
+                                <small id="passwordHelpBlock" class="form-text text-muted">Pastikan nomor dapat menerima SMS.<br /></small>
 
                                 @if ($errors->has('nomor_hp'))
                                     <span class="help-block">
@@ -105,7 +109,8 @@
                             <label for="nomor_wa" class="col-md-4 control-label">Nomor WA</label>
 
                             <div class="col-md-6">
-                                <input id="nomor_wa" type="text" class="form-control" name="nomor_wa" value="{{ old('nomor_wa') }}" autofocus>
+                                <input id="nomor_wa" type="text" class="form-control" name="nomor_wa" value="{{ old('nomor_wa') }}" placeholder="08xxxxxxxx...">
+                                <small id="passwordHelpBlock" class="form-text text-muted">Tidak wajib.<br /></small>
 
                                 @if ($errors->has('nomor_wa'))
                                     <span class="help-block">
@@ -119,7 +124,8 @@
                             <label for="username" class="col-md-4 control-label">Username</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required>
+                                <small id="passwordHelpBlock" class="form-text text-muted">Huruf kecil, angka, dan underscore (4-16 karakter).</small>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -150,6 +156,10 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4"><small>Pastikan data yang diisikan benar.</small></div>
                         </div>
 
                         <div class="form-group">
