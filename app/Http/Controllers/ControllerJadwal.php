@@ -75,6 +75,15 @@ class ControllerJadwal extends Controller
       $pengguna = auth()->user();
       if($pengguna->hasRole('member') && $pengguna != $pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
+      $jadwalBentrok_santri = Santri::whereHas('kelompok.jadwal', function ($query) use ($hari, $waktu) {
+        $query->where([
+          ['hari', $hari],
+          ['waktu', $waktu]
+        ]);
+      })->where('id_pengguna', $pengguna->id)->count();
+
+      if($jadwalBentrok_santri) return redirect('dasbor/penjadwalan')->with('error', 'Terjadi bentrok jadwal. Periksa kembali jadwal yang Anda masukkan.');
+
       $jadwalBaru = new Jadwal;
       $jadwalBaru->hari = $hari;
       $jadwalBaru->waktu = $waktu;
@@ -107,6 +116,15 @@ class ControllerJadwal extends Controller
       $pengguna = auth()->user();
       if($pengguna->hasRole('member') && $pengguna != $jadwal->pengajar->pengguna) return response('Tidak diizinkan.', 403);
 
+      $jadwalBentrok_santri = Santri::whereHas('kelompok.jadwal', function ($query) use ($hari, $waktu) {
+        $query->where([
+          ['hari', $hari],
+          ['waktu', $waktu]
+        ]);
+      })->where('id_pengguna', $pengguna->id)->count();
+
+      if($jadwalBentrok_santri) return redirect('dasbor/penjadwalan')->with('error', 'Terjadi bentrok jadwal. Periksa kembali jadwal yang Anda masukkan.');
+
       $jadwal->hari = $hari;
       $jadwal->waktu = $waktu;
 
@@ -124,15 +142,36 @@ class ControllerJadwal extends Controller
     {
         $santri = Santri::find(Input::get('id_santri'));
         if(!$santri) return response('Santri tidak ditemukan.', 404);
-        if(auth()->user() != $santri->pengguna) return response('Tidak diizinkan.', 403);
+        $pengguna = $santri->pengguna;
+        if(auth()->user() != $pengguna) return response('Tidak diizinkan.', 403);
 
         $id_kelompok = Input::get('id_kelompok');
         if(!empty($id_kelompok)) {
-          return DB::transaction(function () use($santri, $id_kelompok) {
+          return DB::transaction(function () use($santri, $pengguna, $id_kelompok) {
             $kelompok = DB::table('kelompok_view')->where('id_k', '=', $id_kelompok)->first();
             if(!$kelompok) return response('Kelompok tidak ditemukan.', 404);
-            if($kelompok->id_jenjang != $santri->jenjang->id || $kelompok->jenis_kelamin != $santri->pengguna->jenis_kelamin)
+            if($kelompok->id_jenjang != $santri->jenjang->id || $kelompok->jenis_kelamin != $pengguna->jenis_kelamin)
               return response('Tidak diizinkan.', 403);
+
+            $jadwalBentrok_pengajar = Jadwal::whereHas('pengajar.pengguna', function ($query) use ($pengguna, $kelompok) {
+                $query->where('id', $pengguna->id);
+            })->where([
+              ['hari', $kelompok->hari],
+              ['waktu', $kelompok->waktu],
+            ])->count();
+
+            $jadwalBentrok_santri = Santri::whereHas('kelompok.jadwal', function ($query) use ($kelompok) {
+              $query->where([
+                ['hari', $kelompok->hari],
+                ['waktu', $kelompok->waktu]
+              ]);
+            })->where([
+              ['id_pengguna', $pengguna->id],
+              ['id_kelompok', '<>', $id_kelompok]
+            ])->count();
+
+            if($jadwalBentrok_pengajar || $jadwalBentrok_santri) return redirect('dasbor/penjadwalan')->with('error', 'Terjadi bentrok jadwal. Periksa kembali jadwal yang Anda masukkan.');
+
             if($kelompok->sisa < 1) return redirect('dasbor')->with('error', 'Kelompok sudah penuh.');
 
             $santri->kelompok()->associate($id_kelompok);

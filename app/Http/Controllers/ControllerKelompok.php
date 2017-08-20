@@ -82,6 +82,25 @@ class ControllerKelompok extends Controller
         $jenjang = Jenjang::find(Input::get('jenjang'));
         if(!$jadwal || !$jenjang) return abort(404);
 
+        $pengguna = $jadwal->pengajar->pengguna;
+
+        $jadwalBentrok_pengajar = Jadwal::whereHas('pengajar.pengguna', function ($query) use ($pengguna, $jadwal) {
+            $query->where('id', $pengguna->id);
+        })->where([
+          ['hari', $jadwal->hari],
+          ['waktu', $jadwal->waktu],
+          ['id', '<>', $jadwal->id]
+        ])->count();
+
+        $jadwalBentrok_santri = Santri::whereHas('kelompok.jadwal', function ($query) use ($jadwal) {
+          $query->where([
+            ['hari', $jadwal->hari],
+            ['waktu', $jadwal->waktu]
+          ]);
+        })->where('id_pengguna', $pengguna->id)->count();
+
+        if($jadwalBentrok_pengajar || $jadwalBentrok_santri) return abort(403);
+
         $kelompokBaru = new Kelompok;
         $kelompokBaru->jadwal()->associate($jadwal);
         $kelompokBaru->jenjang()->associate($jenjang);

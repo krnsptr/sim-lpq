@@ -163,7 +163,7 @@
         						</tr>
         						<tr>
         							<td>Jadwal</td>
-        							<td>: @if (is_null($santri->kelompok) || $santri->id_jenjang === 1 || $santri->id_jenjang === 3 || $santri->id_jenjang === 5) Belum dipilih
+        							<td>: @if (is_null($santri->kelompok)) Belum dipilih
                             @else
                               <?php $kelompok = $santri->kelompok; ?>
                               {{$hari[$kelompok->jadwal->hari]}}, {{date('H:i', strtotime($kelompok->jadwal->waktu))}}, Kelompok {{$kelompok->id}}
@@ -175,7 +175,7 @@
                     @else
         							<td>Ganti Jadwal</td>
         							<td>
-                              @if ($santri->jenjang->id === 1 || $santri->jenjang->id === 3 || $santri->jenjang->id === 5) Anda belum mengikuti placement test.
+                              @if ($santri->jenjang->id === 1 || $santri->jenjang->id === 5 || $santri->jenjang->id === 8) Anda belum mengikuti placement test.
                               @else
                       		<div class="form-group col-md-12">
                             <form action="{{ url('dasbor/penjadwalan/ganti') }}" method="post">
