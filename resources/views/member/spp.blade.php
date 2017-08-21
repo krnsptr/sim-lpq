@@ -33,18 +33,24 @@
                 <tr>
                   <th>Program</th>
                   <th>SPP per Semester</th>
+                  <th>SPP Dibayar</th>
                   <th>Status</th>
+                  <th>Keterangan</th>
                 </tr>
               </thead>
               <tbody>
-
-                @foreach ($daftar_santri as $santri)
-                <td>{{$santri->jenjang->jenis_program->nama}}</td>
-                <td>{{"Rp.50.000"}}</td>
-                <td>@if($santri->spp_lunas) Lunas @else Belum lunas @endif</td>
-
+              @foreach ($daftar_santri as $santri)
+                <tr>
+                  <td>{{$santri->jenjang->jenis_program->nama}}</td>
+                  <td>{{ sistem('spp_biaya') }}</td>
+                  <td>{{ $santri->spp_dibayar }}</td>
+                  <td>{{
+                    json_decode(sistem('spp_status'))[$santri->spp_status]
+                  }}</td>
+                  <td>{{ $santri->spp_keterangan }}</td>
+                </tr>
+              @endforeach
               </tbody>
-                @endforeach
             </table>
 
           </div>

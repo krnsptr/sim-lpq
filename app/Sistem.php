@@ -14,13 +14,15 @@ class Sistem extends Model
      * @var array
      */
     protected $fillable = [
-        'pengumuman', 'pendaftaran_santri', 'pendaftaran_pengajar', 'penjadwalan_santri', 'penjadwalan_pengajar'
+        'pengumuman', 'pendaftaran_santri', 'pendaftaran_pengajar', 'penjadwalan_santri', 'penjadwalan_pengajar',
+        'spp_biaya', 'spp_status'
     ];
 
     protected $casts = [
         'pendaftaran_santri' => 'boolean',
         'pendaftaran_pengajar' => 'boolean',
         'penjadwalan_santri' => 'boolean',
-        'penjadwalan_pengajar' => 'boolean'
+        'penjadwalan_pengajar' => 'boolean',
+        'spp_biaya' => 'integer'
     ];
 }

@@ -17,6 +17,8 @@ class CreateSistemTable extends Migration
           $table->boolean('pendaftaran_pengajar');
           $table->boolean('penjadwalan_santri');
           $table->boolean('penjadwalan_pengajar');
+          $table->unsignedMediumInteger('spp_biaya');
+          $table->string('spp_status', 100);
           $table->timestamps();
 
 

@@ -17,7 +17,13 @@ class SeederSistem extends Seeder
         'pendaftaran_santri' => TRUE,
         'pendaftaran_pengajar' => TRUE,
         'penjadwalan_santri' => TRUE,
-        'penjadwalan_pengajar' => TRUE
+        'penjadwalan_pengajar' => TRUE,
+        'spp_biaya' => 70000,
+        'spp_status' => json_encode([
+          'Belum dibayar',
+          'Cicilan',
+          'Lunas',
+        ])
       ]);
     }
 }

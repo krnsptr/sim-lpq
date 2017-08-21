@@ -18,7 +18,7 @@ class SeederSantri extends Seeder
 
       $santri1 = Pengguna::where('username', 'santri1')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate($belum_dites);
       $santri->pengguna()->associate($santri1);
       $santri->kelompok()->associate(1);
@@ -26,7 +26,7 @@ class SeederSantri extends Seeder
 
       $santri2 = Pengguna::where('username', 'santri2')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate($belum_dites);
       $santri->pengguna()->associate($santri2);
       $santri->kelompok()->associate(1);
@@ -34,7 +34,7 @@ class SeederSantri extends Seeder
 
       $santri3 = Pengguna::where('username', 'santri3')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate(3);
       $santri->pengguna()->associate($santri3);
       $santri->kelompok()->associate(1);
@@ -42,7 +42,7 @@ class SeederSantri extends Seeder
 
       $santri4 = Pengguna::where('username', 'santri4')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 1;
+      $santri->spp_status = 1;
       $santri->jenjang()->associate(2);
       $santri->pengguna()->associate($santri4);
       $santri->kelompok()->associate(3);
@@ -50,7 +50,7 @@ class SeederSantri extends Seeder
 
       $santri5 = Pengguna::where('username', 'santri5')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate(3);
       $santri->pengguna()->associate($santri5);
       $santri->kelompok()->associate(3);
@@ -58,7 +58,7 @@ class SeederSantri extends Seeder
 
       $santri6 = Pengguna::where('username', 'santri6')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 1;
+      $santri->spp_status = 1;
       $santri->jenjang()->associate(1);
       $santri->pengguna()->associate($santri6);
       $santri->kelompok()->associate(3);
@@ -66,7 +66,7 @@ class SeederSantri extends Seeder
 
       $santri7 = Pengguna::where('username', 'santri7')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate(3);
       $santri->pengguna()->associate($santri7);
       $santri->kelompok()->associate(5);
@@ -74,7 +74,7 @@ class SeederSantri extends Seeder
 
       $santri8 = Pengguna::where('username', 'santri8')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 1;
+      $santri->spp_status = 1;
       $santri->jenjang()->associate(1);
       $santri->pengguna()->associate($santri8);
       $santri->kelompok()->associate(5);
@@ -82,7 +82,7 @@ class SeederSantri extends Seeder
 
       $santri9 = Pengguna::where('username', 'santri9')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate(1);
       $santri->pengguna()->associate($santri9);
       $santri->kelompok()->associate(2);
@@ -90,7 +90,7 @@ class SeederSantri extends Seeder
 
       $santri10 = Pengguna::where('username', 'santri10')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 0;
+      $santri->spp_status = 0;
       $santri->jenjang()->associate(2);
       $santri->pengguna()->associate($santri10);
       $santri->kelompok()->associate(4);
@@ -98,7 +98,7 @@ class SeederSantri extends Seeder
 
       $santri11 = Pengguna::where('username', 'santri11')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 1;
+      $santri->spp_status = 1;
       $santri->jenjang()->associate(3);
       $santri->pengguna()->associate($santri11);
       $santri->kelompok()->associate(6);
@@ -106,7 +106,7 @@ class SeederSantri extends Seeder
 
       $santri12 = Pengguna::where('username', 'santri12')->first();
       $santri = new Santri();
-      $santri->spp_lunas = 1;
+      $santri->spp_status = 1;
       $santri->jenjang()->associate(2);
       $santri->pengguna()->associate($santri12);
       $santri->kelompok()->associate(5);

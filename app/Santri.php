@@ -14,13 +14,14 @@ class Santri extends Program
    * @var array
    */
   protected $fillable = [
-      'tahun_kbm_terakhir', 'semester_kbm_terakhir', 'spp_lunas'
+      'tahun_kbm_terakhir', 'semester_kbm_terakhir', 'spp_status', 'spp_dibayar', 'spp_keterangan'
   ];
 
   protected $casts = [
       'tahun_kbm_terakhir' => 'integer',
       'semester_kbm_terakhir' => 'integer',
-      'spp_lunas' => 'boolean'
+      'spp_status' => 'integer',
+      'spp_dibayar' => 'integer'
   ];
 
     function jenjang() {
@@ -37,7 +38,7 @@ class Santri extends Program
 
     function kelompok() {
         return $this->belongsTo('App\Kelompok', 'id_kelompok');
-    }    
+    }
 
     public function setTahunKBMTerakhirAttribute($value)
     {

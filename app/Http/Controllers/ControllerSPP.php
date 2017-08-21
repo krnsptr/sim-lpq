@@ -32,12 +32,16 @@ class ControllerSPP extends Controller
     public function simpan()
     {
         $id_santri = Input::get('id_santri');
-        $spp_lunas = (bool) Input::get('spp_lunas');
+        $spp_status = (int) Input::get('spp_status');
+        $spp_dibayar = (int) Input::get('spp_dibayar');
+        $spp_keterangan = Input::get('spp_keterangan');
 
         $santri = Santri::find($id_santri);
         if(!$santri) return abort(404);
 
-        $santri->spp_lunas = $spp_lunas;
+        $santri->spp_status = $spp_status;
+        $santri->spp_dibayar = $spp_dibayar;
+        $santri->spp_keterangan = $spp_keterangan;
 
         if($santri->save()) return 'Berhasil.';
         else return abort(403);

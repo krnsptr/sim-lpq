@@ -33,7 +33,9 @@
                 <th>Jenis Kelamin</th>
                 <th>Program</th>
                 <th>Jenjang</th>
-                <th>SPP</th>
+                <th>SPP Dibayar</th>
+                <th>Status</th>
+                <th>Keterangan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -44,7 +46,8 @@
                 <td>Jenis Kelamin</td>
                 <td>Program</td>
                 <td>Jenjang</td>
-                <td></td>
+                <td>SPP Dibayar</td>
+                <td>Status</td>
                 <td></td>
               </tr>
             </tfoot>
@@ -56,10 +59,14 @@
                 <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
                 <td>{{$santri->jenjang->jenis_program->nama}}</td>
                 <td>{{$santri->jenjang->nama}}</td>
-                <td>@if ($santri->spp_lunas) Lunas @else Belum lunas @endif</td>
+                <td>{{ $santri->spp_dibayar }}</td>
+                <td>{{
+                  json_decode(sistem('spp_status'))[$santri->spp_status]
+                }}</td>
+                <td>{{ $santri->spp_keterangan }}</td>
                 <td>
                   <button class="btn btn-sm btn-success edit" onclick="lunas(this);">Lunas</button>
-                  <button class="btn btn-sm btn-warning edit" onclick="belum(this);">Belum lunas</button>
+                  <button class="btn btn-sm btn-warning edit" onclick="belum(this);">Belum dibayar</button>
                 </td>
               </tr>
               @endforeach
@@ -123,7 +130,7 @@
           },
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Semua"]],
           "drawCallback": function () {
-              this.api().columns([2,3,4, 5]).every( function () {
+              this.api().columns([2,3,4,5,6]).every( function () {
                   var column = this;
                   var select = $('<select><option value="">'+column.title()+'</option></select>')
                       .appendTo( $(column.footer()).empty() )
@@ -169,12 +176,14 @@
         $.ajax({
             data: {
               'id_santri': id_santri,
-              'spp_lunas': true
+              'spp_status': 2,
+              'spp_dibayar': {{ sistem('spp_biaya') }}
             },
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
-              $('td', tr).eq(5).text('Lunas');
+              $('td', tr).eq(6).text('Lunas');
+              $('td', tr).eq(5).text('{{ sistem('spp_biaya') }}');
               myTable.row(tr).invalidate().draw(false);
             },
             error: function() {
@@ -190,12 +199,35 @@
         $.ajax({
             data: {
               'id_santri': id_santri,
-              'spp_lunas': false
+              'spp_status': 0,
+              'spp_dibayar': 0
             },
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
-              $('td', tr).eq(5).text('Belum lunas');
+              $('td', tr).eq(6).text('Belum dibayar');
+              $('td', tr).eq(5).text('0');
+              myTable.row(tr).invalidate().draw(false);
+            },
+            error: function() {
+              alert('gagal');
+            }
+          });
+      }
+      function cicil(pointer) {
+        tr = $(pointer).parent().parent();
+        id_santri = tr.attr('data-id-santri');
+
+        $.ajax({
+            data: {
+              'id_santri': id_santri,
+              'spp_status': 1,
+              'spp_dibayar': prompt('SPP Dibayar')
+            },
+            url: '{{ url('admin/spp/edit') }}',
+            success: function(){
+              alert('berhasil');
+              $('td', tr).eq(6).text('Cicilan');
               myTable.row(tr).invalidate().draw(false);
             },
             error: function() {
