@@ -182,7 +182,18 @@ class ControllerMember extends Controller
         'mahasiswa_ipb', 'nomor_identitas', 'nomor_hp', 'nomor_wa'
       ]);
 
-      $validator = Validator::make($input, $this->rule($pengguna->id));
+      $validator = Validator::make($input, $this->rule($pengguna->id), [
+          'required' => ':attribute wajib diisi.',
+          'max' => ':attribute maksimum :max karakter.',
+          'min' => ':attribute minimum :min karakter.',
+          'email' => 'Format :attribute salah.',
+          'unique' => ':attribute sudah terdaftar.',
+          'regex' => 'Format :attribute salah.',
+          'confirmed' => 'Ulangi :attribute tidak cocok.',
+          'boolean' => ':attribute tidak valid.',
+          'integer' => ':attribute tidak valid.',
+          'between' => ':attribute tidak valid.',
+      ]);
 
       if($validator->passes()) {
           if($pengguna->fill($input)->update()) {
