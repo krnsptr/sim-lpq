@@ -182,38 +182,7 @@ class ControllerMember extends Controller
         'mahasiswa_ipb', 'nomor_identitas', 'nomor_hp', 'nomor_wa'
       ]);
 
-      $validator = Validator::make($input, $this->rule($pengguna->id), [
-          'required' => ':attribute wajib diisi.',
-          'max' => ':attribute maksimum :max karakter.',
-          'min' => ':attribute minimum :min karakter.',
-          'email' => 'Format :attribute salah.',
-          'unique' => ':attribute sudah terdaftar.',
-          'regex' => 'Format :attribute salah.',
-          'confirmed' => 'Ulangi :attribute tidak cocok.',
-          'boolean' => ':attribute tidak valid.',
-          'integer' => ':attribute tidak valid.',
-          'between' => ':attribute tidak valid.',
-      ]);
-
-      if($validator->passes()) {
-          if($pengguna->fill($input)->update()) {
-            if(auth()->user()->hasRole('admin')) return 'Berhasil.';
-            else return redirect('dasbor/akun')->with('success', 'Perubahan akun berhasil disimpan.');
-          }
-          return redirect('dasbor/akun')->with('error', 'Perubahan akun gagal disimpan.');
-      }
-
-      else return redirect('dasbor/akun')->withErrors($validator);
-    }
-
-    /**
-     * Memproses pengeditan password akun dari member dan admin
-     */
-    public function password_simpan()
-    {
-      $input = Input::only([
-        'password', 'password_confirmation', 'password_lama'
-      ]);
+      $validator = Validator::make($input, $this->rule($pengguna->id));
 
       if(auth()->user()->hasRole('admin')) {
         $pengguna = Pengguna::find(Input::get('id_anggota'));
