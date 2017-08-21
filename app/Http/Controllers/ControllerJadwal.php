@@ -74,7 +74,7 @@ class ControllerJadwal extends Controller
       $id_pengajar = (int) Input::get('id_pengajar');
 
       if($hari < 1 || $hari > 7) return redirect('dasbor/penjadwalan')->with('error');
-      elseif(!preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $waktu)) return redirect('dasbor/penjadwalan')->with('error', 'Format waktu tidak sesuai');
+      elseif(!preg_match("~\A(2[0-3]|[01][0-9]):([0-5][0-9])\z~", $waktu)) return redirect('dasbor/penjadwalan')->with('error', 'Format waktu tidak sesuai');
 
       $pengajar = Pengajar::find($id_pengajar);
       if(!$pengajar) return response('Pengajar tidak ditemukan.', 404);
@@ -115,7 +115,7 @@ class ControllerJadwal extends Controller
       $id_jadwal = (int) Input::get('id_jadwal');
 
       if($hari < 1 || $hari > 7) return redirect('dasbor/penjadwalan')->with('error');
-      elseif(!preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $waktu)) return redirect('dasbor/penjadwalan')->with('error', 'Format waktu tidak sesuai');
+      elseif(!preg_match("~\A(2[0-3]|[01][0-9]):([0-5][0-9])\z~", $waktu)) return redirect('dasbor/penjadwalan')->with('error', 'Format waktu tidak sesuai');
 
       $jadwal = Jadwal::find($id_jadwal);
       if(!$jadwal) return response('Jadwal tidak ditemukan.', 404);
