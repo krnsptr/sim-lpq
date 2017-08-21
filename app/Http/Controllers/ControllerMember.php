@@ -139,7 +139,7 @@ class ControllerMember extends Controller
     /**
      * Memberikan rule untuk validasi akun
      */
-    protected function rule(int $id = NULL)
+    protected function rule($id = NULL)
     {
         return [
             'nama_lengkap' => 'required|max:255',
