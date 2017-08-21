@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'nomor_identitas' => 'required|min:7|max:255|unique:pengguna',
             'nomor_hp' => 'required|min:8|max:13|regex:/08[0-9]{6,11}/|unique:pengguna',
             'nomor_wa' => 'nullable|min:8|max:13|regex:/08[0-9]{6,11}/',
-        ],);
+        ]);
     }
 
     /**

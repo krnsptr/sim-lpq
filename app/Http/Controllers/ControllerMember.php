@@ -184,6 +184,27 @@ class ControllerMember extends Controller
 
       $validator = Validator::make($input, $this->rule($pengguna->id));
 
+      if($validator->passes()) {
+          $pengguna->fill($input);
+          if($pengguna->save()) {
+            if(auth()->user()->hasRole('admin')) return 'Berhasil.';
+            else return redirect('dasbor/akun')->with('success', 'Perubahan berhasil disimpan.');
+          }
+          return redirect('dasbor/akun')->with('error', 'Perubahan gagal disimpan.');
+      }
+
+      else return redirect('dasbor/akun')->withErrors($validator);
+
+    }
+
+    /**
+     * Memproses pengeditan password dari member dan admin
+     */
+    public function password_simpan() {
+      $input = Input::only([
+        'password', 'password_lama', 'password_confirmation'
+      ]);
+
       if(auth()->user()->hasRole('admin')) {
         $pengguna = Pengguna::find(Input::get('id_anggota'));
         $rule = ['password' => 'required|min:6'];
