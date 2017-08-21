@@ -20,7 +20,8 @@ class ControllerSPP extends Controller
           return view('admin.spp', $data);
         }
         else {
-          $data['daftar_santri']= Santri::where('id_pengguna', auth()->user()->id)
+          $data['daftar_santri']= Santri::whereNotIn('id_jenjang', [1, 5, 8])
+            ->where('id_pengguna', auth()->user()->id)
             ->with('jenjang.jenis_program')->get();
           return view('member.spp', $data);
         }
