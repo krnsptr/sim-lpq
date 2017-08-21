@@ -43,7 +43,15 @@
               <td></td>
               <td>{{ $anggota->nama_lengkap}}</td>
               <td>@if($anggota->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
-              <td>@if($anggota->mahasiswa_ipb) Ya @else Bukan @endif</td>
+              <td>
+                @if($anggota->mahasiswa_ipb == 1)
+                  Ya (Diploma/Sarjana)
+                @elseif($anggota->mahasiswa_ipb == 2)
+                  Ya (Pascasarjana)
+                @else
+                  Bukan (Umum)
+                @endif
+              </td>
               <td>{{ $anggota->nomor_identitas}}</td>
               <td>{{ $anggota->nomor_hp}}</td>
               <td>{{ $anggota->nomor_hp}}</td>
@@ -54,7 +62,7 @@
                 <button class="btn btn-sm btn-success simpan hidden" onclick="simpan();">Simpan</button>
                 <button class="btn btn-sm btn-danger batal hidden" onclick="batal();">Batal</button>
                 <button class="btn btn-sm btn-warning password" onclick="password(this)">Password</button>
-                <button class="btn btn-sm btn-danger hapus" onclick="hapus(this);">Hapus</button>
+                <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this);">Hapus</button-->
               </td>
             </tr>
             @endforeach
@@ -73,8 +81,9 @@
      <option value="0">Perempuan</option>
    </select>
    <select id="mi" autocomplete="off">
-     <option value="1">Ya</option>
-     <option value="0">Bukan</option>
+     <option value="0">Bukan (Umum)</option>
+     <option value="1">Ya (Diploma/Sarjana)</option>
+     <option value="2">Ya (Pascasarjana)</option>
    </select>
 
    <div class="modal fade" id="modal" role="dialog">

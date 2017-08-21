@@ -72,7 +72,7 @@
       							<div class="form-group has-feedback">
       								<label class="control-group">Mahasiswa IPB</label>
       								<select name="mahasiswa_ipb" class="form-control"autocomplete="off" required>
-      									<option value="0"@if ($member->mahasiswa_ipb === 0) selected @endif> Bukan </option>
+      									<option value="0"@if ($member->mahasiswa_ipb === 0) selected @endif> Bukan (Umum) </option>
       									<option value="1"@if ($member->mahasiswa_ipb === 1) selected @endif> Ya (Diploma/Sarjana) </option>
                         <option value="2"@if ($member->mahasiswa_ipb === 2) selected @endif> Ya (Pascasarjana) </option>
       								</select>

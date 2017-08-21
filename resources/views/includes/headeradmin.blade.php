@@ -23,16 +23,16 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="{{ asset('img/berteman.jpg') }}" class="user-image" alt="User Image">
+                <img src="{{ asset('img/LPQ.png') }}" class="user-image" alt="User Image">
                 <span class="hidden-xs">Administrator</span>
               </a>
               <ul class="dropdown-menu">
                 <li class="user-header">
-                  <img src="{{ asset('img/berteman.jpg') }}" class="img-circle" alt="User Image">
+                  <img src="{{ asset('img/LPQ.png') }}" class="img-circle" alt="User Image">
 
                   <p>
                     Administrator
-                    <small>Muhammad Al Fatih</small>
+                    <small>SIM LPQ</small>
                   </p>
                 </li>
                 <!-- Menu Footer-->
@@ -65,11 +65,11 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('img/berteman.jpg') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset('img/LPQ.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Administrator</p>
-          Muhammad Al Fatih
+          SIM LPQ
         </div>
       </div>
       <!-- Sidebar Menu -->
