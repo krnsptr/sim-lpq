@@ -50,7 +50,14 @@ class ControllerJadwal extends Controller
      */
     public function jadwal_KBM()
     {
-        $data['santri'] = Santri::where('id_kelompok','!=','NULL')->get();
+        $data['daftar_kelompok'] = Kelompok::has('daftar_santri')
+          ->with([
+            'daftar_santri',
+            'daftar_santri.pengguna',
+            'jenjang',
+            'jadwal',
+            'jadwal.pengajar.pengguna'
+            ])->get();
         $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
         return view('jadwal',$data);
     }
