@@ -45,8 +45,8 @@
 
                             <div class="col-md-6">
                                 <select id="jenis_kelamin" class="form-control" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}" required>
-                                    <option value="1">Laki-Laki</option>
-                                    <option value="0">Perempuan</option>
+                                    <option value="1" @if(old('jenis_kelamin') === "1") selected @endif>Laki-Laki</option>
+                                    <option value="0" @if(old('jenis_kelamin') === "0") selected @endif>Perempuan</option>
                                 </select>
 
                                 @if ($errors->has('jenis_kelamin'))
@@ -62,9 +62,9 @@
 
                             <div class="col-md-6">
                                 <select id="mahasiswa_ipb" class="form-control" name="mahasiswa_ipb" value="{{ old('mahasiswa_ipb') }}" required>
-                                    <option value="0">Bukan (Umum)</option>
-                                    <option value="1">Ya (Diploma/Sarjana)</option>
-                                    <option value="2">Ya (Pascasarjana)</option>
+                                    <option value="0" @if(old('mahasiswa_ipb') === "0") selected @endif>Bukan (Umum)</option>
+                                    <option value="1" @if(old('mahasiswa_ipb') === "1") selected @endif>Ya (Diploma/Sarjana)</option>
+                                    <option value="2" @if(old('mahasiswa_ipb') === "2") selected @endif>Ya (Pascasarjana)</option>
                                 </select>
 
                                 @if ($errors->has('mahasiswa_ipb'))
