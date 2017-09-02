@@ -21,6 +21,33 @@ class Pengajar extends Program
       'kapasitas_membina' => 'integer'
   ];
 
+  public function scopeJenjang($query, $id_jenjang)
+  {
+      if(is_null($id_jenjang)) return $query;
+      if(is_array($id_jenjang)) return $query->whereIn('id_jenjang', $id_jenjang);
+      return $query->where('id_jenjang', $id_jenjang);
+  }
+
+  public function scopeProgram($query, $id_jenis_program)
+  {
+      if(is_null($id_jenis_program)) return $query;
+      $daftar_id_jenjang = Jenis_program::find($id_jenis_program)->daftar_jenjang->pluck('id')->all();
+      return $this->scopeJenjang($query, $daftar_id_jenjang);
+  }
+
+  public function scopeJenisKelamin($query, $jenis_kelamin)
+  {
+      if(is_null($jenis_kelamin)) return $query;
+      return $query->whereHas('pengguna', function ($query) use ($jenis_kelamin) {
+          $query->where('jenis_kelamin', $jenis_kelamin);
+      });
+  }
+
+  public static function jumlah($jenis_kelamin = null, $id_jenjang = null, $id_jenis_program = null) {
+    if(is_null($id_jenjang)) return Pengajar::jenisKelamin($jenis_kelamin)->program($id_jenis_program)->count();
+    return Pengajar::jenisKelamin($jenis_kelamin)->jenjang($id_jenjang)->count();
+  }
+
   public function getMemenuhiSyaratAttribute($value)
   {
       return explode(':', $value, 4);

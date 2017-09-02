@@ -44,6 +44,7 @@ class ControllerMember extends Controller
     public function member_index()
     {
         $data['daftar_anggota']=Pengguna::all();
+        $data['daftar_anggota_tanpa_program']=Pengguna::tanpaProgram()->get();
         return view('admin.anggota',$data);
     }
 

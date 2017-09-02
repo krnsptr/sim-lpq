@@ -54,7 +54,7 @@
               </td>
               <td>{{ $anggota->nomor_identitas}}</td>
               <td>{{ $anggota->nomor_hp}}</td>
-              <td>{{ $anggota->nomor_hp}}</td>
+              <td>{{ $anggota->nomor_wa}}</td>
               <td>{{ $anggota->email}}</td>
               <td>{{ $anggota->username}}</td>
               <td>
@@ -71,8 +71,42 @@
        </div>
        <!-- /.box-body -->
      </div>
-  </div>
      <!-- /.box -->
+     <!-- Default box -->
+     <div class="box">
+       <div class="box-header with-border">
+         <h3 class="box-title">Daftar anggota tanpa program</h3>
+       </div>
+       <div class="box-body table-responsive">
+         <table class="table table-bordered table-striped" id="dataTable2" style="white-space: nowrap;">
+           <thead>
+             <tr>
+               <th>No.</th>
+               <th>Nama Lengkap</th>
+               <th>Jenis Kelamin</th>
+               <th>Nomor HP</th>
+               <th>Nomor WA</th>
+               <th>Email</th>
+             </tr>
+           </thead>
+           <tbody>
+             @foreach ($daftar_anggota_tanpa_program as $anggota)
+               <tr>
+                 <td>{{ $loop->iteration }}</td>
+                 <td>{{ $anggota->nama_lengkap}}</td>
+                 <td>@if($anggota->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
+                 <td>{{ $anggota->nomor_hp}}</td>
+                 <td>{{ $anggota->nomor_wa}}</td>
+                 <td>{{ $anggota->email}}</td>
+               </tr>
+             @endforeach
+           </tbody>
+         </table>
+       </div>
+       <!-- /.box-body -->
+     </div>
+     <!-- /.box -->
+  </div>
 
    </section>
 
@@ -124,6 +158,18 @@
          $('html, body').css("cursor", "auto");
          $('button').css("cursor", "pointer");
      });
+
+       $('#dataTable2').DataTable({
+         "columnDefs": [
+           {
+              "searchable": false,
+              "orderable": false,
+              "targets": [0]
+           }],
+         "order": [[ 2, 'asc' ], [ 1, 'asc' ]],
+         "paging": false,
+         "searching": false
+       });
 
        var myTable = $('#dataTable').DataTable({
          "columnDefs": [

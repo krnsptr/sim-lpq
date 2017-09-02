@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sistem;
+use App\Pengguna;
 use App\Santri;
 use App\Pengajar;
+use App\Jenis_program;
 use Illuminate\Support\Facades\Input;
 
 class ControllerAdmin extends Controller
@@ -25,10 +27,20 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      $data['santri'] = Santri::all()->count();
-      $data['pengajar'] = Pengajar::all()->count();
-
+      $data['jumlah_santri'] = Santri::count();
+      $data['jumlah_pengajar'] = Pengajar::count();
+      $data['jumlah_tanpa_program'] = Pengguna::jumlah_tanpa_program();
       return view('admin.dasbor', $data);
+  }
+
+  /**
+   * Menampilkan statistik kepada admin
+   */
+  public function statistik()
+  {
+      $data['daftar_jenis_program'] = Jenis_program::with('daftar_jenjang')->get();
+
+      return view('admin.statistik', $data);
   }
 
   /**
@@ -47,9 +59,6 @@ class ControllerAdmin extends Controller
       $system->pendaftaran_santri=$pendaftaran_santri;
       $system->penjadwalan_pengajar=$penjadwalan_pengajar;
       $system->penjadwalan_santri=$penjadwalan_santri;
-
-
-
 
       if($system->save()) session()->flash('success', 'Jadwal berhasil disimpan');
       else session()->flash('error', 'Jadwal gagal disimpan');

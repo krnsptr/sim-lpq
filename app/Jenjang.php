@@ -17,7 +17,7 @@ class Jenjang extends Model
           'nama'
       ];
 
-    public function jenis_program() {
+      public function jenis_program() {
         return $this->belongsTo('App\Jenis_program', 'id_jenis_program');
-       }
+      }
 }
