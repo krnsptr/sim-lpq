@@ -92,7 +92,7 @@
            <tbody>
              @foreach ($daftar_anggota_tanpa_program as $anggota)
                <tr>
-                 <td>{{ $loop->iteration }}</td>
+                 <td></td>
                  <td>{{ $anggota->nama_lengkap}}</td>
                  <td>@if($anggota->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
                  <td>{{ $anggota->nomor_hp}}</td>
@@ -159,7 +159,7 @@
          $('button').css("cursor", "pointer");
      });
 
-       $('#dataTable2').DataTable({
+       var myTable2 = $('#dataTable2').DataTable({
          "columnDefs": [
            {
               "searchable": false,
@@ -170,6 +170,11 @@
          "paging": false,
          "searching": false
        });
+       myTable2.on( 'order.dt search.dt', function () {
+           myTable2.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+               cell.innerHTML = i+1;
+           } );
+       } ).draw();
 
        var myTable = $('#dataTable').DataTable({
          "columnDefs": [
