@@ -24,27 +24,46 @@ class Santri extends Program
       'spp_dibayar' => 'integer'
   ];
 
-    function jenjang() {
-      return $this->belongsTo('App\Jenjang', 'id_jenjang');
-    }
+  public function scopeJenjang($query, $id_jenjang = null)
+  {
+      if(is_null($id_jenjang)) return $query;
+      if(is_array($id_jenjang)) return $query->whereIn('id_jenjang', $id_jenjang);
+      return $query->where('id_jenjang', $id_jenjang);
+  }
 
-    function sudah_lulus() {
-      return $this->belongsTo('App\Jenjang', 'id_jenjang_lulus');
-    }
+  public function scopeJenisKelamin($query, $jenis_kelamin = null)
+  {
+      if(is_null($jenis_kelamin)) return $query;
+      return $query->whereHas('pengguna', function ($query) use ($jenis_kelamin) {
+          $query->where('jenis_kelamin', $jenis_kelamin);
+      });
+  }
 
-    function pengguna() {
-        return $this->belongsTo('App\Pengguna', 'id_pengguna');
-    }
+  public static function jumlah($jenis_kelamin, $id_jenjang) {
+    return Santri::jenisKelamin($jenis_kelamin)->jenjang($id_jenjang)->count();
+  }
 
-    function kelompok() {
-        return $this->belongsTo('App\Kelompok', 'id_kelompok');
-    }
+  function jenjang() {
+    return $this->belongsTo('App\Jenjang', 'id_jenjang');
+  }
 
-    public function setTahunKBMTerakhirAttribute($value)
-    {
-        if(intval($value) > intval(date('Y')) || intval($value) < 2011)
-          $this->attributes['tahun_kbm_terakhir'] = NULL;
-        else
-          $this->attributes['tahun_kbm_terakhir'] = intval($value);
-    }
+  function sudah_lulus() {
+    return $this->belongsTo('App\Jenjang', 'id_jenjang_lulus');
+  }
+
+  function pengguna() {
+      return $this->belongsTo('App\Pengguna', 'id_pengguna');
+  }
+
+  function kelompok() {
+      return $this->belongsTo('App\Kelompok', 'id_kelompok');
+  }
+
+  public function setTahunKBMTerakhirAttribute($value)
+  {
+      if(intval($value) > intval(date('Y')) || intval($value) < 2011)
+        $this->attributes['tahun_kbm_terakhir'] = NULL;
+      else
+        $this->attributes['tahun_kbm_terakhir'] = intval($value);
+  }
 }

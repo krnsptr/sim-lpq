@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Sistem;
 use App\Santri;
 use App\Pengajar;
+use App\Jenis_program;
 use Illuminate\Support\Facades\Input;
 
 class ControllerAdmin extends Controller
@@ -32,6 +33,16 @@ class ControllerAdmin extends Controller
   }
 
   /**
+   * Menampilkan statistik kepada admin
+   */
+  public function statistik()
+  {
+      $data['daftar_jenis_program'] = Jenis_program::with('daftar_jenjang')->get();
+      
+      return view('admin.statistik', $data);
+  }
+
+  /**
    * Memproses pengeditan pengaturan sistem dari admin
    */
   public function pengaturan_simpan()
@@ -47,9 +58,6 @@ class ControllerAdmin extends Controller
       $system->pendaftaran_santri=$pendaftaran_santri;
       $system->penjadwalan_pengajar=$penjadwalan_pengajar;
       $system->penjadwalan_santri=$penjadwalan_santri;
-
-
-
 
       if($system->save()) session()->flash('success', 'Jadwal berhasil disimpan');
       else session()->flash('error', 'Jadwal gagal disimpan');
