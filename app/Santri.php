@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Jenis_program;
 
 class Santri extends Program
 {
@@ -31,6 +32,13 @@ class Santri extends Program
       return $query->where('id_jenjang', $id_jenjang);
   }
 
+  public function scopeProgram($query, $id_jenis_program = null)
+  {
+      if(is_null($id_jenis_program)) return $query;
+      $daftar_id_jenjang = Jenis_program::find($id_jenis_program)->daftar_jenjang->pluck('id')->all();
+      return $this->scopeJenjang($query, $daftar_id_jenjang);
+  }
+
   public function scopeJenisKelamin($query, $jenis_kelamin = null)
   {
       if(is_null($jenis_kelamin)) return $query;
@@ -39,7 +47,8 @@ class Santri extends Program
       });
   }
 
-  public static function jumlah($jenis_kelamin, $id_jenjang) {
+  public static function jumlah($jenis_kelamin, $id_jenjang, $id_jenis_program = null) {
+    if(is_null($id_jenjang)) return Santri::jenisKelamin($jenis_kelamin)->program($id_jenis_program)->count();
     return Santri::jenisKelamin($jenis_kelamin)->jenjang($id_jenjang)->count();
   }
 

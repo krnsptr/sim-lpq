@@ -75,6 +75,7 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li @if (request()->is('admin')) class="active" @endif><a href="{{ url('admin/') }}"><span>Dasbor</span></a></li>
+        <li @if (request()->is('admin/statistik')) class="active" @endif><a href="{{ url('admin/statistik') }}"><span>Statistik</span></a></li>
         <li @if (request()->is('admin/anggota')) class="active" @endif><a href="{{ url('admin/anggota') }}"><span>Anggota</span></a></li>
         <li @if (request()->is('admin/santri')) class="active" @endif><a href="{{ url('admin/santri') }}"><span>Santri</span></a></li>
         <li @if (request()->is('admin/pengajar')) class="active" @endif><a href="{{ url('admin/pengajar') }}"><span>Pengajar</span></a></li>

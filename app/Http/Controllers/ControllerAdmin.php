@@ -38,7 +38,7 @@ class ControllerAdmin extends Controller
   public function statistik()
   {
       $data['daftar_jenis_program'] = Jenis_program::with('daftar_jenjang')->get();
-      
+
       return view('admin.statistik', $data);
   }
 

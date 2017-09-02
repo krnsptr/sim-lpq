@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Jumlah</h3>
+        <h3 class="box-title">Tabel Jumlah</h3>
       </div>
       <div class="box-body table-responsive">
         <style type="text/css" scoped>
@@ -31,6 +31,7 @@
             border: 1px solid #ddd !important;
           }
           td {
+            text-align: right;
             border: 1px solid #ddd !important;
           }
           table {
@@ -38,7 +39,7 @@
             border: 1px solid #ddd !important;
           }
         </style>
-        <table class="table table-bordered" style="white-space: nowrap;">
+        <table class="table table-bordered table-striped">
           <thead>
             <tr>
               <th colspan="2">Program</th>
@@ -65,9 +66,9 @@
                 @foreach ($jenis_program->daftar_jenjang as $jenjang)
                   <td>{{ App\Santri::jumlah(1, $jenjang->id) }}</td>
                 @endforeach
-                  <td>.</td>
+                  <td>{{ App\Santri::jumlah(1, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>.</td>
+              <td>{{ App\Santri::jumlah(1, null, null) }}</td>
             </tr>
             <tr>
               <th>Perempuan</th>
@@ -75,9 +76,9 @@
                 @foreach ($jenis_program->daftar_jenjang as $jenjang)
                   <td>{{ App\Santri::jumlah(0, $jenjang->id) }}</td>
                 @endforeach
-                  <td>.</td>
+                  <td>{{ App\Santri::jumlah(0, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>.</td>
+              <td>{{ App\Santri::jumlah(0, null, null) }}</td>
             </tr>
             <tr>
               <th>Semua</th>
@@ -85,40 +86,71 @@
                 @foreach ($jenis_program->daftar_jenjang as $jenjang)
                   <td>{{ App\Santri::jumlah(null, $jenjang->id) }}</td>
                 @endforeach
-                  <td>.</td>
+                  <td>{{ App\Santri::jumlah(null, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>.</td>
+              <td>{{ App\Santri::jumlah(null, null, null) }}</td>
             </tr>
             <tr>
               <th rowspan="3">Pengajar</th>
               <th>Laki-Laki</th>
               @foreach($daftar_jenis_program as $jenis_program)
                 @foreach ($jenis_program->daftar_jenjang as $jenjang)
-                  <td>.</td>
+                  <td>{{ App\Pengajar::jumlah(1, $jenjang->id) }}</td>
                 @endforeach
-                  <td>.</td>
+                  <td>{{ App\Pengajar::jumlah(1, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>.</td>
+              <td>{{ App\Pengajar::jumlah(1, null, null) }}</td>
             </tr>
             <tr>
               <th>Perempuan</th>
               @foreach($daftar_jenis_program as $jenis_program)
                 @foreach ($jenis_program->daftar_jenjang as $jenjang)
-                  <td>.</td>
+                  <td>{{ App\Pengajar::jumlah(0, $jenjang->id) }}</td>
                 @endforeach
-                  <td>.</td>
+                  <td>{{ App\Pengajar::jumlah(0, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>.</td>
+              <td>{{ App\Pengajar::jumlah(0, null, null) }}</td>
             </tr>
             <tr>
               <th>Semua</th>
               @foreach($daftar_jenis_program as $jenis_program)
                 @foreach ($jenis_program->daftar_jenjang as $jenjang)
-                  <td>.</td>
+                  <td>{{ App\Pengajar::jumlah(null, $jenjang->id) }}</td>
                 @endforeach
-                  <td>.</td>
+                  <td>{{ App\Pengajar::jumlah(null, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>.</td>
+              <td>{{ App\Pengajar::jumlah(null, null, null) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Anggota</th>
+              <th>Santri</th>
+              <th>Pengajar</th>
+              <th>Tanpa Program</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Laki-Laki</th>
+              <td>{{ App\Pengguna::jumlah_santri(1) }}</td>
+              <td>{{ App\Pengguna::jumlah_pengajar(1) }}</td>
+              <td>{{ App\Pengguna::jumlah_tanpa_program(1) }}</td>
+            </tr>
+            <tr>
+              <th>Perempuan</th>
+              <td>{{ App\Pengguna::jumlah_santri(0) }}</td>
+              <td>{{ App\Pengguna::jumlah_pengajar(0) }}</td>
+              <td>{{ App\Pengguna::jumlah_tanpa_program(0) }}</td>
+            </tr>
+            <tr>
+              <th>Semua</th>
+              <td>{{ App\Pengguna::jumlah_santri(null) }}</td>
+              <td>{{ App\Pengguna::jumlah_pengajar(null) }}</td>
+              <td>{{ App\Pengguna::jumlah_tanpa_program(null) }}</td>
             </tr>
           </tbody>
         </table>

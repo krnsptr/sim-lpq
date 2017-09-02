@@ -37,6 +37,24 @@ class Pengguna extends Authenticatable
         'mahasiswa_ipb' => 'integer'
     ];
 
+    public function scopeJenisKelamin($query, $jenis_kelamin = null)
+    {
+        if(is_null($jenis_kelamin)) return $query;
+        return $query->where('jenis_kelamin', $jenis_kelamin);
+    }
+
+    public static function jumlah_santri($jenis_kelamin) {
+      return Pengguna::jenisKelamin($jenis_kelamin)->has('daftar_santri')->count();
+    }
+
+    public static function jumlah_pengajar($jenis_kelamin) {
+      return Pengguna::jenisKelamin($jenis_kelamin)->has('daftar_pengajar')->count();
+    }
+
+    public static function jumlah_tanpa_program($jenis_kelamin) {
+      return Pengguna::jenisKelamin($jenis_kelamin)->doesntHave('daftar_santri')->count();
+    }
+
     function daftar_pengajar() {
         return $this->hasMany('App\Pengajar', 'id_pengguna');
     }
