@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sistem;
+use App\Pengguna;
 use App\Santri;
 use App\Pengajar;
 use App\Jenis_program;
@@ -26,9 +27,9 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      $data['santri'] = Santri::all()->count();
-      $data['pengajar'] = Pengajar::all()->count();
-
+      $data['jumlah_santri'] = Santri::count();
+      $data['jumlah_pengajar'] = Pengajar::count();
+      $data['jumlah_tanpa_program'] = Pengguna::jumlah_tanpa_program();
       return view('admin.dasbor', $data);
   }
 

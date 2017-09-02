@@ -68,7 +68,7 @@
                 @endforeach
                   <td>{{ App\Santri::jumlah(1, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>{{ App\Santri::jumlah(1, null, null) }}</td>
+              <td>{{ App\Santri::jumlah(1) }}</td>
             </tr>
             <tr>
               <th>Perempuan</th>
@@ -78,7 +78,7 @@
                 @endforeach
                   <td>{{ App\Santri::jumlah(0, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>{{ App\Santri::jumlah(0, null, null) }}</td>
+              <td>{{ App\Santri::jumlah(0) }}</td>
             </tr>
             <tr>
               <th>Semua</th>
@@ -88,7 +88,7 @@
                 @endforeach
                   <td>{{ App\Santri::jumlah(null, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>{{ App\Santri::jumlah(null, null, null) }}</td>
+              <td>{{ App\Santri::jumlah() }}</td>
             </tr>
             <tr>
               <th rowspan="3">Pengajar</th>
@@ -99,7 +99,7 @@
                 @endforeach
                   <td>{{ App\Pengajar::jumlah(1, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>{{ App\Pengajar::jumlah(1, null, null) }}</td>
+              <td>{{ App\Pengajar::jumlah(1) }}</td>
             </tr>
             <tr>
               <th>Perempuan</th>
@@ -109,7 +109,7 @@
                 @endforeach
                   <td>{{ App\Pengajar::jumlah(0, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>{{ App\Pengajar::jumlah(0, null, null) }}</td>
+              <td>{{ App\Pengajar::jumlah(0) }}</td>
             </tr>
             <tr>
               <th>Semua</th>
@@ -119,7 +119,7 @@
                 @endforeach
                   <td>{{ App\Pengajar::jumlah(null, null, $jenis_program->id) }}</td>
               @endforeach
-              <td>{{ App\Pengajar::jumlah(null, null, null) }}</td>
+              <td>{{ App\Pengajar::jumlah() }}</td>
             </tr>
           </tbody>
         </table>
@@ -148,9 +148,9 @@
             </tr>
             <tr>
               <th>Semua</th>
-              <td>{{ App\Pengguna::jumlah_santri(null) }}</td>
-              <td>{{ App\Pengguna::jumlah_pengajar(null) }}</td>
-              <td>{{ App\Pengguna::jumlah_tanpa_program(null) }}</td>
+              <td>{{ App\Pengguna::jumlah_santri() }}</td>
+              <td>{{ App\Pengguna::jumlah_pengajar() }}</td>
+              <td>{{ App\Pengguna::jumlah_tanpa_program() }}</td>
             </tr>
           </tbody>
         </table>

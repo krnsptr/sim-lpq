@@ -43,16 +43,31 @@ class Pengguna extends Authenticatable
         return $query->where('jenis_kelamin', $jenis_kelamin);
     }
 
-    public static function jumlah_santri($jenis_kelamin) {
-      return Pengguna::jenisKelamin($jenis_kelamin)->has('daftar_santri')->count();
+    public function scopeSantri($query)
+    {
+        return $query->has('daftar_santri');
     }
 
-    public static function jumlah_pengajar($jenis_kelamin) {
-      return Pengguna::jenisKelamin($jenis_kelamin)->has('daftar_pengajar')->count();
+    public function scopePengajar($query)
+    {
+        return $query->has('daftar_pengajar');
     }
 
-    public static function jumlah_tanpa_program($jenis_kelamin) {
-      return Pengguna::jenisKelamin($jenis_kelamin)->doesntHave('daftar_santri')->count();
+    public function scopeTanpaProgram($query)
+    {
+        return $query->doesntHave('daftar_santri')->doesntHave('daftar_pengajar');
+    }
+
+    public static function jumlah_santri($jenis_kelamin = null) {
+      return Pengguna::jenisKelamin($jenis_kelamin)->santri()->count();
+    }
+
+    public static function jumlah_pengajar($jenis_kelamin = null) {
+      return Pengguna::jenisKelamin($jenis_kelamin)->pengajar()->count();
+    }
+
+    public static function jumlah_tanpa_program($jenis_kelamin = null) {
+      return Pengguna::jenisKelamin($jenis_kelamin)->tanpaProgram()->count();
     }
 
     function daftar_pengajar() {

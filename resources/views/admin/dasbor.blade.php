@@ -31,34 +31,38 @@
   @endif
       <div class="row">
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>{{$santri}}</h3>
-
-              <p>Jumlah Santri</p>
+              <h3>{{$jumlah_santri}}</h3>
+              <p>Pendaftar Santri</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-person"></i>
             </div>
           </div>
         </div>
-
-        <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>{{$pengajar}}</h3>
-
-              <p>Jumlah Pengajar</p>
+              <h3>{{$jumlah_pengajar}}</h3>
+              <p>Pendaftar Pengajar</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-person"></i>
             </div>
           </div>
         </div>
-        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-gray">
+            <div class="inner">
+              <h3>{{$jumlah_tanpa_program}}</h3>
+              <p>Tanpa program</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-person"></i>
+            </div>
+          </div>
+        </div>
       </div>
 
   <div class="box box-default">
