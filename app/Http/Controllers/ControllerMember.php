@@ -72,6 +72,7 @@ class ControllerMember extends Controller
                 $query->whereId($id_jenis_program);
           })->count();
           if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Santri '.$data['jenis_program']->nama);
+          if($id_jenis_program === 3) return redirect('dasbor')->with('error', 'Mohon maaf, pendaftaran santri khusus program Bahasa Arab sudah ditutup');
         }
 
 

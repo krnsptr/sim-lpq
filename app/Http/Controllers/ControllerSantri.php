@@ -58,6 +58,9 @@ class ControllerSantri extends Controller
               $query->whereId($jenis_program->id);
         })->count();
         if($terdaftar) return redirect('dasbor')->with('error', 'Anda sudah terdaftar sebagai Santri '.$jenis_program->nama);
+
+        if($jenis_program->id === 3) return redirect('dasbor')->with('error', 'Mohon maaf, pendaftaran santri khusus program Bahasa Arab sudah ditutup');
+
         $jenjang = $jenis_program->daftar_jenjang->first();
         $pengguna = auth()->user();
 
