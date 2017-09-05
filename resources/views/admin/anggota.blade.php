@@ -19,7 +19,7 @@
      <!-- Default box -->
      <div class="box">
        <div class="box-header with-border">
-         <h3 class="box-title">Daftar anggota</h3>
+         <h3 class="box-title">Anggota</h3>
        </div>
        <div class="box-body table-responsive">
          <table class="table table-bordered table-striped" id="dataTable" style="white-space: nowrap;">
@@ -75,7 +75,7 @@
      <!-- Default box -->
      <div class="box">
        <div class="box-header with-border">
-         <h3 class="box-title">Daftar anggota tanpa program</h3>
+         <h3 class="box-title">Tanpa program</h3>
        </div>
        <div class="box-body table-responsive">
          <table class="table table-bordered table-striped" id="dataTable2" style="white-space: nowrap;">
@@ -158,7 +158,7 @@
          $('html, body').css("cursor", "auto");
          $('button').css("cursor", "pointer");
      });
-
+       var dataTable2_title = $('#dataTable2').parent().prev().text()+moment().format('YYYY-MM-DD HH.mm.ss');
        var myTable2 = $('#dataTable2').DataTable({
          "columnDefs": [
            {
@@ -168,8 +168,33 @@
            }],
          "order": [[ 2, 'asc' ], [ 1, 'asc' ]],
          "paging": false,
-         "searching": false
+         "searching": false,
+         "dom": 'Bfrtip',
+         "buttons": [
+           {
+               extend: 'copyHtml5',
+               title: dataTable2_title
+           },
+            {
+                extend: 'csvHtml5',
+                title: dataTable2_title
+            },
+            {
+                extend: 'excelHtml5',
+                title: dataTable2_title
+            },
+            {
+                extend: 'pdfHtml5',
+                title: dataTable2_title
+            },
+            {
+                extend: 'print',
+                title: dataTable2_title
+            }
+          ]
        });
+      myTable2.buttons().container()
+        .appendTo( '#dataTable2_wrapper .col-sm-6:eq(0)' );
        myTable2.on( 'order.dt search.dt', function () {
            myTable2.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                cell.innerHTML = i+1;
