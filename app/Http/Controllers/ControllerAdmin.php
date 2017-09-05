@@ -27,8 +27,8 @@ class ControllerAdmin extends Controller
    */
   public function index()
   {
-      $data['jumlah_santri'] = Santri::count();
-      $data['jumlah_pengajar'] = Pengajar::count();
+      $data['jumlah_santri'] = Pengguna::jumlah_santri();
+      $data['jumlah_pengajar'] = Pengguna::jumlah_pengajar();
       $data['jumlah_tanpa_program'] = Pengguna::jumlah_tanpa_program();
       return view('admin.dasbor', $data);
   }

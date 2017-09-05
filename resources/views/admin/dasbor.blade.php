@@ -34,7 +34,7 @@
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3>{{$jumlah_santri}}</h3>
-              <p>Pendaftar Santri</p>
+              <p>Jumlah Santri</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-person"></i>
@@ -45,7 +45,7 @@
           <div class="small-box bg-yellow">
             <div class="inner">
               <h3>{{$jumlah_pengajar}}</h3>
-              <p>Pendaftar Pengajar</p>
+              <p>Jumlah Pengajar</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-person"></i>
