@@ -30,7 +30,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-                                <small id="passwordHelpBlock" class="form-text text-muted">Pastikan alamat email aktif.</small>
+                                <small class="form-text text-muted">Pastikan alamat email aktif.</small>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -80,7 +80,7 @@
 
                             <div class="col-md-6">
                                 <input id="nomor_identitas" type="text" class="form-control" name="nomor_identitas" value="{{ old('nomor_identitas') }}" required>
-                                <small id="passwordHelpBlock" class="form-text text-muted">Mahasiswa: NIM; Umum: Nomor KTP/KK (NIK), SIM, atau Paspor.</small>
+                                <small class="form-text text-muted">Mahasiswa: NIM; Umum: Nomor KTP/KK (NIK), SIM, atau Paspor.</small>
 
                                 @if ($errors->has('nomor_identitas'))
                                     <span class="help-block">
@@ -95,7 +95,7 @@
 
                             <div class="col-md-6">
                                 <input id="nomor_hp" type="text" class="form-control" name="nomor_hp" value="{{ old('nomor_hp') }}" placeholder="08xxxxxxxx..." required>
-                                <small id="passwordHelpBlock" class="form-text text-muted">Pastikan nomor dapat menerima SMS.<br /></small>
+                                <small class="form-text text-muted">Pastikan nomor dapat menerima SMS.<br /></small>
 
                                 @if ($errors->has('nomor_hp'))
                                     <span class="help-block">
@@ -110,7 +110,7 @@
 
                             <div class="col-md-6">
                                 <input id="nomor_wa" type="text" class="form-control" name="nomor_wa" value="{{ old('nomor_wa') }}" placeholder="08xxxxxxxx...">
-                                <small id="passwordHelpBlock" class="form-text text-muted">Tidak wajib.<br /></small>
+                                <small class="form-text text-muted">Tidak wajib.<br /></small>
 
                                 @if ($errors->has('nomor_wa'))
                                     <span class="help-block">
@@ -125,7 +125,7 @@
 
                             <div class="col-md-6">
                                 <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required>
-                                <small id="passwordHelpBlock" class="form-text text-muted">Huruf kecil, angka, dan underscore (4-16 karakter).</small>
+                                <small class="form-text text-muted">Huruf kecil, angka, dan underscore (4-16 karakter).</small>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">

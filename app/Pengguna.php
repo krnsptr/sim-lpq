@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
+use App\Notifications\ResetPassword;
 
 class Pengguna extends Authenticatable
 {
@@ -36,6 +37,11 @@ class Pengguna extends Authenticatable
         'jenis_kelamin' => 'boolean',
         'mahasiswa_ipb' => 'integer'
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+       $this->notify(new ResetPassword($token, $this->nama_lengkap, $this->username));
+    }
 
     public function scopeJenisKelamin($query, $jenis_kelamin = null)
     {

@@ -4,9 +4,9 @@
 # {{ $greeting }}
 @else
 @if ($level == 'error')
-# Whoops!
+# Ups!
 @else
-# Hello!
+# Assalamu`alaikum!
 @endif
 @endif
 
@@ -45,14 +45,16 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-Regards,<br>{{ config('app.name') }}
+Sistem Informasi Manajemen<br />
+LPQ Al Hurriyyah IPB
 @endif
 
 <!-- Subcopy -->
 @if (isset($actionText))
 @component('mail::subcopy')
-If you’re having trouble clicking the "{{ $actionText }}" button, copy and paste the URL below
-into your web browser: [{{ $actionUrl }}]({{ $actionUrl }})
+Apabila Anda tidak dapat menge-klik tombol "{{ $actionText }}",
+salin dan kunjungi alamat berikut.<br />
+[{{ $actionUrl }}]({{ $actionUrl }})
 @endcomponent
 @endif
 @endcomponent
