@@ -139,4 +139,35 @@ class ControllerSantri extends Controller
       //if(Auth::user()->hasRole('admin'));
       //else;
     }
+
+    /**
+     * Memproses download excel data santri oleh admin
+     */
+    public function ekspor_excel()
+    {
+      \Excel::create('Santri '.date('Y-m-d h.i.s'), function($excel) {
+
+          $excel->sheet('Laki-Laki', function($sheet) {
+            $daftar_santri = Santri::with(['pengguna', 'jenjang.jenis_program'])
+            ->whereHas('pengguna', function ($query) {
+                $query->where('jenis_kelamin', 1);
+            })->get();
+            $sheet->loadView(
+              'ekspor.santri-excel', ['daftar_santri' => $daftar_santri]
+            );
+            $sheet->freezeFirstRow();
+          });
+
+          $excel->sheet('Perempuan', function($sheet) {
+            $daftar_santri = Santri::with(['pengguna', 'jenjang.jenis_program'])
+            ->whereHas('pengguna', function ($query) {
+                $query->where('jenis_kelamin', 0);
+            })->get();
+            $sheet->loadView(
+              'ekspor.santri-excel', ['daftar_santri' => $daftar_santri]
+            );
+            $sheet->freezeFirstRow();
+          });
+      })->download('xlsx');
+    }
 }

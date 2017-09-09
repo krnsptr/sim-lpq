@@ -21,6 +21,10 @@
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">Daftar Pengajar</h3>
+        <a href="{{ url('admin/pengajar/ekspor/excel') }}" class="btn btn-success pull-right">
+          <i class="fa fa-download"></i>&ensp;
+          Download Excel
+        </a>
       </div>
       <div class="box-body table-responsive">
         <table class="table table-bordered table-striped" id="dataTable" style="white-space: nowrap;">

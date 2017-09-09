@@ -138,4 +138,37 @@ class ControllerPengajar extends Controller
     }
     else return redirect('dasbor')->with('error', 'Program gagal dihapus');
   }
+
+  /**
+   * Memproses download excel data pengajar oleh admin
+   */
+  public function ekspor_excel()
+  {
+    \Excel::create('Pengajar '.date('Y-m-d h.i.s'), function($excel) {
+
+        $excel->sheet('Laki-Laki', function($sheet) {
+          $daftar_pengajar = Pengajar::with(['pengguna', 'jenjang.jenis_program'])
+          ->whereHas('pengguna', function ($query) {
+              $query->where('jenis_kelamin', 1);
+          })->get();
+          $sheet->loadView(
+            'ekspor.pengajar-excel', ['daftar_pengajar' => $daftar_pengajar]
+          );
+          $sheet->freezeFirstRow();
+          $sheet->getStyle('P')->getAlignment()->setWrapText(true);
+        });
+
+        $excel->sheet('Perempuan', function($sheet) {
+          $daftar_pengajar = Pengajar::with(['pengguna', 'jenjang.jenis_program'])
+          ->whereHas('pengguna', function ($query) {
+              $query->where('jenis_kelamin', 0);
+          })->get();
+          $sheet->loadView(
+            'ekspor.pengajar-excel', ['daftar_pengajar' => $daftar_pengajar]
+          );
+          $sheet->freezeFirstRow();
+          $sheet->getStyle('P')->getAlignment()->setWrapText(true);
+        });
+    })->download('xlsx');
+  }
 }

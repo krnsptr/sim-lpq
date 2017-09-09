@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Laratrust\LaratrustServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
         App\Providers\ServiceProviderSistem::class
 
     ],
@@ -229,7 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Laratrust' => Laratrust\LaratrustFacade::class,
-
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
