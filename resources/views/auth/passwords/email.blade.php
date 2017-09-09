@@ -31,6 +31,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Catatan</label>
+
+                            <div class="col-md-6">
+                                <p class="form-text text-muted">Email mungkin tertunda beberapa menit dan dapat masuk ke folder junk (spam).</p>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
