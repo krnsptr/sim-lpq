@@ -16,7 +16,7 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/dist/css/skins/_all-skins.min.css') }}">
   @if (auth()->check() && auth()->user()->hasRole('admin'))
-    <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/plugins/datatables/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/plugins/datatables/dataTables.bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/plugins/datatables/extensions/Buttons/css/buttons.bootstrap.min.css') }}">
   @endif
 
