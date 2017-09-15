@@ -60,8 +60,8 @@ class ControllerAdmin extends Controller
       $system->penjadwalan_pengajar=$penjadwalan_pengajar;
       $system->penjadwalan_santri=$penjadwalan_santri;
 
-      if($system->save()) session()->flash('success', 'Jadwal berhasil disimpan');
-      else session()->flash('error', 'Jadwal gagal disimpan');
+      if($system->save()) session()->flash('success', 'Pengaturan berhasil disimpan');
+      else session()->flash('error', 'Pengaturan gagal disimpan');
 
       return redirect('admin/');
   }
