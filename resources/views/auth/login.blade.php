@@ -5,6 +5,13 @@
 <br><br><br>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+            @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4><i class="icon fa fa-ban"></i> Kesalahan!</h4>
+              {{ session()->get('error') }}
+            </div>
+            @endif
             <div class="panel panel-default">
                 <div class="panel-heading" align="center">Masuk ke SIM LPQ</div>
                 <div class="panel-body">

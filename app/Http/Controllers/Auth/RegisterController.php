@@ -41,6 +41,39 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        if(!sistem('pendaftaran_pengajar') && !sistem('pendaftaran_santri'))
+          return redirect('/')->with('error', 'Mohon maaf, pendaftaran belum dibuka atau sudah ditutup.');
+        return view('auth.register');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+      if(!sistem('pendaftaran_pengajar') && !sistem('pendaftaran_santri'))
+        return redirect('/')->with('error', 'Mohon maaf, pendaftaran belum dibuka atau sudah ditutup.');
+        
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
