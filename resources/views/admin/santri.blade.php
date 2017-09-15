@@ -32,6 +32,7 @@
             <tr>
               <th>No.</th>
               <th>Nama Lengkap</th>
+              <th>Nomor Identitas</th>
               <th>Jenis Kelamin</th>
               <th>Program</th>
               <th>Jenjang</th>
@@ -41,6 +42,7 @@
           </thead>
           <tfoot>
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td>Jenis Kelamin</td>
@@ -55,6 +57,7 @@
             <tr data-id-santri="{{ $santri->id }}" data-program="{{ $santri->jenjang->jenis_program->id }}">
               <td>{{$loop->iteration}}</td>
               <td>{{$santri->pengguna->nama_lengkap}}</td>
+              <td>{{$santri->pengguna->nomor_identitas}}</td>
               <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
               <td>{{$santri->jenjang->jenis_program->nama}}</td>
               <td>{{$santri->jenjang->nama}}</td>
@@ -180,7 +183,7 @@
              "orderable": false,
              "targets": [0,-1]
           }],
-        "order": [[2, 'asc'], [3, 'desc'], [ 1, 'asc' ]],
+        "order": [[3, 'asc'], [4, 'desc'], [ 1, 'asc' ]],
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -206,7 +209,7 @@
         },
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Semua"]],
         "drawCallback": function () {
-            this.api().columns([2,3,4, 5]).every( function () {
+            this.api().columns([3,4,5,6]).every( function () {
                 var column = this;
                 var select = $('<select><option value="">'+column.title()+'</option></select>')
                     .appendTo( $(column.footer()).empty() )
@@ -317,8 +320,8 @@
           url: '{{ url('admin/santri/edit') }}',
           success: function(){
             alert('berhasil');
-            $('td', tr).eq(4).html($('#jenjang > option:selected').text());
-            $('td', tr).eq(5).html($('#id_kelompok').val());
+            $('td', tr).eq(5).html($('#jenjang > option:selected').text());
+            $('td', tr).eq(6).html($('#id_kelompok').val());
             myTable.row(tr).invalidate().draw(false);
             $('#modal').modal('hide');
           },

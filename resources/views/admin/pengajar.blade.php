@@ -32,6 +32,7 @@
             <tr>
               <th>No.</th>
               <th>Nama Lengkap</th>
+              <th>Nomor Identitas</th>
               <th>Jenis Kelamin</th>
               <th>Program</th>
               <th>Jenjang</th>
@@ -40,6 +41,7 @@
           </thead>
           <tfoot>
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td>Jenis Kelamin</td>
@@ -53,6 +55,7 @@
             <tr data-id-pengajar="{{ $pengajar->id }}" data-program="{{ $pengajar->jenjang->jenis_program->id }}">
               <td>{{$loop->iteration}}</td>
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
+              <td>{{$pengajar->pengguna->nomor_identitas}}</td>
               <td>@if($pengajar->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
               <td>{{ $pengajar->jenjang->jenis_program->nama}}</td>
               <td>{{ $pengajar->jenjang->nama}}</td>
@@ -150,7 +153,7 @@
              "orderable": false,
              "targets": [0,-1]
           }],
-        "order": [[2, 'asc'], [3, 'desc'], [ 1, 'asc' ]],
+        "order": [[3, 'asc'], [4, 'desc'], [ 1, 'asc' ]],
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -176,7 +179,7 @@
         },
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Semua"]],
         "drawCallback": function () {
-            this.api().columns([2,3,4]).every( function () {
+            this.api().columns([3,4,5]).every( function () {
                 var column = this;
                 var select = $('<select><option value="">'+column.title()+'</option></select>')
                     .appendTo( $(column.footer()).empty() )
@@ -264,7 +267,7 @@
           url: '{{ url('admin/pengajar/edit') }}',
           success: function(){
             alert('berhasil');
-            $('td', tr).eq(4).html($('#jenjang > option:selected').text());
+            $('td', tr).eq(5).html($('#jenjang > option:selected').text());
             myTable.row(tr).invalidate().draw(false);
             $('#modal').modal('hide');
           },
