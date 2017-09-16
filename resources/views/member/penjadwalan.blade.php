@@ -187,7 +187,7 @@
                                     <option value="">Belum dipilih</option>
                                     <?php $id_santri = $santri->id; ?>
                                     @foreach($daftar_kelompok[$id_santri] as $kelompok)
-                                      <option value="{{$kelompok->id_k}}"@if ($santri->kelompok && $kelompok->id_k == $santri->kelompok->id) selected  @endif> {{$hari[$kelompok->hari]}}, {{date('H:i', strtotime($kelompok->waktu))}}, Kelompok {{$kelompok->id_k}}: {{$kelompok->nama_lengkap}} (sisa {{$kelompok->sisa}})</option>
+                                      <option value="{{$kelompok->id_k}}"@if ($santri->kelompok && $kelompok->id_k == $santri->kelompok->id) selected  @endif> {{$hari[$kelompok->hari]}}, {{date('H:i', strtotime($kelompok->waktu))}}, Kelompok {{$kelompok->id_k}}: {{$kelompok->nama_jenjang}} (sisa {{$kelompok->sisa}})</option>
                                     @endforeach
             											</select>
             										</div>
