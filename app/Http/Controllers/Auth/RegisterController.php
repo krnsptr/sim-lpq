@@ -7,6 +7,7 @@ use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Request;
 
 class RegisterController extends Controller
 {
@@ -62,7 +63,7 @@ class RegisterController extends Controller
     {
       if(!sistem('pendaftaran_pengajar') && !sistem('pendaftaran_santri'))
         return redirect('/')->with('error', 'Mohon maaf, pendaftaran belum dibuka atau sudah ditutup.');
-        
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
