@@ -60,8 +60,9 @@
               <td>{{ $pengajar->jenjang->jenis_program->nama}}</td>
               <td>{{ $pengajar->jenjang->nama}}</td>
               <td>
-                <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
-                <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
+                <button class="btn btn-sm btn-primary edit" onclick="edit_program(this);">Edit Program</button>
+                <button class="btn btn-sm btn-primary edit" onclick="edit_jadwal(this);">Edit Jadwal</button>
+                <!--button class="btn btn-sm btn-danger hapus" onclick="hapus_program(this)">Hapus Program</button-->
               </td>
             </tr>
             @endforeach
@@ -73,7 +74,7 @@
     <!-- /.box -->
   </section>
 
-  <div class="modal fade" id="modal" role="dialog">
+  <div class="modal fade" id="modal-program" role="dialog">
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -83,6 +84,7 @@
                 <h4 class="modal-title">Edit Program</h4>
               </div>
               <div class="modal-body">
+                  <div class="form-group col-md-12 pengajar"></div>
                   <input type="hidden" id="id_pengajar" value="" />
                   <div class="form-group col-md-12">
                     <label class="control-group">Pendaftaran</label>
@@ -110,7 +112,62 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" onclick="simpan();">Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="simpan_program();">Simpan</button>
+              </div>
+            </div>
+
+          </div>
+  </div>
+  <div class="modal fade" id="modal-jadwal" role="dialog">
+          <div class="modal-dialog" style="width:70%">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Jadwal</h4>
+              </div>
+              <div class="modal-body table-condensed">
+                <div class="form-group col-md-12 pengajar"></div>
+                <input type="hidden" id="id_pengajar">
+                <input type="hidden" id="jenjang">
+                <div class="form-group col-md-4">
+                  <label class="control-group col-md-12"> Jumlah kelompok yang siap dibina</label>
+                  <div class="col-md-6">
+                    <div class="form-group has-feedback">
+                      <input type="number" class="form-control" id="kapasitas_membina" value="">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <a onclick="kapasitas_membina()" class="btn btn-primary btn-flat">Ubah</a>
+                  </div>
+                </div>
+                <div class="form-group col-md-8">
+                  <label class="control-group col-md-12"> Tambah alternatif (durasi 2 jam)</label>
+                  <div class="col-md-8">
+                    <div class="form-group has-feedback">
+                      <div class="col-md-6">
+                      <select id="hari" class="form-control" autocomplete="off">
+                        @for ($i=1; $i<=7; $i++)
+                          <option value="{{ $i }}">{{ $hari[$i] }}</option>
+                        @endfor
+                      </select>
+                      </div>
+                      <div class="col-md-6">
+                      <input type="text" id="waktu" class="form-control" value="00:00" autocomplete="off">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <a onclick="tambah_jadwal()" class="btn btn-success btn-flat">Tambah</a>
+                  </div>
+                </div>
+                <table class="table" id="tabel-jadwal">
+
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
               </div>
             </div>
 
@@ -217,18 +274,28 @@
       } ).draw();
 
     $('[id^=jj]').hide();
-    $('#modal').on('hidden.bs.modal', function () {
+    $('#modal-program').on('hidden.bs.modal', function () {
       $('#jenjang > option').remove();
       $('#id_pengajar').val('');
       $('#memenuhi_syarat').addClass('hidden');
       $('#memenuhi_syarat > input').prop('checked', false);
     });
-    var id_pengajar;
+    $('#modal-jadwal').on('hidden.bs.modal', function () {
+      $('#id_pengajar').val('');
+      $('#kapasitas_membina').val('');
+      $('#program').val('');
+      $('#jenjang').val('');
+      $('#tabel-jadwal tr').remove();
+    });
 
-    function edit(pointer) {
+    var tr, id_pengajar, program;
+
+    function edit_program(pointer) {
       tr = $(pointer).parent().parent();
       id_pengajar = tr.attr('data-id-pengajar');
       program = tr.attr('data-program');
+      nama = $('td', tr).eq(1).text();
+      nomor_identitas = $('td', tr).eq(2).text();
       if(program == 1) $('#memenuhi_syarat').removeClass('hidden');
       $('#jj'+program+' > option').clone().appendTo('#jenjang');
       $.ajax({
@@ -236,6 +303,7 @@
             dataType: 'json',
             url: '{{ url('admin/pengajar/pengajar') }}',
             success: function(data){
+              $('#modal-program .pengajar').text(nama+' '+nomor_identitas);
               $('#id_pengajar').val(id_pengajar);
               $('#pendaftaran').val(data['pendaftaran']).change();
               for(i=0; i<3; i++) {
@@ -243,7 +311,7 @@
               }
               $('#motivasi_mengajar').val(data['motivasi_mengajar']);
               $('#jenjang').val(data['id_jenjang']).change();
-              $('#modal').modal('show');
+              $('#modal-program').modal('show');
             },
             error: function(data){
               alert('error');
@@ -251,7 +319,7 @@
       });
     }
 
-    function simpan() {
+    function simpan_program() {
       $.ajax({
           data: {
             id_pengajar: $('#id_pengajar').val(),
@@ -269,7 +337,7 @@
             alert('berhasil');
             $('td', tr).eq(5).html($('#jenjang > option:selected').text());
             myTable.row(tr).invalidate().draw(false);
-            $('#modal').modal('hide');
+            $('#modal-program').modal('hide');
           },
           error: function() {
             alert('gagal');
@@ -277,7 +345,7 @@
         });
     }
 
-    function hapus(pointer){
+    function hapus_program(pointer){
       var tr = $(pointer).parent().parent();
       var button = pointer;
       if(confirm('Anda yakin?')) {
@@ -293,6 +361,147 @@
             }
           });
         }
+    }
+
+    function edit_jadwal(pointer) {
+      tr = $(pointer).parent().parent();
+      id_pengajar = tr.attr('data-id-pengajar');
+      jenjang = tr.attr('data-id-jenjang');
+      program = tr.attr('data-program');
+      nama = $('td', tr).eq(1).text();
+      nomor_identitas = $('td', tr).eq(2).text();
+      $.ajax({
+            data: {'id_pengajar': id_pengajar},
+            dataType: 'json',
+            url: '{{ url('admin/kelompok/jadwal') }}',
+            success: function(data){
+              $('#modal-jadwal .pengajar').text(nama+' '+nomor_identitas);
+              $('#id_pengajar').val(id_pengajar);
+              $('#program').val(program);
+              $('#jenjang').val(jenjang);
+              $('#kapasitas_membina').val(data['kapasitas_membina'])
+              $('#tabel-jadwal').append('<tr><th>Alternatif (Jadwal kosong)</th><th>Aksi</th></tr>');
+              for(var i in data['daftar_jadwal']) {
+                $('#tabel-jadwal').append('<tr data-id-jadwal="'+data['daftar_jadwal'][i]['id']+'" data-id-kelompok="'+data['daftar_jadwal'][i]['kelompok']+'"><td></td><td><button class="btn btn-sm btn-success tambah-kelompok" onclick="tambah_kelompok(this);">Tambah ke Kelompok</button> <button class="btn btn-sm btn-warning hapus-kelompok hidden" onclick="hapus_kelompok(this);">Hapus dari Kelompok</button> <button class="btn btn-sm btn-primary" onclick="ubah_jadwal(this);">Ubah</button> <button class="btn btn-sm btn-danger" onclick="hapus_jadwal(this);">Hapus</button></td></tr>');
+                var tr = $('#tabel-jadwal tr:last');
+                $('#hari').clone().removeAttr('id').attr('class', 'hari').val(data['daftar_jadwal'][i]['hari']).appendTo('#tabel-jadwal tr:last td:first');
+                $('#waktu').clone().removeAttr('id').attr('class', 'waktu').val(data['daftar_jadwal'][i]['waktu']).change().appendTo('#tabel-jadwal tr:last td:first');
+                $('#jj'+program).clone().removeAttr('id').show().attr('class', 'jenjang-kelompok').appendTo('#tabel-jadwal tr:last td:first');
+                if(data['daftar_jadwal'][i]['kelompok'] !== null) {
+                  $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');
+                  $('.jenjang-kelompok', tr).val(data['daftar_jadwal'][i]['kelompok']['id_jenjang']).change();
+                  $('.jenjang-kelompok', tr).attr('disabled', 'disabled');
+                }
+                else {
+                  $('.jenjang-kelompok', tr).val(data['id_jenjang']).change();
+                }
+              }
+              $('#modal-jadwal').modal('show');
+            },
+            error: function(){
+              alert('error');
+            }
+      });
+    }
+
+    function kapasitas_membina() {
+      var kapasitas_membina = $('#kapasitas_membina').val();
+      $.ajax({
+            data: {'id_pengajar': id_pengajar, 'kapasitas_membina' : kapasitas_membina},
+            url: '{{ url('admin/kelompok/jadwal/kapasitas-membina') }}',
+            success: function(){
+              alert('berhasil');
+            },
+            error: function(){
+              alert('error');
+              $('#modal-jadwal').modal('hide');
+            }
+      });
+    }
+
+    function tambah_jadwal(pointer) {
+      var hari = $('#hari').val();
+      var waktu = $('#waktu').val();
+      $.ajax({
+            data: {'id_pengajar': id_pengajar, 'hari': hari, 'waktu': waktu},
+            url: '{{ url('admin/kelompok/jadwal/tambah') }}',
+            success: function(){
+              alert('berhasil');
+              $('#modal-jadwal').modal('hide');
+            },
+            error: function(){
+              alert('error');
+            }
+      });
+    }
+
+    function ubah_jadwal(pointer) {
+      var tr = $(pointer).parent().parent();
+      var id_jadwal = tr.attr('data-id-jadwal');
+      var hari = $('.hari', tr).val();
+      var waktu = $('.waktu', tr).val();
+      $.ajax({
+            data: {'id_jadwal' : id_jadwal, 'hari': hari, 'waktu': waktu},
+            url: '{{ url('admin/kelompok/jadwal/edit') }}',
+            success: function(){
+              alert('berhasil');
+            },
+            error: function(){
+              alert('error');
+              $('#modal-jadwal').modal('hide');
+            }
+      });
+    }
+
+    function hapus_jadwal(pointer) {
+      var tr = $(pointer).parent().parent();
+      var id_jadwal = tr.attr('data-id-jadwal');
+      if(confirm('Anda yakin?')) $.ajax({
+            data: {'id_jadwal' : id_jadwal},
+            url: '{{ url('admin/kelompok/jadwal/hapus') }}',
+            success: function(){
+              alert('berhasil');
+              tr.remove();
+            },
+            error: function(){
+              alert('error');
+            }
+      });
+    }
+
+    function tambah_kelompok(pointer) {
+      var tr = $(pointer).parent().parent();
+      var id_jadwal = tr.attr('data-id-jadwal');
+      jenjang = $('.jenjang-kelompok', tr).val();
+      $.ajax({
+            data: {'id_jadwal' : id_jadwal, 'jenjang': jenjang},
+            url: '{{ url('admin/kelompok/tambah') }}',
+            success: function(){
+              alert('berhasil');
+              $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');
+              $('.jenjang-kelompok', tr).attr('disabled', 'disabled');
+            },
+            error: function(){
+              alert('error');
+            }
+      });
+    }
+
+    function hapus_kelompok(pointer) {
+      var tr = $(pointer).parent().parent();
+      var id_jadwal = tr.attr('data-id-jadwal');
+      if(confirm('Anda yakin?')) $.ajax({
+            data: {'id_jadwal' : id_jadwal},
+            url: '{{ url('admin/kelompok/hapus') }}',
+            success: function(){
+              alert('berhasil');
+              $('.tambah-kelompok, .hapus-kelompok', tr).toggleClass('hidden');
+              $('.jenjang-kelompok', tr).removeAttr('disabled');
+            },
+            error: function(){
+              alert('error');
+            }
+      });
     }
   </script>
 </div>

@@ -19,8 +19,8 @@ class ControllerPengajar extends Controller
         'pengguna', 'jenjang', 'jenjang.jenis_program'
       ])->get();
       $data['daftar_jenis_program'] = Jenis_program::all();
+      $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
       return view('admin.pengajar', $data);
-
   }
 
   /**

@@ -67,12 +67,15 @@
 
   </section>
 
-  <div class="modal fade" id="modal" role="dialog">
+  <div class="modal fade" id="modal-jadwal" role="dialog">
           <div class="modal-dialog" style="width:70%">
 
             <!-- Modal content-->
             <div class="modal-content">
-              <ddiv>
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal-jenjang">&times;</button>
+                <h4 class="modal-title">Edit Jadwal</h4>
+              </div>
               <div class="modal-body table-condensed">
                 <input type="hidden" id="id_pengajar">
                 <input type="hidden" id="jenjang">
@@ -112,7 +115,7 @@
                 </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal-jadwal">Tutup</button>
               </div>
             </div>
 
@@ -210,7 +213,7 @@
           } );
       } ).draw();
 
-    $('#modal').on('hidden.bs.modal', function () {
+    $('#modal-jadwal').on('hidden.bs.modal', function () {
       $('#id_pengajar').val('');
       $('#kapasitas_membina').val('');
       $('#program').val('');
@@ -242,7 +245,7 @@
                 $('#hari').clone().removeAttr('id').attr('class', 'hari').val(data['daftar_jadwal'][i]['hari']).appendTo('#tabel-jadwal tr:last td:first');
                 $('#waktu').clone().removeAttr('id').attr('class', 'waktu').val(data['daftar_jadwal'][i]['waktu']).change().appendTo('#tabel-jadwal tr:last td:first');
               }
-              $('#modal').modal('show');
+              $('#modal-jadwal').modal('show');
         waktu},
             error: function(){
               alert('error');
@@ -260,7 +263,7 @@
             },
             error: function(){
               alert('error');
-              $('#modal').modal('hide');
+              $('#modal-jadwal').modal('hide');
             }
       });
     }
@@ -273,7 +276,7 @@
             url: '{{ url('admin/kelompok/jadwal/tambah') }}',
             success: function(){
               alert('berhasil');
-              $('#modal').modal('hide');
+              $('#modal-jadwal').modal('hide');
             },
             error: function(){
               alert('error');
@@ -294,7 +297,7 @@
             },
             error: function(){
               alert('error');
-              $('#modal').modal('hide');
+              $('#modal-jadwal').modal('hide');
             }
       });
     }

@@ -87,6 +87,7 @@
                 <h4 class="modal-title">Edit Program</h4>
               </div>
               <div class="modal-body">
+                  <div class="form-group col-md-12 santri"></div>
                   <input type="hidden" id="id_santri" value="" />
                   <div class="form-group col-md-12">
                     <label class="control-group">Sudah lulus</label>
@@ -261,11 +262,14 @@
       tr = $(pointer).parent().parent();
       id_santri = tr.attr('data-id-santri');
       program = tr.attr('data-program');
+      nama = $('td', tr).eq(1).text();
+      nomor_identitas = $('td', tr).eq(2).text();
       $.ajax({
             data: {'id_santri': id_santri},
             dataType: 'json',
             url: '{{ url('admin/santri/santri') }}',
             success: function(data){
+              $('#modal .santri').text(nama+' '+nomor_identitas);
               $('#sl'+program+' > option').clone().appendTo('#sudah_lulus');
               //$('#kt'+program+' > option').clone().appendTo('#tahun_kbm_terakhir');
               $('#jj'+program+' > option').clone().appendTo('#jenjang');
@@ -278,6 +282,9 @@
               $('#tahun_kbm_terakhir').val(data['tahun_kbm_terakhir']).change();
               $('#semester_kbm_terakhir').val(data['semester_kbm_terakhir']).change();
               $('#jenjang').val(data['id_jenjang']).change();
+              /*$('#jenjang').on('change', function(){
+                $('#id_kelompok > option').not(':first-child').remove();
+              });*/
               $('#modal').modal('show');
             },
             error: function(data){
