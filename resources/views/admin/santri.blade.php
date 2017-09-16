@@ -21,10 +21,16 @@
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">Daftar Santri</h3>
-        <a href="{{ url('admin/santri/ekspor/excel') }}" class="btn btn-success pull-right">
-          <i class="fa fa-download"></i>&ensp;
-          Download Excel
-        </a>
+        <div class="pull-right">
+          <a href="#modal-tambah" data-toggle="modal" class="btn btn-success">
+            <i class="fa fa-plus"></i>&ensp;
+            Tambah Santri
+          </a>
+          <a href="{{ url('admin/santri/ekspor/excel') }}" class="btn btn-success">
+            <i class="fa fa-download"></i>&ensp;
+            Download Excel
+          </a>
+        </div>
       </div>
       <div class="box-body table-responsive">
         <table class="table table-bordered table-striped" id="dataTable" style="white-space: nowrap;">
@@ -77,7 +83,7 @@
 
   </section>
 
-  <div class="modal fade" id="modal" role="dialog">
+  <div class="modal fade" id="modal-edit" role="dialog">
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -131,6 +137,63 @@
               </div>
             </div>
 
+          </div>
+  </div>
+  <div class="modal fade" id="modal-tambah" role="dialog">
+          <div class="modal-dialog">
+            <form action="{{ url('admin/santri/tambah') }}" method="post">
+              {{ csrf_field() }}
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Tambah Program</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                      <label class="control-group">Username Anggota</label>
+                        <input type="text" class="form-control" name="username" />
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label class="control-group">Sudah lulus</label>
+                      <select class="form-control" name="sudah_lulus">
+                        @foreach ($daftar_jenjang as $jenjang)
+                          <option value="{{ $jenjang->id }}">{{ $jenjang->nama }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label class="control-group">Terakhir KBM tahun</label>
+                        <select class="form-control" name="tahun_kbm_terakhir" autocomplete="off">
+                          <option value="">Belum pernah KBM di LPQ</option>
+                          @for ($i=intval(date('Y')); $i>=2011; $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                          @endfor
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label class="control-group">Terakhir KBM semester</label>
+                      <select class="form-control" name="semester_kbm_terakhir" autocomplete="off">
+                        <option value="">Belum pernah KBM di LPQ</option>
+      									<option value="1">Ganjil (September&ndash;Januari)</option>
+      									<option value="0">Genap (Februari&ndash;Juni)</option>
+      								</select>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label class="control-group">Jenjang</label>
+                      <select class="form-control" name="jenjang">
+                        @foreach ($daftar_jenjang as $jenjang)
+                          <option value="{{ $jenjang->id }}">{{ $jenjang->nama }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                  <button type="submit" class="btn btn-success">Tambah</button>
+                </div>
+              </div>
+          </form>
           </div>
   </div>
   @foreach ($daftar_jenis_program as $jenis_program)
@@ -248,7 +311,7 @@
       } ).draw();
 
     $('[id^=sl], [id^=kt], [id^=jj]').hide();
-    $('#modal').on('hidden.bs.modal', function () {
+    $('#modal-edit').on('hidden.bs.modal', function () {
       $('#sudah_lulus > option').remove();
       //$('#tahun_kbm_terakhir > option').remove();
       $('#jenjang > option').remove();
@@ -269,7 +332,7 @@
             dataType: 'json',
             url: '{{ url('admin/santri/santri') }}',
             success: function(data){
-              $('#modal .santri').text(nama+' '+nomor_identitas);
+              $('#modal-edit .santri').text(nama+' '+nomor_identitas);
               $('#sl'+program+' > option').clone().appendTo('#sudah_lulus');
               //$('#kt'+program+' > option').clone().appendTo('#tahun_kbm_terakhir');
               $('#jj'+program+' > option').clone().appendTo('#jenjang');
@@ -285,7 +348,7 @@
               /*$('#jenjang').on('change', function(){
                 $('#id_kelompok > option').not(':first-child').remove();
               });*/
-              $('#modal').modal('show');
+              $('#modal-edit').modal('show');
             },
             error: function(data){
               alert('error');
@@ -309,7 +372,7 @@
           },
           error: function() {
             alert('gagal');
-            $('#modal').modal('hide');
+            $('#modal-edit').modal('hide');
           }
         });
     }*/
@@ -330,7 +393,7 @@
             $('td', tr).eq(5).html($('#jenjang > option:selected').text());
             $('td', tr).eq(6).html($('#id_kelompok').val());
             myTable.row(tr).invalidate().draw(false);
-            $('#modal').modal('hide');
+            $('#modal-edit').modal('hide');
           },
           error: function() {
             alert('gagal');
