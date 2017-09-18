@@ -65,8 +65,17 @@
                 }}</td>
                 <td>{{ $santri->spp_keterangan }}</td>
                 <td>
-                  <button class="btn btn-sm btn-success edit" onclick="lunas(this);">Lunas</button>
-                  <button class="btn btn-sm btn-warning edit" onclick="belum(this);">Belum dibayar</button>
+                  <button type="button" class="btn btn-sm btn-success lunas dropdown-toggle @if($santri->spp_status === 2) hidden @endif" data-toggle="dropdown">
+                    Lunas
+                    <span class="fa fa-caret-down"> </span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" style="position: relative">
+                    <li><a href="#" onclick="lunas(this, 'TUNAI')">TUNAI</a></li>
+                    <li><a href="#" onclick="lunas(this, 'MUAMALAT')">MUAMALAT</a></li>
+                    <li><a href="#" onclick="lunas(this, 'BNI')">BNI</a></li>
+                    <li><a href="#" onclick="lunas(this, 'BRI')">BRI</a></li>
+                  </ul>
+                  <button class="btn btn-sm btn-warning belum @if($santri->spp_status === 0) hidden @endif" onclick="belum(this);">Belum dibayar</button>
                 </td>
               </tr>
               @endforeach
@@ -169,21 +178,24 @@
 
       var id_santri;
 
-      function lunas(pointer) {
-        tr = $(pointer).parent().parent();
+      function lunas(pointer, keterangan) {
+        tr = $(pointer).parent().parent().parent().parent();
         id_santri = tr.attr('data-id-santri');
 
         $.ajax({
             data: {
               'id_santri': id_santri,
               'spp_status': 2,
-              'spp_dibayar': {{ sistem('spp_biaya') }}
+              'spp_dibayar': {{ sistem('spp_biaya') }},
+              'spp_keterangan': keterangan
             },
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
+              $('td', tr).eq(7).text(keterangan);
               $('td', tr).eq(6).text('Lunas');
               $('td', tr).eq(5).text('{{ sistem('spp_biaya') }}');
+              $('.belum, .lunas', tr).toggleClass('hidden');
               myTable.row(tr).invalidate().draw(false);
             },
             error: function() {
@@ -200,13 +212,16 @@
             data: {
               'id_santri': id_santri,
               'spp_status': 0,
-              'spp_dibayar': 0
+              'spp_dibayar': 0,
+              'spp_keterangan': null
             },
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
+              $('td', tr).eq(7).text('');
               $('td', tr).eq(6).text('Belum dibayar');
               $('td', tr).eq(5).text('0');
+              $('.belum, .lunas', tr).toggleClass('hidden');
               myTable.row(tr).invalidate().draw(false);
             },
             error: function() {
@@ -228,6 +243,7 @@
             success: function(){
               alert('berhasil');
               $('td', tr).eq(6).text('Cicilan');
+              $('.belum, .lunas', tr).removeClass('hidden');
               myTable.row(tr).invalidate().draw(false);
             },
             error: function() {
