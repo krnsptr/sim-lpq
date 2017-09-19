@@ -57,7 +57,9 @@ class ControllerJadwal extends Controller
             'jenjang',
             'jadwal',
             'jadwal.pengajar.pengguna'
-            ])->get();
+            ])->get()
+            ->sortBy('jadwal.pengajar.pengguna.jenis_kelamin')
+            ->sortBy('id_jenjang');
         $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
         return view('jadwal',$data);
     }
