@@ -58,8 +58,13 @@ class ControllerJadwal extends Controller
             'jadwal',
             'jadwal.pengajar.pengguna'
             ])->get()
-            ->sortBy('jadwal.pengajar.pengguna.jenis_kelamin')
-            ->sortBy('id_jenjang');
+            ->sortBy(function($kelompok) {
+                return sprintf(
+                  '%-12s%s',
+                  -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
+                  $kelompok->id_jenjang
+                );
+            });
         $data['hari'] = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
         return view('jadwal',$data);
     }
@@ -77,8 +82,13 @@ class ControllerJadwal extends Controller
           'jadwal',
           'jadwal.pengajar.pengguna'
           ])->get()
-          ->sortBy('jadwal.pengajar.pengguna.jenis_kelamin')
-          ->sortBy('id_jenjang');
+          ->sortBy(function($kelompok) {
+              return sprintf(
+                '%-12s%s',
+                -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
+                $kelompok->id_jenjang
+              );
+          });
       $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
       \Excel::create('Jadwal KBM '.date('Y-m-d h.i.s'), function($excel) use($daftar_kelompok, $hari) {
 
