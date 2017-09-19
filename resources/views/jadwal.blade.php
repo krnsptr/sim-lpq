@@ -9,7 +9,11 @@
       <section class="content">
         <div class="box box-default ">
             <div class="box-header with-border">
-            	<h4>Jadwal KBM</h4>
+              <h3 class="box-title" style="vertical-align: middle">Jadwal KBM</h3>
+              <a href="{{ url('jadwal.xlsx') }}" class="btn btn-success pull-right">
+                <i class="fa fa-download"></i>&ensp;
+                Excel
+              </a>
             </div>
       			<div class="box-body table-responsive">
       				<div class="form-group col-md-5">

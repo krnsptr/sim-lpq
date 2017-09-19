@@ -60,8 +60,48 @@ class ControllerJadwal extends Controller
             ])->get()
             ->sortBy('jadwal.pengajar.pengguna.jenis_kelamin')
             ->sortBy('id_jenjang');
-        $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+        $data['hari'] = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
         return view('jadwal',$data);
+    }
+
+    /**
+     * Memproses download excel jadwal KBM
+     */
+     public function ekspor_excel()
+    {
+      $daftar_kelompok = Kelompok::has('daftar_santri')
+        ->with([
+          'daftar_santri',
+          'daftar_santri.pengguna',
+          'jenjang',
+          'jadwal',
+          'jadwal.pengajar.pengguna'
+          ])->get()
+          ->sortBy('jadwal.pengajar.pengguna.jenis_kelamin')
+          ->sortBy('id_jenjang');
+      $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+      \Excel::create('Jadwal KBM '.date('Y-m-d h.i.s'), function($excel) use($daftar_kelompok, $hari) {
+
+          $excel->sheet('Laki-Laki', function($sheet) use($daftar_kelompok, $hari)  {
+            $sheet->loadView(
+              'ekspor.jadwal-excel', [
+                'daftar_kelompok' => $daftar_kelompok
+                ->where('jadwal.pengajar.pengguna.jenis_kelamin', 1),
+                'hari' => $hari
+              ]
+            );
+          });
+
+          $excel->sheet('Perempuan', function($sheet) use($daftar_kelompok, $hari) {
+            $sheet->loadView(
+              'ekspor.jadwal-excel', [
+                'daftar_kelompok' => $daftar_kelompok
+                ->where('jadwal.pengajar.pengguna.jenis_kelamin', 0),
+                'hari' => $hari
+              ]
+            );
+          });
+      })->download('xlsx');
     }
 
     /**

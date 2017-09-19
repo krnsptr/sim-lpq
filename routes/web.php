@@ -29,6 +29,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/jadwal', 'ControllerJadwal@jadwal_KBM');
+Route::get('/jadwal.xlsx', 'ControllerJadwal@ekspor_excel');
 
 Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function() {
     Route::get('/', 'ControllerMember@index');
