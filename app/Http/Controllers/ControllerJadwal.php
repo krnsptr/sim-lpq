@@ -52,10 +52,8 @@ class ControllerJadwal extends Controller
     {
         $data['daftar_kelompok'] = Kelompok::has('daftar_santri')
           ->with([
-            'daftar_santri',
             'daftar_santri.pengguna',
             'jenjang',
-            'jadwal',
             'jadwal.pengajar.pengguna'
             ])->get()
             ->sortBy(function($kelompok) {
@@ -76,10 +74,8 @@ class ControllerJadwal extends Controller
     {
       $daftar_kelompok = Kelompok::has('daftar_santri')
         ->with([
-          'daftar_santri',
           'daftar_santri.pengguna',
           'jenjang',
-          'jadwal',
           'jadwal.pengajar.pengguna'
           ])->get()
           ->sortBy(function($kelompok) {

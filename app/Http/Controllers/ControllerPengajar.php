@@ -16,7 +16,7 @@ class ControllerPengajar extends Controller
   public function index()
   {
       $data['daftar_pengajar'] = Pengajar::with([
-        'pengguna', 'jenjang', 'jenjang.jenis_program'
+        'pengguna', 'jenjang.jenis_program'
       ])->get();
       $data['daftar_jenis_program'] = Jenis_program::all();
       $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];

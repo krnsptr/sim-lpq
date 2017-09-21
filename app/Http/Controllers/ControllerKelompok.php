@@ -20,16 +20,16 @@ class ControllerKelompok extends Controller
     {
         if(auth()->user()->hasRole('admin')) {
           $data['daftar_pengajar'] = Pengajar::whereNotIn('id_jenjang', [1, 5, 8])
-            ->with(['pengguna', 'jenjang', 'jenjang.jenis_program'])->get();
+            ->with(['pengguna', 'jenjang.jenis_program'])->get();
           $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
             return view('admin.kelompok', $data);
         }
         else {
           $member = auth()->user();
           $data['daftar_pengajar'] = Pengajar::where('id_pengguna', $member->id)
-            ->with(['jenjang', 'jenjang.jenis_program', 'daftar_kelompok', 'daftar_kelompok.jadwal', 'daftar_kelompok.daftar_santri.pengguna'])->get();
+            ->with(['jenjang.jenis_program', 'daftar_kelompok.jadwal', 'daftar_kelompok.daftar_santri.pengguna'])->get();
           $data['daftar_santri'] = Santri::where('id_pengguna', $member->id)
-            ->with(['jenjang', 'jenjang.jenis_program', 'kelompok', 'kelompok.jadwal', 'kelompok.daftar_santri.pengguna'])->get();
+            ->with(['jenjang.jenis_program', 'kelompok.jadwal', 'kelompok.daftar_santri.pengguna'])->get();
           $data['hari']=[NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 
           if($data['daftar_pengajar']->isEmpty() && $data['daftar_santri']->isEmpty())
