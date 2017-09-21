@@ -191,7 +191,24 @@
                 extend: 'print',
                 title: dataTable2_title
             }
-          ]
+          ],
+          "language": {
+           "sProcessing":   "Sedang proses...",
+           "sLengthMenu":   "_MENU_ entri per halaman",
+           "sZeroRecords":  "Data tidak ditemukan",
+           "sInfo":         "Menampilkan _START_&ndash;_END_ dari _TOTAL_ entri",
+           "sInfoEmpty":    "Menampilkan 0&ndash;0 dari 0 entri",
+           "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+           "sInfoPostFix":  "",
+           "sSearch":       "Cari:",
+           "sUrl":          "",
+           "oPaginate": {
+               "sFirst":    "&laquo;",
+               "sPrevious": "&lt;",
+               "sNext":     "&gt;",
+               "sLast":     "&raquo;"
+           },
+          },
        });
       myTable2.buttons().container()
         .appendTo( '#dataTable2_wrapper .col-sm-6:eq(0)' );
