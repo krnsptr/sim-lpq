@@ -21,7 +21,7 @@
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">Daftar Pengajar</h3>
-        <a href="{{ url('admin/pengajar/ekspor/excel') }}" class="btn btn-success pull-right">
+        <a href="{{ url('admin/pengajar.xlsx') }}" class="btn btn-success pull-right">
           <i class="fa fa-download"></i>&ensp;
           Download Excel
         </a>

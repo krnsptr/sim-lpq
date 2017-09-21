@@ -12,7 +12,7 @@
               <h3 class="box-title" style="vertical-align: middle">Jadwal KBM</h3>
               <a href="{{ url('jadwal.xlsx') }}" class="btn btn-success pull-right">
                 <i class="fa fa-download"></i>&ensp;
-                Excel
+                Download Excel
               </a>
             </div>
       			<div class="box-body table-responsive">

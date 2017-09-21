@@ -22,9 +22,9 @@
       <div class="box-header with-border">
         <h3 class="box-title">Daftar Santri</h3>
         <div class="pull-right">
-          <a href="#modal-tambah" data-toggle="modal" class="btn btn-success">
+          <a href="#modal-tambah" data-toggle="modal" class="btn btn-default">
             <i class="fa fa-plus"></i>&ensp;
-            Tambah Santri
+            Tambah Program
           </a>
           <a href="{{ url('admin/santri/ekspor/excel') }}" class="btn btn-success">
             <i class="fa fa-download"></i>&ensp;

@@ -83,7 +83,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/pengajar/tambah', 'ControllerPengajar@tambah');
     Route::post('/pengajar/edit', 'ControllerPengajar@simpan');
     Route::post('/pengajar/hapus', 'ControllerPengajar@hapus');
-    Route::get('/pengajar/ekspor/excel', 'ControllerPengajar@ekspor_excel');
+    Route::get('/pengajar.xlsx', 'ControllerPengajar@ekspor_excel');
 
     Route::get('/santri', 'ControllerSantri@index');
     Route::post('/santri/santri', 'ControllerSantri@santri');
@@ -91,7 +91,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/santri/tambah', 'ControllerSantri@tambah');
     Route::post('/santri/edit', 'ControllerSantri@simpan');
     Route::post('/santri/hapus', 'ControllerSantri@hapus');
-    Route::get('/santri/ekspor/excel', 'ControllerSantri@ekspor_excel');
+    Route::get('/santri.xlsx', 'ControllerSantri@ekspor_excel');
 
     Route::get('/kelompok', 'ControllerKelompok@index');
     Route::post('/kelompok/jadwal', 'ControllerKelompok@jadwal');
