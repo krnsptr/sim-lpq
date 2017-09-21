@@ -86,7 +86,7 @@ class ControllerJadwal extends Controller
               );
           });
       $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-      \Excel::create('Jadwal KBM '.date('Y-m-d h.i.s'), function($excel) use($daftar_kelompok, $hari) {
+      \Excel::create('Jadwal KBM '.date('Y-m-d H.i.s'), function($excel) use($daftar_kelompok, $hari) {
 
           $excel->sheet('Laki-Laki', function($sheet) use($daftar_kelompok, $hari)  {
             $sheet->loadView(

@@ -144,7 +144,7 @@ class ControllerPengajar extends Controller
    */
   public function ekspor_excel()
   {
-    \Excel::create('Pengajar '.date('Y-m-d h.i.s'), function($excel) {
+    \Excel::create('Pengajar '.date('Y-m-d H.i.s'), function($excel) {
 
         $excel->sheet('Laki-Laki', function($sheet) {
           $daftar_pengajar = Pengajar::with(['pengguna', 'jenjang.jenis_program'])

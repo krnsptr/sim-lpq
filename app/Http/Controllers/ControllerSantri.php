@@ -157,7 +157,7 @@ class ControllerSantri extends Controller
      */
     public function ekspor_excel()
     {
-      \Excel::create('Santri '.date('Y-m-d h.i.s'), function($excel) {
+      \Excel::create('Santri '.date('Y-m-d H.i.s'), function($excel) {
 
           $excel->sheet('Laki-Laki', function($sheet) {
             $daftar_santri = Santri::with(['pengguna', 'jenjang.jenis_program'])

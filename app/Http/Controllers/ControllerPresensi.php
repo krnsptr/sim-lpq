@@ -38,7 +38,7 @@ class ControllerPresensi extends Controller
               );
           });
       $data['hari'] = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-      \Excel::create('Merge Presensi '.date('Y-m-d h.i.s'), function($excel) use($data) {
+      \Excel::create('Merge Presensi '.date('Y-m-d H.i.s'), function($excel) use($data) {
 
           $excel->sheet('Merge Presensi', function($sheet) use($data)  {
             $sheet->loadView('ekspor.presensi-merge-excel', $data);
