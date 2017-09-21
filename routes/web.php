@@ -102,6 +102,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::post('/kelompok/tambah', 'ControllerKelompok@tambah');
     Route::post('/kelompok/hapus', 'ControllerKelompok@hapus');
 
+    Route::get('/presensi', 'ControllerPresensi@index');
+    Route::get('/presensi/merge.xlsx', 'ControllerPresensi@ekspor_excel_merge');
+
     Route::get('/spp', 'ControllerSPP@index');
     Route::post('/spp/edit', 'ControllerSPP@simpan');
 
