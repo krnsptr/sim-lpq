@@ -5,13 +5,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        SPP Santri
+        SPP
         <small>Pengelolaan SPP Santri</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href=""><i class="fa fa-dashboard"></i> SIM LPQ</a></li>
         <li><a href="">Admin</a></li>
-        <li class="active">Dasbor</li>
+        <li class="active">SPP</li>
       </ol>
     </section>
 
@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Daftar Santri</h3>
+          <h3 class="box-title">SPP Santri</h3>
         </div>
 
         <div class="box-body table-responsive">
@@ -105,7 +105,7 @@
           var colheader = this.header();
           return $(colheader).text().trim();
       } );
-
+        var dataTable_title = $('#dataTable').parent().prev().text()+moment().format('YYYY-MM-DD HH.mm.ss');
         var myTable = $('#dataTable').DataTable({
           "columnDefs": [
             {
@@ -120,6 +120,29 @@
           "ordering": true,
           "info": true,
           "autoWidth": false,
+          "dom": "<'row'<'col-md-4'l><'col-md-4'B><'col-md-4'f>>rtip",
+          "buttons": [
+            {
+                extend: 'copyHtml5',
+                title: dataTable_title
+            },
+             {
+                 extend: 'csvHtml5',
+                 title: dataTable_title
+             },
+             {
+                 extend: 'excelHtml5',
+                 title: dataTable_title
+             },
+             {
+                 extend: 'pdfHtml5',
+                 title: dataTable_title
+             },
+             {
+                 extend: 'print',
+                 title: dataTable_title
+             }
+           ],
           "language": {
            "sProcessing":   "Sedang proses...",
            "sLengthMenu":   "_MENU_ entri per halaman",
