@@ -159,6 +159,7 @@
          $('button').css("cursor", "pointer");
      });
        var dataTable2_title = $('#dataTable2').parent().prev().text()+moment().format('YYYY-MM-DD HH.mm.ss');
+       var dataTable2_columns = [1,2,3,4,5];
        var myTable2 = $('#dataTable2').DataTable({
          "columnDefs": [
            {
@@ -172,25 +173,30 @@
          "dom": 'Bfrtip',
          "buttons": [
            {
-               extend: 'copyHtml5',
-               title: dataTable2_title
+              extend: 'copyHtml5',
+              title: dataTable2_title,
+              exportOptions: { columns: dataTable2_columns }
            },
-            {
-                extend: 'csvHtml5',
-                title: dataTable2_title
-            },
-            {
-                extend: 'excelHtml5',
-                title: dataTable2_title
-            },
-            {
-                extend: 'pdfHtml5',
-                title: dataTable2_title
-            },
-            {
-                extend: 'print',
-                title: dataTable2_title
-            }
+           {
+               extend: 'csvHtml5',
+               title: dataTable2_title,
+               exportOptions: { columns: dataTable2_columns }
+           },
+           {
+               extend: 'excelHtml5',
+               title: dataTable2_title,
+               exportOptions: { columns: dataTable2_columns }
+           },
+           {
+               extend: 'pdfHtml5',
+               title: dataTable2_title,
+               exportOptions: { columns: dataTable2_columns }
+           },
+           {
+               extend: 'print',
+               title: dataTable2_title,
+               exportOptions: { columns: dataTable2_columns }
+           }
           ],
           "language": {
            "sProcessing":   "Sedang proses...",

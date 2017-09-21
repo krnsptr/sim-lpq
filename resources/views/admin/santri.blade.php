@@ -65,8 +65,8 @@
               <td>{{$santri->pengguna->nama_lengkap}}</td>
               <td>{{$santri->pengguna->nomor_identitas}}</td>
               <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
-              <td>{{$santri->jenjang->jenis_program->nama}}</td>
-              <td>{{$santri->jenjang->nama}}</td>
+              <td data-order="{{$santri->jenjang->jenis_program->id}}">{{ $santri->jenjang->jenis_program->nama}}</td>
+              <td data-order="{{$santri->jenjang->id}}">{{ $santri->jenjang->nama}}</td>
               <td>@if ($santri->kelompok) {{$santri->kelompok->id}} @endif</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
@@ -247,7 +247,7 @@
              "orderable": false,
              "targets": [0,-1]
           }],
-        "order": [[3, 'asc'], [4, 'desc'], [ 1, 'asc' ]],
+        "order": [[3, 'asc'], [4, 'asc'], [5, 'asc'], [ 1, 'asc' ]],
         "paging": true,
         "lengthChange": true,
         "searching": true,

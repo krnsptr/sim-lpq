@@ -51,8 +51,8 @@
               <td>{{$loop->iteration}}</td>
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
               <td>@if($pengajar->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif </td>
-              <td>{{ $pengajar->jenjang->jenis_program->nama}}</td>
-              <td>{{ $pengajar->jenjang->nama}}</td>
+              <td data-order="{{$pengajar->jenjang->jenis_program->id}}">{{ $pengajar->jenjang->jenis_program->nama}}</td>
+              <td data-order="{{$pengajar->jenjang->id}}">{{ $pengajar->jenjang->nama}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Jadwal</button>
               </td>
@@ -150,7 +150,7 @@
              "orderable": false,
              "targets": [0,-1]
           }],
-        "order": [[2, 'asc'], [3, 'desc'], [ 1, 'asc' ]],
+        "order": [[2, 'asc'], [3, 'asc'], [4, 'asc'], [ 1, 'asc' ]],
         "paging": true,
         "lengthChange": true,
         "searching": true,

@@ -57,8 +57,8 @@
               <td>{{ $pengajar->pengguna->nama_lengkap}}</td>
               <td>{{$pengajar->pengguna->nomor_identitas}}</td>
               <td>@if($pengajar->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
-              <td>{{ $pengajar->jenjang->jenis_program->nama}}</td>
-              <td>{{ $pengajar->jenjang->nama}}</td>
+                <td data-order="{{$pengajar->jenjang->jenis_program->id}}">{{ $pengajar->jenjang->jenis_program->nama}}</td>
+                <td data-order="{{$pengajar->jenjang->id}}">{{ $pengajar->jenjang->nama}}</td>
               <td>
                 <button class="btn btn-sm btn-primary edit" onclick="edit_program(this);">Edit Program</button>
                 <button class="btn btn-sm btn-primary edit" onclick="edit_jadwal(this);">Edit Jadwal</button>
@@ -210,7 +210,7 @@
              "orderable": false,
              "targets": [0,-1]
           }],
-        "order": [[3, 'asc'], [4, 'desc'], [ 1, 'asc' ]],
+        "order": [[3, 'asc'], [4, 'asc'], [5, 'asc'], [ 1, 'asc' ]],
         "paging": true,
         "lengthChange": true,
         "searching": true,

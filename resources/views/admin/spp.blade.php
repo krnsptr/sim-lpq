@@ -57,10 +57,10 @@
                 <td></td>
                 <td>{{$santri->pengguna->nama_lengkap}}</td>
                 <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
-                <td>{{$santri->jenjang->jenis_program->nama}}</td>
-                <td>{{$santri->jenjang->nama}}</td>
+                <td data-order="{{$santri->jenjang->jenis_program->id}}">{{$santri->jenjang->jenis_program->nama}}</td>
+                <td data-order="{{$santri->jenjang->id}}">{{$santri->jenjang->nama}}</td>
                 <td>{{ $santri->spp_dibayar }}</td>
-                <td>{{
+                <td data-order="{{$santri->spp_status}}">{{
                   json_decode(sistem('spp_status'))[$santri->spp_status]
                 }}</td>
                 <td>{{ $santri->spp_keterangan }}</td>
@@ -106,6 +106,7 @@
           return $(colheader).text().trim();
       } );
         var dataTable_title = $('#dataTable').parent().prev().text()+moment().format('YYYY-MM-DD HH.mm.ss');
+        var dataTable_columns = [1,2,3,4,5,6,7];
         var myTable = $('#dataTable').DataTable({
           "columnDefs": [
             {
@@ -113,7 +114,7 @@
                "orderable": false,
                "targets": [0,-1]
             }],
-          "order": [[2, 'asc'], [3, 'desc'], [ 1, 'asc' ]],
+          "order": [[2, 'asc'], [3, 'asc'], [4, 'asc'], [ 1, 'asc' ]],
           "paging": true,
           "lengthChange": true,
           "searching": true,
@@ -122,25 +123,30 @@
           "autoWidth": false,
           "dom": "<'row'<'col-md-4'l><'col-md-4'B><'col-md-4'f>>rtip",
           "buttons": [
-            {
+             {
                 extend: 'copyHtml5',
-                title: dataTable_title
-            },
+                title: dataTable_title,
+                exportOptions: { columns: dataTable_columns }
+             },
              {
                  extend: 'csvHtml5',
-                 title: dataTable_title
+                 title: dataTable_title,
+                 exportOptions: { columns: dataTable_columns }
              },
              {
                  extend: 'excelHtml5',
-                 title: dataTable_title
+                 title: dataTable_title,
+                 exportOptions: { columns: dataTable_columns }
              },
              {
                  extend: 'pdfHtml5',
-                 title: dataTable_title
+                 title: dataTable_title,
+                 exportOptions: { columns: dataTable_columns }
              },
              {
                  extend: 'print',
-                 title: dataTable_title
+                 title: dataTable_title,
+                 exportOptions: { columns: dataTable_columns }
              }
            ],
           "language": {
