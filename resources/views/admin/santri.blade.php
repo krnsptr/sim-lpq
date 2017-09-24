@@ -26,7 +26,7 @@
             <i class="fa fa-plus"></i>&ensp;
             Tambah Program
           </a>
-          <a href="{{ url('admin/santri/ekspor/excel') }}" class="btn btn-success">
+          <a href="{{ url('admin/santri.xlsx') }}" class="btn btn-success">
             <i class="fa fa-download"></i>&ensp;
             Download Excel
           </a>
