@@ -1,10 +1,26 @@
 <html>
+  <head>
+    <style type="text/css">
+      th {
+        text-align: center;
+        vertical-align: middle !important;
+        border: 1px solid #ddd !important;
+      }
+      td {
+        border: 1px solid #ddd !important;
+      }
+      table {
+        border-collapse: separate;
+        border: 1px solid #ddd !important;
+      }
+    </style>
+  </head>
   <body>
     @foreach ($daftar_kelompok as $kelompok)
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th>.</th>
           <th>Kelompok</th>
           <th>Jenjang</th>
           <th>Hari</th>

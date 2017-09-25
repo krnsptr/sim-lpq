@@ -70,7 +70,7 @@ class ControllerJadwal extends Controller
     /**
      * Memproses download excel jadwal KBM
      */
-     public function ekspor_excel()
+     public function ekspor_excel(bool $untuk_pengajar = FALSE)
     {
       $daftar_kelompok = Kelompok::has('daftar_santri')
         ->with([
@@ -80,34 +80,87 @@ class ControllerJadwal extends Controller
           ])->get()
           ->sortBy(function($kelompok) {
               return sprintf(
-                '%-12s%s',
+                '%-6s%-6s%-6s%s',
                 -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
-                $kelompok->id_jenjang
+                $kelompok->id_jenjang,
+                $kelompok->hari,
+                $kelompok->waktu
               );
           });
+      $judul = ($untuk_pengajar) ? 'Jadwal Pengajar' : 'Jadwal Santri';
       $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-      \Excel::create('Jadwal KBM '.date('Y-m-d H.i.s'), function($excel) use($daftar_kelompok, $hari) {
+      \Excel::create($judul.' '.date('Y-m-d H.i.s'), function($excel) use($daftar_kelompok, $hari, $untuk_pengajar) {
 
-          $excel->sheet('Laki-Laki', function($sheet) use($daftar_kelompok, $hari)  {
+          $excel->sheet('Laki-Laki', function($sheet) use($daftar_kelompok, $hari, $untuk_pengajar)  {
             $sheet->loadView(
               'ekspor.jadwal-excel', [
                 'daftar_kelompok' => $daftar_kelompok
                 ->where('jadwal.pengajar.pengguna.jenis_kelamin', 1),
-                'hari' => $hari
+                'hari' => $hari,
+                'untuk_pengajar' => $untuk_pengajar
               ]
             );
           });
 
-          $excel->sheet('Perempuan', function($sheet) use($daftar_kelompok, $hari) {
+          $excel->sheet('Perempuan', function($sheet) use($daftar_kelompok, $hari, $untuk_pengajar) {
             $sheet->loadView(
               'ekspor.jadwal-excel', [
                 'daftar_kelompok' => $daftar_kelompok
                 ->where('jadwal.pengajar.pengguna.jenis_kelamin', 0),
-                'hari' => $hari
+                'hari' => $hari,
+                'untuk_pengajar' => $untuk_pengajar
               ]
             );
           });
       })->download('xlsx');
+    }
+
+    /**
+     * Memproses download excel jadwal KBM
+     */
+     public function ekspor_pdf(bool $untuk_pengajar = FALSE)
+    {
+      $daftar_kelompok = Kelompok::has('daftar_santri')
+        ->with([
+          'daftar_santri.pengguna',
+          'jenjang',
+          'jadwal.pengajar.pengguna'
+          ])->get()
+          ->sortBy(function($kelompok) {
+              return sprintf(
+                '%-6s%-6s%-6s%s',
+                -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
+                $kelompok->id_jenjang,
+                $kelompok->hari,
+                $kelompok->waktu
+              );
+          });
+      $judul = ($untuk_pengajar) ? 'Jadwal Pengajar' : 'Jadwal Santri';
+      $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+      \Excel::create($judul.' '.date('Y-m-d H.i.s'), function($excel) use($daftar_kelompok, $hari, $untuk_pengajar) {
+
+          $excel->sheet('Laki-Laki', function($sheet) use($daftar_kelompok, $hari, $untuk_pengajar)  {
+            $sheet->loadView(
+              'ekspor.jadwal-pdf', [
+                'daftar_kelompok' => $daftar_kelompok
+                ->where('jadwal.pengajar.pengguna.jenis_kelamin', 1),
+                'hari' => $hari,
+                'untuk_pengajar' => $untuk_pengajar
+              ]
+            );
+          });
+
+          $excel->sheet('Perempuan', function($sheet) use($daftar_kelompok, $hari, $untuk_pengajar) {
+            $sheet->loadView(
+              'ekspor.jadwal-pdf', [
+                'daftar_kelompok' => $daftar_kelompok
+                ->where('jadwal.pengajar.pengguna.jenis_kelamin', 0),
+                'hari' => $hari,
+                'untuk_pengajar' => $untuk_pengajar
+              ]
+            );
+          });
+      })->download('pdf');
     }
 
     /**
