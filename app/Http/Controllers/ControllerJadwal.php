@@ -70,7 +70,7 @@ class ControllerJadwal extends Controller
     /**
      * Memproses download excel jadwal KBM
      */
-     public function ekspor_excel(bool $untuk_pengajar = FALSE)
+     public function ekspor_excel($untuk_pengajar = FALSE)
     {
       $daftar_kelompok = Kelompok::has('daftar_santri')
         ->with([
