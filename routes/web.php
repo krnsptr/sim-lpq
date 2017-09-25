@@ -30,6 +30,15 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/jadwal', 'ControllerJadwal@jadwal_KBM');
 Route::get('/jadwal.xlsx', 'ControllerJadwal@ekspor_excel');
+Route::get('/jadwal.pdf', 'ControllerJadwal@ekspor_pdf');
+Route::get('/jadwal-pengajar.xlsx', function() {
+  return app()->make('\App\Http\Controllers\ControllerJadwal')
+  ->callAction('ekspor_excel', $parameters = ['untuk_pengajar' => TRUE]);
+});
+Route::get('/jadwal-pengajar.pdf', function() {
+  return app()->make('\App\Http\Controllers\ControllerJadwal')
+  ->callAction('ekspor_pdf', $parameters = ['untuk_pengajar' => TRUE]);
+});
 
 Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function() {
     Route::get('/', 'ControllerMember@index');

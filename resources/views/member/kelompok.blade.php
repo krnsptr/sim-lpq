@@ -63,7 +63,8 @@
                 <tr>
                   <th>No.</th>
                   <th>Nama Santri</th>
-                  <th>Nomor HP, WA</th>
+                  <th>Nomor HP</th>
+                  <th>Nomor WA</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,7 +72,8 @@
                 <tr>
                   <td width="5%">{{$loop->iteration}}</td>
                   <td>{{$santri->pengguna->nama_lengkap}}</td>
-                  <td>{{$santri->pengguna->nomor_hp}}, {{$santri->pengguna->nomor_wa}}</td>
+                  <td>{{ $santri->pengguna->nomor_hp }}</td>
+                  <td>{{ $santri->pengguna->nomor_wa }}</td>
                 </tr>
                 @endforeach
               </tbody>
@@ -118,8 +120,12 @@
 		              	<td>: {{$hari[$kelompok->jadwal->hari]}}, {{$kelompok->jadwal->waktu1}}</td>
 	              	</tr>
 	              	<tr>
-		              	<td>Nomor HP, WA</td>
-		              	<td>: {{$kelompok->jadwal->pengajar->pengguna->nomor_hp}}, {{$kelompok->jadwal->pengajar->pengguna->nomor_wa}}</td>
+		              	<td>Nomor HP</td>
+		              	<td>: {{$kelompok->jadwal->pengajar->pengguna->nomor_hp}}</td>
+	              	</tr>
+                  <tr>
+		              	<td>Nomor WA</td>
+		              	<td>: {{$kelompok->jadwal->pengajar->pengguna->nomor_wa}}</td>
 	              	</tr>
 	            </tbody>
           	</table>
@@ -129,7 +135,8 @@
                 <tr>
                   <th>No.</th>
                   <th>Nama Santri</th>
-                  <th>Nomor HP, WA</th>
+                  <th>Nomor HP</th>
+                  <th>Nomor WA</th>
                 </tr>
               </thead>
               <tbody>
@@ -137,7 +144,8 @@
                 <tr>
                   <td width="5%">{{$loop->iteration}}</td>
                   <td>{{$santri->pengguna->nama_lengkap}}</td>
-                  <td>{{$santri->pengguna->nomor_hp}}, {{$santri->pengguna->nomor_wa}}</td>
+                  <td>{{ $santri->pengguna->nomor_hp }}</td>
+                  <td>{{ $santri->pengguna->nomor_wa }}</td>
                 </tr>
                 @endforeach
                 </tr>

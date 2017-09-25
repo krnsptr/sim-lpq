@@ -27,7 +27,8 @@
                     <th>Jenjang</th>
                     <th>Jadwal</th>
                     <th>Nama Pengajar</th>
-                    <th>Nomor HP, WA</th>
+                    <th>Nomor HP</th>
+                    <th>Nomor WA</th>
       						</tr>
       					</thead>
       					<tbody>
@@ -36,7 +37,8 @@
                     <td>{{ $kelompok->jenjang->nama }}</td>
                     <td>{{ $hari[$kelompok->jadwal->hari] }}, {{ $kelompok->jadwal->waktu }}</td>
                     <td>{{ $kelompok->jadwal->pengajar->pengguna->nama_lengkap }}</td>
-                    <td>{{ $kelompok->jadwal->pengajar->pengguna->nomor_hp }}, {{ $kelompok->jadwal->pengajar->pengguna->nomor_wa }}</td>
+                    <td>{{ $kelompok->jadwal->pengajar->pengguna->nomor_hp }}</td>
+                    <td>{{ $kelompok->jadwal->pengajar->pengguna->nomor_wa }}</td>
       						</tr>
       					</tbody>
       				</table>
