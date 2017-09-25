@@ -53,16 +53,14 @@ class ControllerJadwal extends Controller
         $data['daftar_kelompok'] = Kelompok::has('daftar_santri')
           ->with([
             'daftar_santri.pengguna',
-            'jenjang',
             'jadwal.pengajar.pengguna'
-            ])->get()
-            ->sortBy(function($kelompok) {
-                return sprintf(
-                  '%-12s%s',
-                  -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
-                  $kelompok->id_jenjang
-                );
-            });
+            ])
+          ->join('kelompok_view', 'kelompok_view.id_k', '=', 'kelompok.id')
+          ->orderBy('jenis_kelamin', 'desc')
+          ->orderBy('kelompok.id_jenjang', 'asc')
+          ->orderBy('hari', 'asc')
+          ->orderBy('waktu', 'asc')
+          ->get();
         $data['hari'] = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
         return view('jadwal',$data);
     }
@@ -75,18 +73,14 @@ class ControllerJadwal extends Controller
       $daftar_kelompok = Kelompok::has('daftar_santri')
         ->with([
           'daftar_santri.pengguna',
-          'jenjang',
           'jadwal.pengajar.pengguna'
-          ])->get()
-          ->sortBy(function($kelompok) {
-              return sprintf(
-                '%-6s%-6s%-6s%s',
-                -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
-                $kelompok->id_jenjang,
-                $kelompok->hari,
-                $kelompok->waktu
-              );
-          });
+          ])
+        ->join('kelompok_view', 'kelompok_view.id_k', '=', 'kelompok.id')
+        ->orderBy('jenis_kelamin', 'desc')
+        ->orderBy('kelompok.id_jenjang', 'asc')
+        ->orderBy('hari', 'asc')
+        ->orderBy('waktu', 'asc')
+        ->get();
       $judul = ($untuk_pengajar) ? 'Jadwal Pengajar' : 'Jadwal Santri';
       $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
       \Excel::create($judul.' '.date('Y-m-d H.i.s'), function($excel) use($daftar_kelompok, $hari, $untuk_pengajar) {
@@ -123,18 +117,14 @@ class ControllerJadwal extends Controller
       $daftar_kelompok = Kelompok::has('daftar_santri')
         ->with([
           'daftar_santri.pengguna',
-          'jenjang',
           'jadwal.pengajar.pengguna'
-          ])->get()
-          ->sortBy(function($kelompok) {
-              return sprintf(
-                '%-6s%-6s%-6s%s',
-                -$kelompok->jadwal->pengajar->pengguna->jenis_kelamin,
-                $kelompok->id_jenjang,
-                $kelompok->hari,
-                $kelompok->waktu
-              );
-          });
+          ])
+        ->join('kelompok_view', 'kelompok_view.id_k', '=', 'kelompok.id')
+        ->orderBy('jenis_kelamin', 'desc')
+        ->orderBy('kelompok.id_jenjang', 'asc')
+        ->orderBy('hari', 'asc')
+        ->orderBy('waktu', 'asc')
+        ->get();
       $judul = ($untuk_pengajar) ? 'Jadwal Pengajar' : 'Jadwal Santri';
       $hari = [NULL,'Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
       \Excel::create($judul.' '.date('Y-m-d H.i.s'), function($excel) use($daftar_kelompok, $hari, $untuk_pengajar) {
