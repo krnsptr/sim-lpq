@@ -51,10 +51,10 @@ class LoginController extends Controller
         session()->flash('success', 'Anda berhasil masuk.');
 
         if(Auth::user()->hasRole('admin')) {
-            return redirect('/admin');
+            return redirect()->intended('/admin');
         }
 
-        return redirect('/dasbor');
+        return redirect()->intended('/dasbor');
     }
 
 

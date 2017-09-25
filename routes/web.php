@@ -40,7 +40,7 @@ Route::get('/jadwal-pengajar.pdf', function() {
   ->callAction('ekspor_pdf', $parameters = ['untuk_pengajar' => TRUE]);
 });
 
-Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function() {
+Route::group(['prefix' => 'dasbor', 'middleware' => ['auth', 'role:member']], function() {
     Route::get('/', 'ControllerMember@index');
 
     Route::get('/akun', 'ControllerMember@edit');
@@ -74,7 +74,7 @@ Route::group(['prefix' => 'dasbor', 'middleware' => ['role:member']], function()
     //Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function() {
     Route::get('/', 'ControllerAdmin@index');
     Route::get('/statistik', 'ControllerAdmin@statistik');
     Route::post('/pengaturan/edit', 'ControllerAdmin@pengaturan_simpan');
