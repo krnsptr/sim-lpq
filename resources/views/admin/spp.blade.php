@@ -33,6 +33,8 @@
                 <th>Jenis Kelamin</th>
                 <th>Program</th>
                 <th>Jenjang</th>
+                <th>Nomor HP</th>
+                <th>Nomor WA</th>
                 <th>SPP Dibayar</th>
                 <th>Status</th>
                 <th>Keterangan</th>
@@ -46,6 +48,8 @@
                 <td>Jenis Kelamin</td>
                 <td>Program</td>
                 <td>Jenjang</td>
+                <td>Nomor HP</td>
+                <td>Nomor WA</td>
                 <td>SPP Dibayar</td>
                 <td>Status</td>
                 <td></td>
@@ -59,6 +63,8 @@
                 <td>@if($santri->pengguna->jenis_kelamin) Laki-laki @else Perempuan @endif</td>
                 <td data-order="{{$santri->jenjang->jenis_program->id}}">{{$santri->jenjang->jenis_program->nama}}</td>
                 <td data-order="{{$santri->jenjang->id}}">{{$santri->jenjang->nama}}</td>
+                <td>{{ $santri->pengguna->nomor_hp }}</td>
+                <td>{{ $santri->pengguna->nomor_wa }}</td>
                 <td>{{ $santri->spp_dibayar }}</td>
                 <td data-order="{{$santri->spp_status}}">{{
                   json_decode(sistem('spp_status'))[$santri->spp_status]
@@ -106,7 +112,7 @@
           return $(colheader).text().trim();
       } );
         var dataTable_title = $('#dataTable').parent().prev().text()+moment().format('YYYY-MM-DD HH.mm.ss');
-        var dataTable_columns = [1,2,3,4,5,6,7];
+        var dataTable_columns = [1,2,3,4,5,6,7,8,9];
         var myTable = $('#dataTable').DataTable({
           "columnDefs": [
             {
@@ -221,9 +227,9 @@
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
-              $('td', tr).eq(7).text(keterangan);
-              $('td', tr).eq(6).text('Lunas');
-              $('td', tr).eq(5).text('{{ sistem('spp_biaya') }}');
+              $('td', tr).eq(9).text(keterangan);
+              $('td', tr).eq(8).text('Lunas');
+              $('td', tr).eq(7).text('{{ sistem('spp_biaya') }}');
               $('.belum, .lunas', tr).toggleClass('hidden');
               myTable.row(tr).invalidate().draw(false);
             },
@@ -247,9 +253,9 @@
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
-              $('td', tr).eq(7).text('');
-              $('td', tr).eq(6).text('Belum dibayar');
-              $('td', tr).eq(5).text('0');
+              $('td', tr).eq(9).text('');
+              $('td', tr).eq(8).text('Belum dibayar');
+              $('td', tr).eq(7).text('0');
               $('.belum, .lunas', tr).toggleClass('hidden');
               myTable.row(tr).invalidate().draw(false);
             },
@@ -271,7 +277,7 @@
             url: '{{ url('admin/spp/edit') }}',
             success: function(){
               alert('berhasil');
-              $('td', tr).eq(6).text('Cicilan');
+              $('td', tr).eq(8).text('Cicilan');
               $('.belum, .lunas', tr).removeClass('hidden');
               myTable.row(tr).invalidate().draw(false);
             },
